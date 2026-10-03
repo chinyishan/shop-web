@@ -1,0 +1,57 @@
+@mixin xl() {
+	@media screen and (max-width: 1500px) {
+		@content;
+	}
+}
+@mixin xm() {
+	@media screen and (max-width: 1440px) {
+		@content;
+	}
+}
+@mixin lg() {
+	@media screen and (max-width: 1280px) {
+		@content;
+	}
+}
+@mixin lm() {
+	@media screen and (max-width: 1199px) {
+		@content;
+	}
+}
+@mixin tb() {
+	@media screen and (max-width: 1024px) {
+		@content;
+	}
+}
+@mixin md() {
+	@media screen and (max-width: 768px) {
+		@content;
+	}
+}
+@mixin sm() {
+	@media screen and (max-width: 428px) {
+		@content;
+	}
+}
+
+/** 1280-h3 */
+@mixin font-h3-lg {
+	@media screen and (max-width: 1280px) {
+		font-size: calc(16px + 0.3vw);
+		line-height: calc(24px + 0.3vw);
+	}
+}
+
+/** 1280-p */
+@mixin font-p-lg {
+	@media screen and (max-width: 1280px) {
+		font-size: calc(14px + 0.2vw);
+		line-height: calc(21px + 0.2vw);
+	}
+}
+
+/** size */
+@mixin size($w, $h: $w) {
+	width: $w;
+	height: $h;
+}

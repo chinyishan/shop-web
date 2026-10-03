@@ -1,0 +1,299 @@
+// ============================================================
+//  內頁共用元件：頁首標題、麵包屑、側欄、內文、分頁、空狀態
+// ============================================================
+
+// 內頁標題區
+.c-page-head {
+  @include container();
+  padding-top: $space-9;
+  padding-bottom: $space-8;
+
+  @include md() {
+    padding-top: $space-6;
+    padding-bottom: $space-6;
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: $space-3;
+    color: $primary-400;
+    font-size: $fz-xs;
+    font-weight: 500;
+    letter-spacing: $ls-eyebrow;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    color: $ink;
+    font-size: $fz-h1;
+    font-weight: 600;
+    line-height: $lh-heading;
+    letter-spacing: $ls-heading;
+    text-align: left;
+
+    @include md() {
+      font-size: $fz-h3;
+    }
+  }
+
+  &__lead {
+    max-width: $container-text;
+    margin-top: $space-4;
+    color: $content;
+    font-size: $fz-body;
+    line-height: $lh-body;
+    letter-spacing: $ls-body;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-4;
+    margin-top: $space-5;
+    color: $muted;
+    font-size: $fz-sm;
+    letter-spacing: $ls-body;
+  }
+}
+
+// 麵包屑
+.c-breadcrumb {
+  @include container();
+  padding-top: $space-6;
+  padding-bottom: $space-6;
+
+  @include md() {
+    padding-top: $space-4;
+    padding-bottom: $space-5;
+  }
+
+
+  .el-breadcrumb {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: $fz-xs;
+    line-height: 1.8;
+  }
+
+
+  .el-breadcrumb__inner {
+    color: $muted !important;
+    font-weight: 400 !important;
+    letter-spacing: $ls-body;
+    transition: color $duration $ease;
+
+    &.is-link:hover {
+      color: $primary !important;
+    }
+  }
+
+
+  .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+    color: $text !important;
+  }
+
+
+  .el-breadcrumb__separator {
+    margin: 0 $space-2;
+    color: $gray-300 !important;
+    font-weight: 400;
+  }
+}
+
+// 側邊分類選單
+.c-sidenav {
+  min-width: 0; // 避免橫向捲動的清單撐開 grid 欄位
+
+  &__title {
+    padding-bottom: $space-4;
+    border-bottom: 1px solid $primary-100;
+    color: $primary-400;
+    font-size: $fz-xs;
+    font-weight: 500;
+    letter-spacing: $ls-eyebrow;
+    text-transform: uppercase;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    border-bottom: 1px solid $gray-100;
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: $space-4 0;
+    color: $content;
+    font-size: $fz-body;
+    letter-spacing: $ls-body;
+    text-align: left;
+    background: none;
+    cursor: pointer;
+    transition: color $duration $ease, padding $duration $ease;
+
+    &:hover {
+      color: $primary;
+      padding-left: $space-2;
+    }
+
+    &--is-active {
+      color: $primary;
+      font-weight: 500;
+
+      &::before {
+        content: "—";
+        margin-right: $space-2;
+        color: $primary-300;
+      }
+    }
+  }
+
+  // 平板以下：橫向膠囊
+  @include lm() {
+    &__title {
+      display: none;
+    }
+
+    &__list {
+      flex-direction: row;
+      gap: $space-2;
+      max-width: 100%;
+      overflow-x: auto;
+      padding-bottom: $space-2;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__item {
+      border-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    &__link {
+      padding: $space-2 $space-4;
+      border: 1px solid $gray-300;
+      border-radius: $radius-pill;
+      font-size: $fz-sm;
+      white-space: nowrap;
+
+      &:hover {
+        padding-left: $space-4;
+      }
+
+      &--is-active {
+        border-color: $primary;
+        background-color: $primary;
+        color: $white;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// 編輯器內文
+.c-prose {
+  color: $text;
+  font-size: $fz-body;
+  line-height: $lh-body;
+  letter-spacing: $ls-body;
+
+
+  .editor-view {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// 分頁
+.c-pager {
+  display: flex;
+  justify-content: center;
+  margin-top: $space-9;
+
+  @include md() {
+    margin-top: $space-7;
+  }
+}
+
+// 空狀態
+.c-empty {
+  padding: $space-9 0;
+  color: $muted;
+  font-size: $fz-body;
+  letter-spacing: $ls-body;
+  text-align: center;
+}
+
+// 使用者評論
+.c-review {
+  display: flex;
+  gap: $space-6;
+  padding: $space-7 0;
+  border-bottom: 1px solid $gray-100;
+
+  @include md() {
+    flex-direction: column;
+    gap: $space-4;
+    padding: $space-5 0;
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    @include size(96px);
+    border-radius: $radius-pill;
+    overflow: hidden;
+    background-color: $primary-50;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include md() {
+      @include size(64px);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__product {
+    display: inline-block;
+    color: $primary;
+    font-size: $fz-xs;
+    letter-spacing: $ls-body;
+    transition: color $duration $ease;
+
+    &:hover {
+      color: $primary-dark;
+    }
+  }
+
+  &__text {
+    margin-top: $space-3;
+    color: $text;
+    font-size: $fz-body;
+    line-height: $lh-body;
+    letter-spacing: $ls-body;
+  }
+
+  &__person {
+    margin-top: $space-4;
+    color: $muted;
+    font-size: $fz-xs;
+    letter-spacing: $ls-body;
+  }
+}

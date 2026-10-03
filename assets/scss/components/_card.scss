@@ -1,0 +1,177 @@
+// ============================================================
+//  c-figure / c-card / c-feature：圖片、卡片、特色欄位
+// ============================================================
+.c-figure {
+  @include ratio(16, 9);
+  border-radius: $radius-md;
+  background-color: $primary-50;
+
+  &--square {
+    @include ratio(1, 1);
+  }
+
+  &--portrait {
+    @include ratio(3, 4);
+  }
+
+  &--wide {
+    @include ratio(21, 9);
+  }
+
+  &--plain {
+    border-radius: 0;
+    background-color: transparent;
+  }
+}
+
+// 無框卡片：雜誌風靠留白與細線分組，不靠邊框
+.c-card {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+
+  &__media {
+    position: relative;
+    margin-bottom: $space-5;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-3;
+    color: $muted;
+    font-size: $fz-xs;
+    letter-spacing: $ls-body;
+  }
+
+  &__title {
+    color: $ink;
+    font-size: $fz-h4;
+    font-weight: 500;
+    line-height: $lh-heading;
+    letter-spacing: $ls-heading;
+    transition: color $duration $ease;
+    @include line-clamp(2);
+
+    @include md() {
+      font-size: $fz-body;
+    }
+  }
+
+  &__desc {
+    margin-top: $space-3;
+    color: $content;
+    font-size: $fz-sm;
+    line-height: 1.8;
+    letter-spacing: $ls-body;
+    @include line-clamp(2);
+  }
+
+  &__foot {
+    margin-top: auto;
+    padding-top: $space-4;
+  }
+
+  &:hover {
+    .c-card__title {
+      color: $primary;
+    }
+
+    .c-figure img {
+      transform: scale(1.04);
+    }
+  }
+}
+
+// 商品：純圖 + 名稱 + 品牌
+.c-product {
+  display: block;
+
+  &__media {
+    position: relative;
+    @include ratio(1, 1);
+    margin-bottom: $space-4;
+    border-radius: $radius-md;
+    background-color: $primary-50;
+  }
+
+  &__badges {
+    position: absolute;
+    top: $space-3;
+    left: $space-3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    z-index: 1;
+  }
+
+  &__actions {
+    position: absolute;
+    top: $space-3;
+    right: $space-3;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__rating {
+    margin-top: $space-2;
+  }
+
+  &__name {
+    color: $ink;
+    font-size: $fz-body;
+    font-weight: 500;
+    line-height: $lh-heading;
+    letter-spacing: $ls-body;
+    transition: color $duration $ease;
+    @include line-clamp(2);
+  }
+
+  &__brand {
+    margin-top: $space-2;
+    color: $primary-400;
+    font-size: $fz-xs;
+    letter-spacing: $ls-body;
+  }
+
+  &:hover {
+    .c-product__name {
+      color: $primary;
+    }
+
+    .c-product__media img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// 特色欄位：數字／圖示 + 標題 + 說明
+.c-feature {
+  &__index {
+    display: block;
+    margin-bottom: $space-3;
+    color: $primary-300;
+    font-size: $fz-sm;
+    font-weight: 500;
+    letter-spacing: $ls-eyebrow;
+  }
+
+  &__title {
+    color: $ink;
+    font-size: $fz-body-lg;
+    font-weight: 500;
+    line-height: $lh-heading;
+    letter-spacing: $ls-heading;
+  }
+
+  &__desc {
+    margin-top: $space-3;
+    color: $content;
+    font-size: $fz-sm;
+    line-height: 1.9;
+    letter-spacing: $ls-body;
+  }
+}

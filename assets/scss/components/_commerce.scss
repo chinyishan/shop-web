@@ -1,0 +1,140 @@
+// ============================================================
+//  c-price / c-stepper：價格與數量控制
+// ============================================================
+.c-price {
+  display: flex;
+  flex-wrap: wrap; // 窄卡片時換行，不要把標籤擠成直書
+  align-items: baseline;
+  gap: $space-1 $space-2;
+
+  &__now {
+    color: $primary-dark;
+    font-size: $fz-body;
+    font-weight: 600;
+    letter-spacing: $ls-body;
+    white-space: nowrap;
+  }
+
+  &__origin {
+    color: $muted;
+    font-size: $fz-xs;
+    letter-spacing: $ls-body;
+    text-decoration: line-through;
+    white-space: nowrap;
+  }
+
+  &--lg {
+    .c-price__now {
+      font-size: $fz-h2;
+    }
+
+    .c-price__origin {
+      font-size: $fz-sm;
+    }
+  }
+
+  &--sm {
+    .c-price__now {
+      font-size: $fz-sm;
+    }
+  }
+}
+
+// 商品格子：卡片 + 快速加入購物車
+.c-product-item {
+  display: flex;
+  flex-direction: column;
+
+  &__add {
+    margin-top: $space-3;
+  }
+
+  // 桌機滑過才顯示，手機一律顯示
+  @media (hover: hover) and (min-width: 769px) {
+    &__add {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity $duration $ease, transform $duration $ease;
+    }
+
+    &:hover &__add,
+    &:focus-within &__add {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.c-quick-add {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1px solid $primary;
+  border-radius: $radius-pill;
+  background: none;
+  color: $primary;
+  font-size: $fz-sm;
+  letter-spacing: $ls-body;
+  cursor: pointer;
+  transition: background-color $duration $ease, color $duration $ease,
+    border-color $duration $ease;
+
+  &:hover:not(:disabled) {
+    background-color: $primary;
+    color: $white;
+  }
+
+  &--is-sold-out,
+  &:disabled {
+    border-color: $gray-200;
+    color: $muted;
+    cursor: not-allowed;
+  }
+}
+
+.c-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $gray-200;
+  border-radius: $radius-pill;
+  overflow: hidden;
+
+  &__btn {
+    @include size(40px);
+    padding: 0;
+    background: none;
+    color: $primary;
+    font-size: $fz-body-lg;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color $duration $ease, color $duration $ease;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-50;
+    }
+
+    &:disabled {
+      color: $gray-300;
+      cursor: not-allowed;
+    }
+  }
+
+  &__value {
+    min-width: 44px;
+    color: $ink;
+    font-size: $fz-body;
+    letter-spacing: $ls-body;
+    text-align: center;
+  }
+
+  &--sm {
+    .c-stepper__btn {
+      @include size(32px);
+      font-size: $fz-body;
+    }
+
+    .c-stepper__value {
+      min-width: 36px;
+      font-size: $fz-sm;
+    }
+  }
+}

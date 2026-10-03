@@ -1,0 +1,109 @@
+// ============================================================
+//  c-link-more / c-btn：文字連結與按鈕
+// ============================================================
+.c-link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding-bottom: 6px;
+  color: $primary;
+  font-size: $fz-sm;
+  font-weight: 500;
+  letter-spacing: $ls-eyebrow;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba($primary, 0.35);
+  transition: color $duration $ease, border-color $duration $ease;
+
+  &__arrow {
+    display: inline-block;
+    transition: transform $duration $ease;
+  }
+
+  &:hover {
+    color: $primary-dark;
+    border-bottom-color: $primary-dark;
+
+    .c-link-more__arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    color: $primary-darker;
+  }
+
+  &--light {
+    color: $white;
+    border-bottom-color: rgba($white, 0.5);
+
+    &:hover {
+      color: $white;
+      border-bottom-color: $white;
+    }
+  }
+}
+
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: 52px;
+  padding: 0 $space-7;
+  border: 1px solid $primary;
+  border-radius: $radius-pill;
+  background-color: $primary;
+  color: $white;
+  font-size: $fz-body;
+  font-weight: 500;
+  letter-spacing: $ls-body;
+  cursor: pointer;
+  transition: background-color $duration $ease, border-color $duration $ease,
+    color $duration $ease;
+
+  &:hover {
+    background-color: $primary-dark;
+    border-color: $primary-dark;
+    color: $white;
+  }
+
+  &:active {
+    background-color: $primary-darker;
+    border-color: $primary-darker;
+  }
+
+  &:disabled {
+    background-color: $gray-200;
+    border-color: $gray-200;
+    color: $muted;
+    cursor: not-allowed;
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  &--light {
+    background-color: $white;
+    border-color: $white;
+    color: $primary;
+
+    &:hover {
+      background-color: rgba($white, 0.88);
+      border-color: rgba($white, 0.88);
+      color: $primary-dark;
+    }
+  }
+
+  &--sm {
+    min-height: 40px;
+    padding: 0 $space-5;
+    font-size: $fz-sm;
+  }
+}

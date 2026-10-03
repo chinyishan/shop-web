@@ -1,0 +1,116 @@
+// ============================================================
+//  設計 token：留白雜誌風
+//  間距、容器、圓角、陰影、字級、動態
+//  ※ 顏色請看 base/_color.scss
+// ============================================================
+
+// ---------------------------------------------------------------- 間距尺度
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 24px;
+$space-6: 32px;
+$space-7: 40px;
+$space-8: 56px;
+$space-9: 72px;
+$space-10: 96px;
+$space-11: 128px;
+$space-12: 160px;
+
+// 區塊上下留白（雜誌風的呼吸感）
+$section-gap: $space-11;
+$section-gap-md: $space-9;
+$section-gap-sm: $space-8;
+
+// ---------------------------------------------------------------- 容器寬度
+$container-wide: 1600px;
+$container: 1280px;
+$container-narrow: 960px;
+$container-text: 720px;
+$gutter: 5vw;
+$gutter-md: $space-4;
+
+// ---------------------------------------------------------------- 圓角
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-pill: 999px;
+
+// ---------------------------------------------------------------- 陰影（藍綠調）
+$shadow-sm: 0 1px 2px rgba(14, 124, 136, 0.06);
+$shadow-md: 0 8px 24px rgba(14, 124, 136, 0.08);
+$shadow-lg: 0 18px 48px rgba(14, 124, 136, 0.1);
+
+// ---------------------------------------------------------------- 字級
+$fz-display: 56px;
+$fz-h1: 40px;
+$fz-h2: 32px;
+$fz-h3: 24px;
+$fz-h4: 20px;
+$fz-body-lg: 18px;
+$fz-body: 16px;
+$fz-sm: 14px;
+$fz-xs: 12px;
+
+$lh-tight: 1.25;
+$lh-heading: 1.4;
+$lh-body: 1.9;
+
+$ls-eyebrow: 0.24em; // 英文小標
+$ls-heading: 0.08em;
+$ls-body: 0.04em;
+
+// ---------------------------------------------------------------- 動態
+$ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+$duration: 0.35s;
+
+// ---------------------------------------------------------------- 常用組合
+@mixin container($max: $container) {
+  width: 100%;
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: $gutter;
+  box-sizing: border-box;
+
+  @include md() {
+    padding-inline: $gutter-md;
+  }
+}
+
+@mixin section-space($top: $section-gap, $bottom: $section-gap) {
+  padding-top: $top;
+  padding-bottom: $bottom;
+
+  @include lm() {
+    padding-top: $section-gap-md;
+    padding-bottom: $section-gap-md;
+  }
+  @include md() {
+    padding-top: $section-gap-sm;
+    padding-bottom: $section-gap-sm;
+  }
+}
+
+/** 多行截斷 */
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/** 圖片等比容器：寬、高分開傳，避免 Sass 把 16 / 9 當成除法 */
+@mixin ratio($w: 16, $h: 9) {
+  aspect-ratio: #{$w} / #{$h};
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform $duration $ease;
+  }
+}

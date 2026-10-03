@@ -1,0 +1,38 @@
+// ============================================================
+//  c-tag：分類標籤（雜誌風細框）
+// ============================================================
+.c-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 $space-3;
+  border: 1px solid rgba($primary, 0.35);
+  border-radius: $radius-pill;
+  color: $primary;
+  font-size: $fz-xs;
+  font-weight: 500;
+  letter-spacing: $ls-body;
+  white-space: nowrap;
+
+  &--solid {
+    border-color: $primary;
+    background-color: $primary;
+    color: $white;
+  }
+
+  &--accent {
+    border-color: $accent;
+    background-color: $accent;
+    color: $text;
+  }
+
+  &--light {
+    border-color: rgba($white, 0.6);
+    color: $white;
+  }
+
+  &--ghost {
+    border-color: $gray-300;
+    color: $content;
+  }
+}

@@ -1,0 +1,126 @@
+// ============================================================
+//  c-section：頁面區塊（留白雜誌風）
+// ============================================================
+.c-section {
+  @include section-space();
+  position: relative;
+  background-color: $white;
+
+  &--tint {
+    background-color: $primary-50;
+  }
+
+  &--surface {
+    background-color: $surface;
+  }
+
+  &--flush-top {
+    padding-top: 0;
+  }
+
+  &--flush-bottom {
+    padding-bottom: 0;
+  }
+
+  &__inner {
+    @include container();
+
+    &--narrow {
+      @include container($container-narrow);
+    }
+
+    &--wide {
+      @include container($container-wide);
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: $space-5;
+    margin-bottom: $space-8;
+
+    @include md() {
+      display: block;
+      margin-bottom: $space-6;
+    }
+
+    &--center {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    &--stack {
+      display: block;
+    }
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: $space-3;
+    color: $primary-400;
+    font-size: $fz-xs;
+    font-weight: 500;
+    letter-spacing: $ls-eyebrow;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    color: $ink;
+    font-size: $fz-h2;
+    font-weight: 600;
+    line-height: $lh-heading;
+    letter-spacing: $ls-heading;
+    text-align: left;
+
+    @include md() {
+      font-size: $fz-h3;
+    }
+  }
+
+  &__lead {
+    max-width: $container-text;
+    margin-top: $space-4;
+    color: $content;
+    font-size: $fz-body-lg;
+    font-weight: 400;
+    line-height: $lh-body;
+    letter-spacing: $ls-body;
+
+    @include md() {
+      font-size: $fz-body;
+    }
+  }
+
+  &__action {
+    flex-shrink: 0;
+
+    @include md() {
+      margin-top: $space-5;
+    }
+  }
+
+  &__foot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $space-7;
+
+    @include md() {
+      justify-content: center;
+      margin-top: $space-6;
+    }
+  }
+}
+
+// 細線分隔
+.c-rule {
+  height: 1px;
+  border: 0;
+  background-color: $primary-100;
+
+  &--dark {
+    background-color: $gray-300;
+  }
+}

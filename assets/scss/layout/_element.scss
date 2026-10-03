@@ -1,0 +1,111 @@
+@import "element-plus/dist/index";
+
+.el-input {
+  --el-input-focus-border-color: $primary !important;
+}
+.el-select {
+  --el-select-input-focus-border-color: $primary !important;
+}
+.el-select-dropdown__item.is-selected {
+  color: $primary !important;
+}
+.el-select-dropdown_｛_item.selected {
+  color: $primary !important;
+}
+.el-select__icon {
+  svg {
+    color: $primary !important;
+  }
+}
+.el-select__wrapper.is-focused {
+  box-shadow: 0 0 0 1px $blue inset !important;
+}
+.el-textarea {
+  --el-input-focus-border-color: $primary !important;
+}
+
+.select-list {
+  margin-bottom: calc(20px + 2vw);
+
+  .el-select {
+    width: calc(160px + 1vw);
+  }
+
+  &.sort {
+    .el-select--large {
+      .el-select__wrapper {
+        padding: 8px 16px 8px 56px;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          top: 50%;
+          left: 16px;
+          transform: translate(0%, -50%);
+          background-image: url("/assets/images/icon/align-left.svg");
+          background-size: auto;
+          background-position: 100% 100%;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}
+
+.main-breadcrumb {
+  padding: 80px 0 24px 0;
+  background-color: $surface;
+  // background-color: $white;
+
+  .container {
+    .el-breadcrumb {
+      display: flex;
+      flex-wrap: nowrap;
+
+      .el-breadcrumb__item {
+        .el-breadcrumb__inner {
+          color: $muted;
+          font-weight: 400;
+          line-height: 24px;
+
+          &.is-link {
+            width: auto;
+            // white-space: nowrap;
+          }
+        }
+        &:last-child span {
+          color: $primary;
+        }
+
+        &.breadcrumb-page {
+          color: $blue;
+          display: inline-block;
+          width: auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-breadcrumb {
+    margin-top: 0px;
+    padding-top: 16px;
+    padding-bottom: 20px;
+    white-space: nowrap;
+    .min-container {
+      margin-left: 0px;
+    }
+  }
+  .el-breadcrumb {
+    .el-breadcrumb__separator {
+      margin: 0 4.5px;
+    }
+  }
+}
