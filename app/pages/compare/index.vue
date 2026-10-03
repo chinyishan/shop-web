@@ -134,7 +134,7 @@
 <script setup>
 const compare = useCompareStore();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "商品比較",
   description: "比較不同商品的規格、價格與適用族群。",
 });

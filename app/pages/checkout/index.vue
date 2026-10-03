@@ -219,7 +219,7 @@ const cart = useCartStore();
 const orders = useOrderStore();
 const router = useRouter();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "結帳",
   description: "填寫收件資訊並確認訂單內容。",
 });

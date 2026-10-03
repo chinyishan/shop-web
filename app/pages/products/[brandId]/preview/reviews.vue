@@ -38,33 +38,24 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRoute } from "vue-router";
-
 const route = useRoute();
 const { brandId } = route.params;
 const { id: previewId } = route.query;
-const { options } = useResourceStore();
+const site = useSiteConfig();
+const brandLabel = computed(() => site.brandLabel(brandId) ?? "");
 
-const brandLabel = computed(
-  () => _.find(options.navbar.brands, { key: Number(brandId) })?.label ?? ""
-);
-
-const { data } = await useFetch(`/api/products/${brandId}/page-products`);
-const pageInfo = ref(_.get(data, "value"));
-setSEO("page-products", pageInfo.value?.modules?.seo);
+const { data: pageInfo } = await useFetch(`/api/products/${brandId}/page-products`, {
+  transform: (res) => res.result,
+});
+useSeo("page-products", pageInfo.value?.modules?.seo);
 
 const reviewsData = ref([]);
 
-onMounted(() => {
-  $fetch(`/api/products/${brandId}/preview/review`, {
-    query: { id: previewId },
-  }).then((res) => {
-    reviewsData.value = _.get(res, "result.data", []);
-    nextTick(() => {
-      document.getElementById(previewId)?.scrollIntoView({ behavior: "smooth" });
-    });
-  });
+onMounted(async () => {
+  const res = await $fetch(`/api/products/${brandId}/preview/review`, { query: { id: previewId } });
+  reviewsData.value = res.result?.data ?? [];
+  await nextTick();
+  document.getElementById(previewId)?.scrollIntoView({ behavior: "smooth" });
 });
 </script>
 

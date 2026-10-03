@@ -5,39 +5,37 @@ export default defineNuxtConfig({
   },
 
   devServer: {
-    host: "0.0.0.0", // default: localhost
+    host: "0.0.0.0",
     port: 1212,
   },
 
-  modules: ["@element-plus/nuxt", "@pinia/nuxt", "nuxt-svgo"],
+  modules: [
+    "@element-plus/nuxt",
+    "@pinia/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
+    "@vueuse/nuxt",
+    "nuxt-svgo",
+  ],
+
+  piniaPluginPersistedstate: {
+    storage: "localStorage",
+  },
 
   svgo: {
-    // svgo: false,
-    autoImportPath: './assets/images/icon/',
-    defaultImport: 'component',
+    autoImportPath: "./assets/images/icon/",
+    defaultImport: "component",
   },
 
   runtimeConfig: {
     public: {
-      environment: process.env.NUXT_ENVIRONMENT,
-      maintainceMode: process.env.NUXT_MAINTENANCE_MODE,
+      // 可用環境變數 NUXT_PUBLIC_MAINTENANCE_MODE=true 開啟
+      maintenanceMode: false,
     },
   },
 
-  plugins: [
-    {
-      src: "~/plugins/scroll.client",
-      ssr: true,
-    },
-    {
-      src: '~/plugins/vConsole.client.js' 
-    }
-  ],
-
   app: {
     head: {
-      title: "",
-      titleTemplate: "HealthLab 健康實驗室 %s",
+      titleTemplate: "%s - HealthLab 健康實驗室",
       htmlAttrs: {
         lang: "zh-TW",
       },
@@ -63,8 +61,6 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       ],
     },
-    // pageTransition: { name: "fade", mode: "out-in" },
-    // layoutTransition: { name: "fade", mode: "out-in" },
   },
 
   css: ["@/assets/scss/style.scss", "@/assets/css/main.css"],
@@ -81,7 +77,6 @@ export default defineNuxtConfig({
 
   experimental: {
     viewTransition: true,
-    renderJsonPayloads: true,
   },
 
   compatibilityDate: "2026-09-13",

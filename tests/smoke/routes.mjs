@@ -28,7 +28,7 @@ const ROUTES = [
   ["/articles/article/preview/1", 200, "維他命 B 群什麼時候吃最有感"],
   ["/qualities/1", 200, ""],
   ["/qualities/preview/1", 200, ""],
-  ["/contact-us/questions", 200, ""],
+  ["/contact-us/questions", 200, "保健食品可以和藥物一起吃嗎"],
   ["/contact-us/information", 200, ""],
   ["/cart", 200, ""],
   ["/checkout", 200, ""],
@@ -40,6 +40,9 @@ const ROUTES = [
   ["/quiz", 200, ""],
   ["/products/1/product/999999", 404, ""],
   ["/not-a-real-page", 404, ""],
+  ["/brands/999", 404, ""],
+  ["/articles/all/999", 404, ""],
+  ["/product/1/101", 302, ""],
 ];
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -74,7 +77,10 @@ async function run() {
 
   try {
     for (const [path, status, text] of ROUTES) {
-      const res = await fetch(`${BASE}${encodeURI(path)}`, { redirect: "manual" });
+      const res = await fetch(`${BASE}${encodeURI(path)}`, {
+        redirect: "manual",
+        headers: { accept: "text/html" },
+      });
       const html = await res.text();
       const problems = [];
 

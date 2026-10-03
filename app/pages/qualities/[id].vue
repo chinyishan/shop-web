@@ -19,20 +19,16 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRoute } from "vue-router";
-
 const route = useRoute();
-const { id } = route.params;
 
-const { data } = await useFetch(`/api/quality/${id}`);
-const qualityInfo = ref(_.get(data, "value.result"));
-
+const { data: qualityInfo } = await useFetch(`/api/quality/${route.params.id}`, {
+  transform: (res) => res.result,
+});
 if (!qualityInfo.value) {
-  await navigateTo("/");
+  throw createError({ statusCode: 404, message: "找不到品質檢驗內容" });
 }
 
-setSEO("page-quality", qualityInfo.value.seo);
+useSeo("page-quality", qualityInfo.value.seo);
 </script>
 
 <style lang="scss" scoped>

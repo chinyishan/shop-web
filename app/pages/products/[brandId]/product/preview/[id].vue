@@ -3,26 +3,18 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import _ from "lodash";
-
 const route = useRoute();
-const { options } = useResourceStore();
 const { brandId, id } = route.params;
 
-const { data: pageData } = await useFetch(`/api/products/${brandId}/page-products`);
-const pageInfo = ref(_.get(pageData, "value.result"));
+const [{ data: pageInfo }, { data: productInfo }] = await Promise.all([
+  useFetch(`/api/products/${brandId}/page-products`, { transform: (res) => res.result }),
+  useFetch(`/api/products/${brandId}/product/preview/${id}`, { transform: (res) => res.result }),
+]);
 
-const { data: productData } = await useFetch(
-  `/api/products/${brandId}/product/preview/${id}`
-);
-const productInfo = ref(_.get(productData, "value.result"));
+if (!pageInfo.value || !productInfo.value) {
+  throw createError({ statusCode: 404, message: "找不到商品" });
+}
 
-setSEO(pageInfo.value.modules?.seo, productInfo.value.attribute_data?.seo);
-
-// 放入產品資訊讓麵包屑可以取用
-options.breadcrumb.productsInfo.push({
-  key: productInfo.value.id,
-  label: productInfo.value.attribute_data?.product_header.name,
-});
+useSeo(pageInfo.value.modules?.seo, productInfo.value.attribute_data?.seo);
+useBreadcrumbTitle(() => productInfo.value?.attribute_data?.product_header?.name);
 </script>

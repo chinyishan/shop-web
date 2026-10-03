@@ -48,7 +48,7 @@ import { ElMessage } from "element-plus";
 
 const wishlist = useWishlistStore();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "收藏清單",
   description: "你收藏的商品都在這裡。",
 });

@@ -94,7 +94,7 @@ import { ElMessage } from "element-plus";
 
 const cart = useCartStore();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "保健需求測驗",
   description: "回答幾個問題，找出適合你的保健組合。",
 });

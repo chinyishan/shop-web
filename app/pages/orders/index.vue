@@ -66,7 +66,7 @@ import { ElMessage } from "element-plus";
 const route = useRoute();
 const orders = useOrderStore();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "訂單查詢",
   description: "查詢訂單狀態與訂購紀錄。",
 });

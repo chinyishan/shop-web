@@ -126,7 +126,7 @@ const SHIPPING_FEE = 80;
 
 const cart = useCartStore();
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "購物車",
   description: "確認購物車內的商品與數量。",
 });

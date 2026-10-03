@@ -9,35 +9,22 @@
 </template>
 
 <script setup>
-import _ from "lodash";
+const route = useRoute();
 
-definePageMeta({
-  layout: "default",
+const { page } = useSiteConfig();
+const pageInfo = computed(() => page("page-information"));
+
+const { data } = await useFetch(`/api/articles/preview/${route.params.id}`, {
+  transform: (res) => res.result,
 });
 
-const route = useRoute();
-const { id } = route.params;
-const { options } = useResourceStore();
-const { pages } = useWebStore();
-
-const pageInfo = ref(pages["page-information"]);
-
-const { data } = await useFetch(`/api/articles/preview/${id}`);
-const articleInfo = ref(_.get(data, "value.result.article"));
-
+const articleInfo = computed(() => data.value?.article);
 if (!articleInfo.value) {
-  await navigateTo("/articles/all");
+  throw createError({ statusCode: 404, message: "找不到文章" });
 }
 
-setSEO("page-information", articleInfo.value.attribute_data?.seo);
+const navigationInfo = computed(() => ({ prev: data.value?.prev, next: data.value?.next }));
 
-const navigationInfo = ref({
-  next: _.get(data, "value.result.next"),
-  prev: _.get(data, "value.result.prev"),
-});
-
-options.breadcrumb.articlesInfo.push({
-  key: articleInfo.value.id,
-  label: articleInfo.value.attribute_data?.article_header?.title,
-});
+useSeo("page-information", articleInfo.value.attribute_data?.seo);
+useBreadcrumbTitle(() => articleInfo.value?.attribute_data?.article_header?.title);
 </script>

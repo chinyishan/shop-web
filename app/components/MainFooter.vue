@@ -12,7 +12,7 @@
           </span>
         </NuxtLink>
 
-        <nav class="l-footer__links" v-if="maintainceMode !== 'true' && footerLink?.length">
+        <nav class="l-footer__links" v-if="!maintenanceMode && footerLink.length">
           <a
             class="l-footer__link"
             :href="item.url"
@@ -52,23 +52,9 @@
   </footer>
 </template>
 
-<script setup>
-import _ from "lodash";
-
-const webStore = useWebStore();
-const runtimeConfig = useRuntimeConfig();
-const maintainceMode = runtimeConfig.public.maintainceMode;
-
-const header = computed(() =>
-  _.get(webStore, "configs.attribute_data.config_header", null)
-);
-const siteName = computed(() => header.value?.name ?? "HealthLab 健康實驗室");
-const footerConfig = computed(() =>
-  _.get(webStore, "configs.attribute_data.config_footer", null)
-);
-const footerLink = computed(() =>
-  _.get(webStore, "configs.attribute_data.friendly_link.url", [])
-);
+<script setup lang="ts">
+const { maintenanceMode } = useRuntimeConfig().public;
+const { siteName, header, footer: footerConfig, friendlyLinks: footerLink } = useSiteConfig();
 const year = new Date().getFullYear();
 </script>
 

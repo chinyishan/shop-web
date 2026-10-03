@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 
 const STORAGE_KEY = "healthlab-recent";
 const MAX_ITEMS = 8;
@@ -6,7 +5,6 @@ const MAX_ITEMS = 8;
 export const useRecentStore = defineStore("recent", () => {
   /** 最近瀏覽過的商品（卡片欄位） */
   const items = ref([]);
-  const ready = ref(false);
 
   const add = (product) => {
     if (!product?.id) return;
@@ -38,23 +36,10 @@ export const useRecentStore = defineStore("recent", () => {
     items.value = [];
   };
 
-  const hydrate = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-      if (Array.isArray(saved)) items.value = saved;
-    } catch (error) {
-      items.value = [];
-    }
-    ready.value = true;
-  };
 
-  const persist = () => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.value));
-    } catch (error) {
-      // 無痕模式等情境忽略即可
-    }
-  };
 
-  return { items, ready, add, exclude, clear, hydrate, persist };
+  return { items, add, exclude, clear };
+},
+{
+  persist: persistItems(STORAGE_KEY),
 });

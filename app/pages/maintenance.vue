@@ -27,43 +27,28 @@
   </div>
 </template>
 <script setup>
-const { configs } = useAppStore();
-const { width } = toRefs(configs);
-const titleStyle = reactive({
-  "--title-2-padding-right": "",
-  "--icon-right": "",
-  "--icon-lg-right": "",
-});
-
-onMounted(() => {
-  // titleStyle["--title-2-padding-right"] = (width.value - 1200) / 3.78 + "px";
-  // titleStyle["--icon-right"] = (width.value - 1200) / 3.78 - 110 + "px";
-
-  watch(
-    width,
-    (newVal) => {
-      if (newVal <= 1920) {
-        // titleStyle["--title-2-padding-right"] = "180px";
-        // titleStyle["--icon-right"] = "90px";
-        titleStyle["--title-2-padding-right"] =
-          -(1920 - newVal) / 4 + 190 + "px";
-        titleStyle["--icon-right"] = -(1920 - newVal) / 4 + 110 + "px";
-
-        if (newVal > 900) {
-          titleStyle["--icon-lg-right"] = "-110px";
-        } else {
-          titleStyle["--icon-lg-right"] = (900 - newVal) / 2 - 120 + "px";
-        }
-      } else {
-        titleStyle["--title-2-padding-right"] = "180px";
-        titleStyle["--icon-right"] = "90px";
-      }
-    },
-    { immediate: true }
-  );
-});
 definePageMeta({
   layout: "fixed",
+});
+
+const { width } = useWindowSize();
+const mounted = useMounted();
+
+/** 標題與圖示的位置隨視窗寬度調整（只在瀏覽器端計算） */
+const titleStyle = computed(() => {
+  if (!mounted.value) return {};
+
+  const w = width.value;
+  if (w > 1920) {
+    return { "--title-2-padding-right": "180px", "--icon-right": "90px", "--icon-lg-right": "" };
+  }
+
+  const offset = -(1920 - w) / 4;
+  return {
+    "--title-2-padding-right": `${offset + 190}px`,
+    "--icon-right": `${offset + 110}px`,
+    "--icon-lg-right": w > 900 ? "-110px" : `${(900 - w) / 2 - 120}px`,
+  };
 });
 </script>
 <style lang="scss" scoped>

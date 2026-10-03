@@ -132,50 +132,38 @@
 </template>
 
 <script setup>
-import _ from "lodash";
 import { ElMessage } from "element-plus";
 
-const webStore = useWebStore();
-const { pages } = webStore;
-const pageInfo = ref(pages["page-contact_us"]);
-setSEO("page-contact_us");
+const { page, footer } = useSiteConfig();
+const pageInfo = computed(() => page("page-contact_us"));
+useSeo("page-contact_us");
 
-const footer = computed(() =>
-  _.get(webStore, "configs.attribute_data.config_footer", null)
-);
+const { data: resource } = await useFetch("/api/information/resource", {
+  transform: (res) => ({
+    categories: res.result?.category ?? [],
+    contact_image: res.result?.contact_image,
+  }),
+  default: () => ({ categories: [] }),
+});
 
 const formRef = ref(null);
 const form = reactive({});
 const loading = ref(false);
 
-const pageResource = await useFetch("/api/information/resource");
-const resource = ref({
-  categories: _.get(pageResource, "data.value.result.category", []),
-  contact_image: _.get(pageResource, "data.value.result.contact_image"),
-});
+const onSentContact = async () => {
+  const valid = await formRef.value.validate().catch(() => false);
+  if (!valid) return;
 
-const onSentContact = () => {
-  const params = { ...form };
-
-  formRef.value.validate((success) => {
-    if (!success) return;
-
-    loading.value = true;
-    $fetch("/api/information/update", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(params),
-    })
-      .then(({ success }) => {
-        if (success) {
-          formRef.value.resetFields();
-          ElMessage.success("成功送出");
-        }
-      })
-      .finally(() => {
-        loading.value = false;
-      });
-  });
+  loading.value = true;
+  try {
+    const { success } = await $fetch("/api/information/update", { method: "POST", body: { ...form } });
+    if (success) {
+      formRef.value.resetFields();
+      ElMessage.success("成功送出");
+    }
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 

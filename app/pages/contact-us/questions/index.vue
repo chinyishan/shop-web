@@ -37,7 +37,7 @@
             <ul class="p-qa__list" v-loading="loading">
               <li
                 class="p-qa__item"
-                :class="{ 'p-qa__item--is-open': item.showContent }"
+                :class="{ 'p-qa__item--is-open': isOpen(item) }"
                 v-for="(item, index) in questionList"
                 :key="index"
               >
@@ -45,11 +45,11 @@
                   <span class="p-qa__index">Q{{ indexMethod(index + 1) }}</span>
                   <span class="p-qa__title">{{ item.question_header.title }}</span>
                   <span class="p-qa__icon">
-                    <svgo-array-up v-show="item.showContent" />
-                    <svgo-array-down v-show="item.showContent == false" />
+                    <svgo-array-up v-show="isOpen(item)" />
+                    <svgo-array-down v-show="!isOpen(item)" />
                   </span>
                 </button>
-                <div class="p-qa__answer" v-show="item.showContent">
+                <div class="p-qa__answer" v-show="isOpen(item)">
                   <div class="c-prose">
                     <Editor :html="item.editor.content"></Editor>
                   </div>
@@ -70,84 +70,65 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRouter, useRoute } from "vue-router";
-
-const router = useRouter();
 const route = useRoute();
+const router = useRouter();
 
-const { pages } = useWebStore();
-const pageInfo = ref(pages["page-question"]);
-setSEO("page-question");
+const { page } = useSiteConfig();
+const pageInfo = computed(() => page("page-question"));
+useSeo("page-question");
 
-const pageResource = await $fetch("/api/questions/resource");
-const { options } = useResourceStore();
-
-const loading = ref(false);
-const resource = ref(_.get(pageResource, "result"));
-const toggleId = ref(route.query.category_id ?? resource.value.categories[0].key);
-options.breadcrumb.questionsCategories = resource.value.categories;
-
-watch(route, () => {
-  toggleId.value = route.query.category_id ?? resource.value.categories[0].key;
+/** 分類 */
+const { data: resource } = await useFetch("/api/questions/resource", {
+  transform: (res) => res.result,
+  default: () => ({ categories: [] }),
 });
+const firstCategory = () => resource.value.categories[0]?.key;
+const toggleId = ref(route.query.category_id ?? firstCategory());
+
+watch(
+  () => route.query.category_id,
+  (id) => {
+    toggleId.value = id ?? firstCategory();
+  }
+);
 
 const getCategoryLabel = () =>
-  _.find(resource.value.categories, { key: Number(toggleId.value) })?.label;
+  resource.value.categories.find((item) => item.key === Number(toggleId.value))?.label;
+useBreadcrumbTitle(getCategoryLabel);
 
-const onToggleChange = (id) => {
-  paginateInfo.value.currentPage = 1;
-  router.replace({ query: { category_id: id } });
-  toggleId.value = id;
-  getQuestionList();
-};
-
-const questionList = ref([]);
-const paginateInfo = ref({ currentPage: 1, perPage: 10, total: 1 });
-
-const indexMethod = (index) => (paginateInfo.value.currentPage - 1) * 10 + index;
-
-const onPageChange = ({ page }) => {
-  nextTick(() => {
-    questionList.value = [];
-    paginateInfo.value.currentPage = page;
-    getQuestionList();
-  });
-};
-
-const showPagination = () =>
-  paginateInfo.value.total / paginateInfo.value.perPage > 1;
-
-const getQuestionList = () => {
-  loading.value = true;
-  questionList.value = [];
-
-  $fetch("/api/questions/list", {
-    query: { category_id: toggleId.value, page: paginateInfo.value.currentPage },
-  })
-    .then((res) => {
-      paginateInfo.value = {
-        currentPage: _.get(res, "result.meta.current_page"),
-        perPage: _.get(res, "result.meta.per_page"),
-        total: _.get(res, "result.meta.total"),
-      };
-      questionList.value = _.get(res, "result.data", []).map((item) => {
-        item.showContent = false;
-        return item;
-      });
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
-
-onMounted(() => {
-  getQuestionList();
+/** 問題列表：分類或頁碼改變時自動重抓 */
+const currentPage = ref(1);
+const { data: questions, status } = await useFetch("/api/questions/list", {
+  query: computed(() => ({ category_id: toggleId.value, page: currentPage.value })),
+  transform: (res) => res.result,
 });
 
-const toggleClick = (item) => {
-  item.showContent = !item.showContent;
+const loading = computed(() => status.value === "pending");
+const questionList = computed(() => questions.value?.data ?? []);
+const paginateInfo = computed(() => toPageInfo(questions.value?.meta, 10));
+
+const indexMethod = (index) => (paginateInfo.value.currentPage - 1) * 10 + index;
+const showPagination = () => paginateInfo.value.total / paginateInfo.value.perPage > 1;
+
+const onToggleChange = (id) => {
+  currentPage.value = 1;
+  toggleId.value = id;
+  router.replace({ query: { category_id: id } });
 };
+
+const onPageChange = ({ page }) => {
+  currentPage.value = page;
+};
+
+/** 展開狀態，換頁或換分類時全部收合 */
+const openIds = ref([]);
+const isOpen = (item) => openIds.value.includes(item.id);
+const toggleClick = (item) => {
+  openIds.value = isOpen(item) ? openIds.value.filter((id) => id !== item.id) : [...openIds.value, item.id];
+};
+watch(questionList, () => {
+  openIds.value = [];
+});
 </script>
 
 <style lang="scss" scoped>

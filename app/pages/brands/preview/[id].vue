@@ -3,14 +3,14 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import _ from "lodash";
-
 const route = useRoute();
-const { id } = route.params;
 
-const { data } = await useFetch(`/api/brand/preview/${id}`);
-const pageInfo = ref(_.get(data, "value.result") ?? {});
+const { data: pageInfo } = await useFetch(`/api/brand/preview/${route.params.id}`, {
+  transform: (res) => res.result,
+});
+if (!pageInfo.value) {
+  throw createError({ statusCode: 404, message: "找不到品牌" });
+}
 
-setSEO("page-brands", pageInfo.value.modules?.seo);
+useSeo("page-brands", pageInfo.value.modules?.seo);
 </script>

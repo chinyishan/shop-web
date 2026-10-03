@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 
 const STORAGE_KEY = "healthlab-cart";
 const MAX_QTY = 99;
@@ -9,7 +8,6 @@ const makeKey = (productId, specId) => `${productId}-${specId ?? 0}`;
 export const useCartStore = defineStore("cart", () => {
   /** 購物車品項：{ key, id, spec_id, spec_label, name, brand, brand_id, image, price, qty, stock } */
   const items = ref([]);
-  const ready = ref(false);
   const drawerOpen = ref(false);
 
   const count = computed(() =>
@@ -92,34 +90,10 @@ export const useCartStore = defineStore("cart", () => {
     drawerOpen.value = false;
   };
 
-  /** 從 localStorage 還原（只在瀏覽器端呼叫） */
-  const hydrate = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-      if (Array.isArray(saved)) {
-        // 舊格式（沒有 key）也能相容
-        items.value = saved.map((item) => ({
-          ...item,
-          key: item.key ?? makeKey(item.id, item.spec_id),
-        }));
-      }
-    } catch (error) {
-      items.value = [];
-    }
-    ready.value = true;
-  };
 
-  const persist = () => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.value));
-    } catch (error) {
-      // 無痕模式等情境忽略即可
-    }
-  };
 
   return {
     items,
-    ready,
     drawerOpen,
     count,
     subtotal,
@@ -133,7 +107,11 @@ export const useCartStore = defineStore("cart", () => {
     clear,
     openDrawer,
     closeDrawer,
-    hydrate,
-    persist,
   };
+},
+{
+  persist: persistItems(STORAGE_KEY, (items) =>
+    // 舊格式（沒有 key）也能相容
+    items.map((item) => ({ ...item, key: item.key ?? makeKey(item.id, item.spec_id) }))
+  ),
 });

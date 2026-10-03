@@ -2,297 +2,129 @@
   <nav class="c-breadcrumb">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item
-        :to="item.href ?? ''"
-        v-for="(item, index) in breadcrumbData"
+        v-for="(item, index) in items"
         :key="index"
-        >{{ item.title }}
+        :to="item.href ?? ''"
+      >
+        {{ item.title }}
       </el-breadcrumb-item>
     </el-breadcrumb>
   </nav>
 </template>
 
-<script setup>
-import { useRouter, useRoute } from "#vue-router";
-import _ from "lodash";
-const router = useRouter();
+<script setup lang="ts">
+interface Crumb {
+  title?: string;
+  href?: string;
+}
+
+const PRODUCT_TABS: Record<string, string> = {
+  products: "商品列表",
+  popular: "熱銷排行",
+  reviews: "好評回饋",
+};
+
 const route = useRoute();
-const { options } = useResourceStore();
-const { breadcrumb, navbar } = options;
-const initBreadcrumb = [
-  {
-    title: "首頁",
-    href: "/",
-  },
-];
+const { navbar, brandLabel } = useSiteConfig();
+const currentTitle = useCurrentBreadcrumbTitle();
 
-const breadcrumbData = ref(initBreadcrumb);
-onMounted(() => {
-  watch(
-    route,
-    (newVal) => {
-      // 依照路由去拆分麵包屑
-      breadcrumbData.value = _.cloneDeep(initBreadcrumb);
-      switch (newVal.name) {
-        // path: brands/1
-        case "brands-id":
-          breadcrumbData.value.push({
-            title: "系列品牌",
-            href: null,
-          });
+const findLabel = (list: { key: number; label: string }[], id: unknown) =>
+  list.find((item) => item.key === Number(id))?.label;
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.brands, { key: Number(route.params.id) })
-              ?.label,
-            href: `/brands/${route.params.id}`,
-          });
+const articleCategoryLabel = (id: unknown) =>
+  id === "all" ? "全部文章" : findLabel(navbar.value.article_categories, id);
 
-          break;
-        case "brands-preview-id":
-          breadcrumbData.value.push({
-            title: "系列品牌",
-            href: null,
-          });
+/** 依路由名稱組出首頁之後的層級 */
+const trail = computed<Crumb[]>(() => {
+  const { params, query } = route;
+  const brandId = params.brandId as string;
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.brands, { key: Number(route.params.id) })
-              ?.label,
-            href: `/brands/${route.params.id}`,
-          });
+  switch (route.name) {
+    case "brands-id":
+    case "brands-preview-id":
+      return [{ title: "系列品牌" }, { title: brandLabel(params.id as string), href: `/brands/${params.id}` }];
 
-          break;
+    case "products-brandId-detail":
+      return [
+        { title: "商品專區" },
+        { title: brandLabel(brandId) },
+        { title: PRODUCT_TABS[(query.category as string) ?? "products"] },
+      ];
 
-        // path: products/1/detail
-        case "products-brandId-detail":
-          // 商品列表
-          breadcrumbData.value.push({
-            title: "商品專區",
-            href: null,
-          });
+    case "products-brandId-product-id":
+    case "products-brandId-product-preview-id":
+      return [
+        { title: "商品專區" },
+        { title: brandLabel(brandId), href: `/products/${brandId}/detail` },
+        { title: "商品列表", href: `/products/${brandId}/detail` },
+        { title: currentTitle.value, href: route.path },
+      ];
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.brands, { key: Number(route.params.brandId) })
-              ?.label,
-          });
+    case "qualities-id":
+    case "qualities-preview-id":
+      return [{ title: "品質檢驗" }, { title: findLabel(navbar.value.qualities, params.id), href: `/qualities/${params.id}` }];
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.productCategories, {
-              key: route.query.category ?? "products",
-            })?.label,
-          });
+    case "articles-id": {
+      const categoryId = query.category_id ?? params.id;
+      return [{ title: "資訊專欄" }, { title: articleCategoryLabel(categoryId), href: `/articles/${params.id}` }];
+    }
 
-          break;
+    case "articles-categoryId-id": {
+      const { categoryId } = params;
+      return [
+        { title: "資訊專欄" },
+        { title: articleCategoryLabel(categoryId), href: `/articles/${categoryId}` },
+        { title: currentTitle.value, href: route.path },
+      ];
+    }
 
-        // path: products/1/product/1
-        case "products-brandId-product-id":
-          // 商品單筆
-          breadcrumbData.value.push({
-            title: "商品專區",
-            href: null,
-          });
+    case "articles-article-preview-id":
+      return [
+        { title: "資訊專欄" },
+        { title: "全部文章", href: "/articles/all" },
+        { title: currentTitle.value, href: route.path },
+      ];
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.brands, { key: Number(route.params.brandId) })
-              ?.label,
-            href: `/products/${route.params.brandId}/detail`,
-          });
+    case "contact-us-questions":
+      return [
+        { title: "聯絡我們" },
+        { title: "Q&A專區", href: "/contact-us/questions" },
+        { title: currentTitle.value, href: "/contact-us/questions" },
+      ];
 
-          breadcrumbData.value.push({
-            title: "商品列表",
-            href: `/products/${route.params.brandId}/detail`,
-          });
-          breadcrumbData.value.push({
-            title: _.find(breadcrumb.productsInfo, {
-              key: Number(route.params.id),
-            })?.label,
-            href: `/products/${route.params.brandId}/product/${route.params.id}`,
-          });
-          break;
+    case "contact-us-information":
+      return [{ title: "聯絡我們" }, { title: "聯絡資訊", href: "/contact-us/information" }];
 
-        case "products-brandId-product-preview-id":
-          // 商品單筆
-          breadcrumbData.value.push({
-            title: "商品專區",
-            href: null,
-          });
+    case "search":
+      return [{ title: `搜尋內容：${query.search}` }];
 
-          breadcrumbData.value.push({
-            title: _.find(navbar.brands, { key: Number(route.params.brandId) })
-              ?.label,
-            href: `/products/${route.params.brandId}/detail`,
-          });
+    case "cart":
+      return [{ title: "購物車", href: "/cart" }];
 
-          breadcrumbData.value.push({
-            title: "商品列表",
-            href: `/products/${route.params.brandId}/detail`,
-          });
-          breadcrumbData.value.push({
-            title: _.find(breadcrumb.productsInfo, {
-              key: Number(route.params.id),
-            })?.label,
-            href: `/products/${route.params.brandId}/product/preview/${route.params.id}`,
-          });
-          break;
+    case "checkout":
+      return [{ title: "購物車", href: "/cart" }, { title: "結帳", href: "/checkout" }];
 
-        // path: qualities/91
-        case "qualities-id":
-          breadcrumbData.value.push({
-            title: "品質檢驗",
-            href: null,
-          });
-          breadcrumbData.value.push({
-            title: _.find(navbar.qualities, { key: Number(route.params.id) })
-              ?.label,
-            href: `/qualities/${route.params.id}`,
-          });
+    case "checkout-complete":
+      return [{ title: "購物車", href: "/cart" }, { title: "訂單完成" }];
 
-          break;
-        case "qualities-preview-id":
-          breadcrumbData.value.push({
-            title: "品質檢驗",
-            href: null,
-          });
-          breadcrumbData.value.push({
-            title: _.find(navbar.qualities, { key: Number(route.params.id) })
-              ?.label,
-            href: `/qualities/${route.params.id}`,
-          });
-          break;
+    case "wishlist":
+      return [{ title: "收藏清單", href: "/wishlist" }];
 
-        // path: articles/all
-        case "articles-id":
-          breadcrumbData.value.push({
-            title: "資訊專欄",
-            href: null,
-          });
-          let categoryId = route.query.category_id ?? route.params.id;
-          if (categoryId) {
-            breadcrumbData.value.push({
-              title: _.find(navbar.article_categories, {
-                key: isNumeric(categoryId) ? Number(categoryId) : categoryId,
-              })?.label,
-              href: `/articles/${route.params.id}`,
-            });
-          } else {
-            breadcrumbData.value.push({
-              title: "全部文章",
-              href: null,
-            });
-          }
-          break;
-        // path: articles/all/2
+    case "orders":
+      return [{ title: "訂單查詢", href: "/orders" }];
 
-        case "articles-categoryId-id":
-          breadcrumbData.value.push({
-            title: "資訊專欄",
-            href: null,
-          });
-          let categoryType = route.params.categoryId;
-          if (categoryType !== "all") {
-            breadcrumbData.value.push({
-              title: _.find(navbar.article_categories, {
-                key: isNumeric(categoryType)
-                  ? Number(categoryType)
-                  : categoryType,
-              })?.label,
-              href: `/articles/${categoryType}`,
-            });
-          } else {
-            breadcrumbData.value.push({
-              title: "全部文章",
-              href: `/articles/all`,
-            });
-          }
-          breadcrumbData.value.push({
-            title: _.find(breadcrumb.articlesInfo, {
-              key: Number(route.params.id),
-            })?.label,
-            href: `/articles/article/${route.params.id}`,
-          });
-          break;
-        case "articles-article-preview-id":
-          breadcrumbData.value.push({
-            title: "資訊專欄",
-            href: null,
-          });
-          breadcrumbData.value.push({
-            title: "全部文章",
-            href: `/articles/all`,
-          });
-          breadcrumbData.value.push({
-            title: _.find(breadcrumb.articlesInfo, {
-              key: Number(route.params.id),
-            })?.label,
-            href: `/articles/preview/${route.params.id}`,
-          });
-          break;
-        //   path: contact-us/questions
-        case "contact-us-questions":
-          breadcrumbData.value.push({
-            title: "聯絡我們",
-          });
-          breadcrumbData.value.push({
-            title: "Q&A專區",
-            href: "/contact-us/questions",
-          });
-          breadcrumbData.value.push({
-            title: _.find(breadcrumb.questionsCategories, {
-              key: Number(
-                route.query.category_id ??
-                  breadcrumb.questionsCategories[0]?.key
-              ),
-            })?.label,
-            href: "/contact-us/questions",
-          });
+    case "compare":
+      return [{ title: "商品比較", href: "/compare" }];
 
-          break;
-        //   path: contact-us/information
-        case "contact-us-information":
-          breadcrumbData.value.push({
-            title: "聯絡我們",
-          });
-          breadcrumbData.value.push({
-            title: "聯絡資訊",
-            href: "/contact-us/information",
-          });
-          break;
-        case "search":
-          breadcrumbData.value.push({
-            title: `搜尋內容：${route.query.search}`,
-          });
-          break;
-        //   path: cart
-        case "cart":
-          breadcrumbData.value.push({
-            title: "購物車",
-            href: "/cart",
-          });
-          break;
-        //   path: checkout
-        case "checkout":
-          breadcrumbData.value.push({ title: "購物車", href: "/cart" });
-          breadcrumbData.value.push({ title: "結帳", href: "/checkout" });
-          break;
-        case "checkout-complete":
-          breadcrumbData.value.push({ title: "購物車", href: "/cart" });
-          breadcrumbData.value.push({ title: "訂單完成" });
-          break;
-        case "wishlist":
-          breadcrumbData.value.push({ title: "收藏清單", href: "/wishlist" });
-          break;
-        case "orders":
-          breadcrumbData.value.push({ title: "訂單查詢", href: "/orders" });
-          break;
-        case "compare":
-          breadcrumbData.value.push({ title: "商品比較", href: "/compare" });
-          break;
-        case "quiz":
-          breadcrumbData.value.push({ title: "保健需求測驗", href: "/quiz" });
-          break;
-      }
-    },
-    { immediate: true, deep: true }
-  );
+    case "quiz":
+      return [{ title: "保健需求測驗", href: "/quiz" }];
+
+    default:
+      return [];
+  }
 });
+
+const items = computed<Crumb[]>(() => [{ title: "首頁", href: "/" }, ...trail.value]);
 </script>
 
 <style lang="scss" scoped>

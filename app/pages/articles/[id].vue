@@ -80,73 +80,53 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRouter, useRoute } from "vue-router";
-
 const newsImage = "/placeholder-news.svg";
-const router = useRouter();
 const route = useRoute();
+const router = useRouter();
 
-const loading = ref(false);
-const { pages } = useWebStore();
-const pageInfo = ref(pages["page-information"]);
-setSEO("page-information");
+const { page } = useSiteConfig();
+const pageInfo = computed(() => page("page-information"));
+useSeo("page-information");
 
+/** 分類 */
 const toggleId = ref(route.params.id);
-const toggleOptions = ref([{ label: "全部文章", key: "all" }]);
+const currentPage = ref(1);
 
-const resources = await useFetch("/api/articles/resource");
-toggleOptions.value = toggleOptions.value.concat(
-  _.get(resources, "data.value.result.categories", [])
-);
-
+const { data: categories } = await useFetch("/api/articles/resource", {
+  transform: (res) => res.result.categories ?? [],
+  default: () => [],
+});
+const toggleOptions = computed(() => [{ label: "全部文章", key: "all" }, ...categories.value]);
 const currentLabel = computed(
-  () => _.find(toggleOptions.value, (item) => item.key == toggleId.value)?.label ?? "全部文章"
+  () => toggleOptions.value.find((item) => item.key == toggleId.value)?.label ?? "全部文章"
 );
 
-const articleList = ref([]);
-const paginateInfo = ref({ currentPage: 1, perPage: 9, total: 1 });
-
-const getArticleList = (page = paginateInfo.value.currentPage) => {
-  loading.value = true;
-
-  return $fetch("/api/articles/list", {
-    query: {
-      category_id: toggleId.value == "all" ? null : toggleId.value,
-      page,
-    },
-  })
-    .then((res) => {
-      articleList.value = _.get(res, "result.data", []);
-      paginateInfo.value = {
-        currentPage: _.get(res, "result.meta.current_page"),
-        perPage: _.get(res, "result.meta.per_page"),
-        total: _.get(res, "result.meta.total"),
-      };
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
-
-const onPageChange = ({ page }) => {
-  nextTick(() => getArticleList(page));
-};
-
-const onCategoryChange = (val) => {
-  toggleId.value = val;
-  paginateInfo.value.currentPage = 1;
-  router.replace({ query: { category_id: val } });
-  getArticleList(1);
-};
-
-onMounted(() => {
-  getArticleList();
+/** 文章列表：分類或頁碼改變時自動重抓 */
+const { data: articles, status } = await useFetch("/api/articles/list", {
+  query: computed(() => ({
+    category_id: toggleId.value === "all" ? undefined : toggleId.value,
+    page: currentPage.value,
+  })),
+  transform: (res) => res.result,
 });
 
-function onImageError(event) {
+const loading = computed(() => status.value === "pending");
+const articleList = computed(() => articles.value?.data ?? []);
+const paginateInfo = computed(() => toPageInfo(articles.value?.meta, 9));
+
+const onPageChange = ({ page }) => {
+  currentPage.value = page;
+};
+
+const onCategoryChange = (key) => {
+  toggleId.value = key;
+  currentPage.value = 1;
+  router.replace({ query: { category_id: key } });
+};
+
+const onImageError = (event) => {
   event.target.src = newsImage;
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -3,45 +3,30 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import _ from "lodash";
-
 const route = useRoute();
-const { options } = useResourceStore();
 const { brandId, id } = route.params;
 
-const { data: pageData } = await useFetch(`/api/products/${brandId}/page-products`);
-const pageInfo = ref(_.get(pageData, "value.result"));
+const [{ data: pageInfo }, { data: productInfo }] = await Promise.all([
+  useFetch(`/api/products/${brandId}/page-products`, { transform: (res) => res.result }),
+  useFetch(`/api/products/${brandId}/product/${id}`, { transform: (res) => res.result }),
+]);
 
-const { data } = await useFetch(`/api/products/${brandId}/product/${id}`);
-const productInfo = ref(_.get(data, "value.result"));
+const header = computed(() => productInfo.value?.attribute_data?.product_header);
 
-// 沒有品牌資訊回首頁；商品不屬於此品牌則回商品列表
-if (!pageData.value) {
-  await navigateTo("/");
-} else if (
-  !productInfo.value ||
-  productInfo.value.attribute_data.product_header.brand_id !== Number(brandId)
-) {
-  await navigateTo({
-    name: "products-brandId-detail",
-    params: { brandId: brandId },
-  });
+if (!pageInfo.value || !productInfo.value) {
+  throw createError({ statusCode: 404, message: "找不到商品" });
 }
 
-setSEO(pageInfo.value.modules?.seo, {
-  ...productInfo.value.attribute_data?.seo,
-  title:
-    productInfo.value.attribute_data?.seo.title ??
-    productInfo.value.attribute_data?.product_header.name,
-  keyword:
-    productInfo.value.attribute_data?.seo.title ??
-    productInfo.value.attribute_data?.product_header.name,
-});
+// 商品存在但網址的品牌不對：永久導向正確網址
+if (header.value.brand_id !== Number(brandId)) {
+  await navigateTo(`/products/${header.value.brand_id}/product/${id}`, { redirectCode: 301 });
+}
 
-// 放入產品資訊讓麵包屑可以取用
-options.breadcrumb.productsInfo.push({
-  key: productInfo.value.id,
-  label: productInfo.value.attribute_data?.product_header.name,
+const seo = productInfo.value.attribute_data?.seo;
+useSeo(pageInfo.value.modules?.seo, {
+  ...seo,
+  title: seo?.title ?? header.value.name,
+  keywords: seo?.keywords ?? header.value.name,
 });
+useBreadcrumbTitle(() => header.value?.name);
 </script>

@@ -241,22 +241,18 @@
 </template>
 
 <script setup>
-import _ from "lodash";
+const { page } = useSiteConfig();
+const pageData = computed(() => page("page-index")?.attribute_data);
 
-const webStore = useWebStore();
-const pageData = ref(_.get(webStore.pages, "page-index.attribute_data", null));
+useSeo("page-index");
 
-setSEO("page-index");
+const { data: brands } = await useFetch("/api/index/config", {
+  transform: (res) => res.result.data ?? [],
+  default: () => [],
+});
 
-const { data } = await useFetch("/api/index/config");
-const brands = computed(() => _.get(data.value, "result.data", []) ?? []);
-
-const journalItems = computed(() =>
-  _.get(pageData.value, "carousel_article.items", []).slice(0, 3)
-);
-const voiceItems = computed(() =>
-  _.get(pageData.value, "carousel_reviews.items", []).slice(0, 3)
-);
+const journalItems = computed(() => (pageData.value?.carousel_article?.items ?? []).slice(0, 3));
+const voiceItems = computed(() => (pageData.value?.carousel_reviews?.items ?? []).slice(0, 3));
 </script>
 
 <style lang="scss" scoped>

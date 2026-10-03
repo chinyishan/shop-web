@@ -62,52 +62,40 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRoute } from "vue-router";
-
 const route = useRoute();
 const { id } = route.query;
 
-const { pages } = useWebStore();
-const pageInfo = ref(pages["page-question"]);
-setSEO("page-question");
+const { page } = useSiteConfig();
+const pageInfo = computed(() => page("page-question"));
+useSeo("page-question");
 
-const pageResource = await $fetch("/api/questions/resource");
-const { options } = useResourceStore();
-
-const loading = ref(false);
-const resource = ref(_.get(pageResource, "result"));
-const toggleId = ref(route.query.category_id ?? resource.value.categories[0].key);
-options.breadcrumb.questionsCategories = resource.value.categories;
+const { data: resource } = await useFetch("/api/questions/resource", {
+  transform: (res) => res.result,
+  default: () => ({ categories: [] }),
+});
+const toggleId = ref(route.query.category_id ?? resource.value.categories[0]?.key);
 
 const getCategoryLabel = () =>
-  _.find(resource.value.categories, { key: Number(toggleId.value) })?.label;
+  resource.value.categories.find((item) => item.key === Number(toggleId.value))?.label;
 
+/** 預覽的問題要等畫面出來後捲動過去，所以在瀏覽器端抓 */
+const loading = ref(false);
 const questionList = ref([]);
 
-const getQuestionList = () => {
+onMounted(async () => {
   loading.value = true;
-
-  $fetch(`/api/questions/${id}/preview`)
-    .then((res) => {
-      const data = _.get(res, "result.questions", {});
-      questionList.value = _.map(data, (item, key) => {
-        item.id = key;
-        item.showContent = id == key;
-        return item;
-      });
-
-      nextTick(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      });
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
-
-onMounted(() => {
-  getQuestionList();
+  try {
+    const res = await $fetch(`/api/questions/${id}/preview`);
+    questionList.value = Object.entries(res.result?.questions ?? {}).map(([key, item]) => ({
+      ...item,
+      id: key,
+      showContent: id == key,
+    }));
+    await nextTick();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  } finally {
+    loading.value = false;
+  }
 });
 
 const toggleClick = (item) => {

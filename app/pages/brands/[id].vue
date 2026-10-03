@@ -3,19 +3,12 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import _ from "lodash";
-
 const route = useRoute();
-const { id } = route.params;
 
-const { data } = await useFetch(`/api/brand/${id}`);
-const pageInfo = ref(_.get(data, "value"));
-
-// 沒有品牌資料就回首頁
+const { data: pageInfo } = await useFetch(`/api/brand/${route.params.id}`);
 if (!pageInfo.value) {
-  await navigateTo("/");
+  throw createError({ statusCode: 404, message: "找不到品牌" });
 }
 
-setSEO("page-brands", pageInfo.value.modules?.seo);
+useSeo("page-brands", pageInfo.value.modules?.seo);
 </script>

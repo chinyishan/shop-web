@@ -10,11 +10,11 @@
         <span class="l-header__slogan" v-if="slogan">{{ slogan }}</span>
       </NuxtLink>
 
-      <nav class="l-header__nav" v-if="maintainceMode !== 'true'">
+      <nav class="l-header__nav" v-if="!maintenanceMode">
         <ul class="l-header__menu">
           <li
             class="l-header__item"
-            v-for="item in navRouterData"
+            v-for="item in navMenu"
             :key="item.key"
             :class="{ 'l-header__item--is-open': openKey === item.key }"
           >
@@ -66,7 +66,7 @@
             />
           </svg>
           <ClientOnly>
-            <span class="l-header__cart-badge" v-if="wishCount">{{ wishCount }}</span>
+            <span class="l-header__cart-badge" v-if="wishlist.count">{{ wishlist.count }}</span>
           </ClientOnly>
         </NuxtLink>
 
@@ -79,7 +79,7 @@
             <path d="M9.5 8a2.5 2.5 0 0 1 5 0" stroke-linecap="round" />
           </svg>
           <ClientOnly>
-            <span class="l-header__cart-badge" v-if="cartCount">{{ cartCount }}</span>
+            <span class="l-header__cart-badge" v-if="cart.count">{{ cart.count }}</span>
           </ClientOnly>
         </NuxtLink>
 
@@ -101,50 +101,35 @@
   </header>
 </template>
 
-<script setup>
-import { useRoute, useRouter } from "vue-router";
-import _ from "lodash";
-
-const logo = "/logo.svg";
+<script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const runtimeConfig = useRuntimeConfig();
-const maintainceMode = runtimeConfig.public.maintainceMode;
-
-const { configs: appConfigs } = useAppStore();
-const webStore = useWebStore();
-const { navRouterData } = useNavRouterStore();
+const { maintenanceMode } = useRuntimeConfig().public;
+const { siteName, header } = useSiteConfig();
+const navMenu = useNavMenu();
 
 const cart = useCartStore();
-const cartCount = computed(() => cart.count);
-
 const wishlist = useWishlistStore();
-const wishCount = computed(() => wishlist.count);
 
-const header = computed(() =>
-  _.get(webStore, "configs.attribute_data.config_header", null)
-);
-const siteName = computed(() => header.value?.name ?? "HealthLab 健康實驗室");
 const slogan = computed(() => header.value?.slogan ?? "");
-const logoSrc = computed(() => header.value?.logo ?? logo);
+const logoSrc = computed(() => header.value?.logo ?? "/logo.svg");
 
 /** 下拉選單 */
-const openKey = ref(null);
-const onToggleMenu = (key) => {
+const openKey = ref<string | null>(null);
+const onToggleMenu = (key: string) => {
   openKey.value = openKey.value === key ? null : key;
 };
 
 /** 手機選單 */
-const menuOpen = ref(false);
+const menuOpen = useMobileMenu();
 const onToggleBurger = () => {
   menuOpen.value = !menuOpen.value;
-  appConfigs.hambergerOpen = menuOpen.value;
   if (!menuOpen.value) openKey.value = null;
 };
 
 /** 搜尋 */
-const searchText = ref(route.query.search);
-const searchInputRef = ref(null);
+const searchText = ref(route.query.search as string | undefined);
+const searchInputRef = ref<HTMLInputElement | null>(null);
 const searchOpen = ref(false);
 
 const onSearch = () => {
@@ -159,12 +144,14 @@ const onSearch = () => {
 };
 
 /** 換頁時收合 */
-router.afterEach(() => {
-  menuOpen.value = false;
-  openKey.value = null;
-  searchOpen.value = false;
-  appConfigs.hambergerOpen = false;
-});
+watch(
+  () => route.fullPath,
+  () => {
+    menuOpen.value = false;
+    openKey.value = null;
+    searchOpen.value = false;
+  },
+);
 </script>
 
 <style lang="scss" scoped>

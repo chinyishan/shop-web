@@ -127,15 +127,13 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRoute, useRouter } from "vue-router";
 import noImage from "@/assets/images/picture/no-image.png";
 
 const route = useRoute();
 const router = useRouter();
 const { brandId } = route.params;
-const { options } = useResourceStore();
-const { configs } = useAppStore();
+const site = useSiteConfig();
+const brandLabel = computed(() => site.brandLabel(brandId) ?? "商品專區");
 
 const tabs = [
   { key: "products", label: "商品列表" },
@@ -143,109 +141,80 @@ const tabs = [
   { key: "reviews", label: "好評回饋" },
 ];
 
-const brandLabel = computed(
-  () => _.find(options.navbar.brands, { key: Number(brandId) })?.label ?? "商品專區"
-);
-
 const toggle = ref(route.query.category ?? "products");
 const onTabChange = (val) => {
   router.replace({ query: { category: val } });
   toggle.value = val;
 };
 
-const { data } = await useFetch(`/api/products/${brandId}/page-products`);
-const pageInfo = ref(_.get(data, "value"));
+const { data: pageInfo } = await useFetch(`/api/products/${brandId}/page-products`, {
+  transform: (res) => res.result,
+});
 if (!pageInfo.value) {
-  await navigateTo("/");
+  throw createError({ statusCode: 404, message: "找不到品牌" });
 }
-setSEO("page-products", pageInfo.value.modules?.seo);
+useSeo("page-products", pageInfo.value.modules?.seo);
 
 /** 篩選與排序 */
-const { data: resourceData } = await useFetch("/api/products/resource");
-const filterResource = computed(() => _.get(resourceData.value, "result", {}));
+const { data: filterResource } = await useFetch("/api/products/resource", {
+  transform: (res) => res.result ?? {},
+  default: () => ({}),
+});
 const filters = ref({});
 const sort = ref(route.query.sort ?? "recommend");
 
+/**
+ * 商品列表：每頁筆數依視窗寬度決定，所以只在瀏覽器端抓。
+ * 篩選、排序、頁碼改變時 useFetch 會自動重抓。
+ */
+const perPage = Number(route.query.per_page) || (import.meta.client && window.innerWidth <= 768 ? 8 : 12);
+const productPageNo = ref(Number(route.query.page) || 1);
+
+const { data: products } = useFetch(`/api/products/${brandId}/products`, {
+  query: computed(() => ({ ...filters.value, sort: sort.value, page: productPageNo.value, per_page: perPage })),
+  transform: (res) => res.result,
+  server: false,
+});
+const productData = computed(() => products.value?.data ?? []);
+const productPage = computed(() => toPageInfo(products.value?.meta, perPage));
+
 const onFilterChange = (value) => {
   filters.value = cleanParams(value);
-  fetchProducts(1);
+  productPageNo.value = 1;
 };
 
 const onSortChange = () => {
-  fetchProducts(1);
+  productPageNo.value = 1;
 };
 
-/** 商品列表 */
-const productData = ref([]);
-const productPage = ref({
-  currentPage: Number(route.query.page) || 1,
-  perPage: Number(route.query.per_page) || (configs.width > 768 ? 12 : 8),
-  total: 1,
-});
-
-const fetchProducts = (page = productPage.value.currentPage) =>
-  $fetch(`/api/products/${brandId}/products`, {
-    query: {
-      ...filters.value,
-      sort: sort.value,
-      page,
-      per_page: productPage.value.perPage,
-    },
-  }).then((res) => {
-    productData.value = _.get(res, "result.data", []);
-    productPage.value = {
-      currentPage: _.get(res, "result.meta.current_page"),
-      perPage: _.get(res, "result.meta.per_page"),
-      total: _.get(res, "result.meta.total"),
-    };
-  });
-
 const onProductPageChange = ({ page }) => {
-  nextTick(() => {
-    setParamsToRoute(router, {
-      category: toggle.value,
-      page,
-      per_page: productPage.value.perPage,
-      sort: sort.value,
-    });
-    fetchProducts(page);
-  });
+  productPageNo.value = page;
+  replaceQuery(router, { category: toggle.value, page, per_page: perPage, sort: sort.value });
 };
 
 /** 熱銷排行 */
-const popularData = ref(null);
+const { data: popularData } = useFetch(`/api/products/${brandId}/popular`, {
+  transform: (res) => res.result,
+  server: false,
+});
 
 /** 好評回饋 */
-const reviewsData = ref([]);
-const reviewsPage = ref({ currentPage: 1, perPage: 5, total: 1 });
-
-const fetchReviews = (page = reviewsPage.value.currentPage) =>
-  $fetch(`/api/products/${brandId}/reviews`, { query: { page } }).then((res) => {
-    reviewsData.value = _.get(res, "result.data", []);
-    reviewsPage.value = {
-      currentPage: _.get(res, "result.meta.current_page"),
-      perPage: _.get(res, "result.meta.per_page"),
-      total: _.get(res, "result.meta.total"),
-    };
-  });
+const reviewsPageNo = ref(1);
+const { data: reviews } = useFetch(`/api/products/${brandId}/reviews`, {
+  query: computed(() => ({ page: reviewsPageNo.value })),
+  transform: (res) => res.result,
+  server: false,
+});
+const reviewsData = computed(() => reviews.value?.data ?? []);
+const reviewsPage = computed(() => toPageInfo(reviews.value?.meta, 5));
 
 const onReviewsPageChange = ({ page }) => {
-  nextTick(() => fetchReviews(page));
+  reviewsPageNo.value = page;
 };
 
 const onImageError = (event) => {
   event.target.src = noImage;
 };
-
-onMounted(() => {
-  Promise.all([
-    fetchProducts(),
-    $fetch(`/api/products/${brandId}/popular`).then((res) => {
-      popularData.value = _.get(res, "result");
-    }),
-    fetchReviews(),
-  ]);
-});
 </script>
 
 <style lang="scss" scoped>

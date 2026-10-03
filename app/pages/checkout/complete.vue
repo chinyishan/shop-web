@@ -38,7 +38,7 @@
 const route = useRoute();
 const orderNo = computed(() => route.query.no ?? "");
 
-setSEO("page-index", {
+useSeo("page-index", {
   title: "訂單完成",
   description: "訂單已送出。",
 });
