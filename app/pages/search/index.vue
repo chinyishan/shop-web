@@ -32,7 +32,6 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
 import noImage from "@/assets/images/picture/no-image.png";
 
 const route = useRoute();

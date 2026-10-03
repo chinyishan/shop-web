@@ -98,7 +98,6 @@
 </template>
 
 <script setup>
-import _ from "lodash";
 
 const props = defineProps({
   productInfo: {
@@ -115,15 +114,15 @@ const tabs = [
 const toggle = ref("detail");
 
 const header = computed(() =>
-  _.get(props.productInfo, "attribute_data.product_header", {})
+  props.productInfo?.attribute_data?.product_header ?? {}
 );
 const panelHtml = computed(() => header.value?.[toggle.value] ?? "");
 
 const reviews = computed(() =>
-  (_.get(props.productInfo, "attribute_data.carousel_reviews.items", []) ?? []).slice(0, 4)
+  (props.productInfo?.attribute_data?.carousel_reviews?.items ?? []).slice(0, 4)
 );
 const related = computed(() =>
-  (_.get(props.productInfo, "attribute_data.carousel_product.items", []) ?? []).slice(0, 4)
+  (props.productInfo?.attribute_data?.carousel_product?.items ?? []).slice(0, 4)
 );
 
 /** 最近瀏覽：進頁面先記錄，再排除自己 */
@@ -138,7 +137,7 @@ onMounted(() => {
     name: header.value?.name,
     brand: props.productInfo?.brand,
     brand_id: props.productInfo?.brand_id,
-    main_image: _.get(header.value, "product_images.0"),
+    main_image: header.value?.product_images?.[0],
     price: header.value?.price,
     origin_price: header.value?.origin_price,
     stock: header.value?.stock,

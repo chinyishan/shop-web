@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-import _ from "lodash";
 import { ElMessage } from "element-plus";
 
 const cart = useCartStore();
@@ -48,7 +47,7 @@ const fetchAddons = () => {
   }
 
   $fetch("/api/products/addon", { query: { ids, limit: 3 } }).then((res) => {
-    items.value = _.get(res, "result.data", []);
+    items.value = res.result?.data ?? [];
   });
 };
 

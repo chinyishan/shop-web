@@ -89,7 +89,6 @@
 </template>
 
 <script setup>
-import _ from "lodash";
 import { ElMessage } from "element-plus";
 
 const cart = useCartStore();
@@ -101,7 +100,7 @@ useSeo("page-index", {
 
 /** 題目選項來自商品資源 API */
 const { data: resourceData } = await useFetch("/api/products/resource");
-const resource = computed(() => _.get(resourceData.value, "result", {}));
+const resource = computed(() => resourceData.value?.result ?? {});
 
 const questions = computed(() => [
   {
@@ -185,7 +184,7 @@ const fetchResults = () => {
       vegan: answers.vegan,
     },
   }).then((res) => {
-    results.value = _.get(res, "result.data", []);
+    results.value = res.result?.data ?? [];
     finished.value = true;
   });
 };

@@ -94,8 +94,6 @@
 </template>
 
 <script setup>
-import _ from "lodash";
-import { useRoute } from "vue-router";
 
 const props = defineProps({
   info: {
@@ -108,10 +106,10 @@ const route = useRoute();
 const brandId = computed(() => route.params.id);
 
 const products = computed(() =>
-  _.get(props.info, "modules.products_list.items", []) ?? []
+  props.info?.modules?.products_list?.items ?? []
 );
 const reviews = computed(() =>
-  (_.get(props.info, "modules.carousel_reviews.items", []) ?? []).slice(0, 4)
+  (props.info?.modules?.carousel_reviews?.items ?? []).slice(0, 4)
 );
 </script>
 

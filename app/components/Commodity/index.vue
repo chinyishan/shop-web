@@ -103,7 +103,6 @@
 </template>
 
 <script setup>
-import _ from "lodash";
 import { ElMessage } from "element-plus";
 import noImage from "@/assets/images/picture/no-image.png";
 
@@ -114,8 +113,8 @@ const props = defineProps({
   },
 });
 
-const header = computed(() => _.get(props.productInfo, "attribute_data.product_header"));
-const images = computed(() => _.get(header.value, "product_images", []) ?? []);
+const header = computed(() => props.productInfo?.attribute_data?.product_header);
+const images = computed(() => header.value?.product_images ?? []);
 
 const imageIndex = ref(0);
 const activeImage = computed(() => images.value[imageIndex.value]);
@@ -125,7 +124,7 @@ const onImageError = (event) => {
 };
 
 /** 規格與庫存 */
-const specs = computed(() => _.get(header.value, "specs", []) ?? []);
+const specs = computed(() => header.value?.specs ?? []);
 const activeSpec = ref(null);
 
 watchEffect(() => {
