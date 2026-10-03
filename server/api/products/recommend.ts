@@ -5,11 +5,12 @@ export default defineEventHandler((event) => {
   const budget = String(query.budget ?? "");
   const vegan = query.vegan === "true" || query.vegan === true;
 
-  const budgetRange = {
+  const BUDGETS: Record<string, [number, number]> = {
     low: [0, 1000],
     mid: [1000, 2500],
     high: [2500, Infinity],
-  }[budget] ?? [0, Infinity];
+  };
+  const [minPrice, maxPrice] = BUDGETS[budget] ?? [0, Infinity];
 
   const scored = mockProductList()
     .filter((product) => product.stock > 0)
@@ -25,7 +26,7 @@ export default defineEventHandler((event) => {
         score += 3;
         reasons.push("適合你的族群");
       }
-      if (product.price >= budgetRange[0] && product.price <= budgetRange[1]) {
+      if (product.price >= minPrice && product.price <= maxPrice) {
         score += 2;
         reasons.push("落在你的預算範圍");
       }

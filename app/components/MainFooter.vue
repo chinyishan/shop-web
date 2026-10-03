@@ -4,28 +4,28 @@
       <div class="l-footer__top">
         <NuxtLink class="l-footer__brand" to="/">
           <span class="l-footer__logo">
-            <img src="/logo.svg" :alt="siteName" :title="siteName" />
+            <img src="/logo.svg" :alt="siteName" :title="siteName" >
           </span>
           <span class="l-footer__brand-text">
             <span class="l-footer__name">{{ siteName }}</span>
-            <span class="l-footer__slogan" v-if="header?.slogan">{{ header.slogan }}</span>
+            <span v-if="header?.slogan" class="l-footer__slogan">{{ header.slogan }}</span>
           </span>
         </NuxtLink>
 
-        <nav class="l-footer__links" v-if="!maintenanceMode && footerLink.length">
+        <nav v-if="!maintenanceMode && footerLink.length" class="l-footer__links">
           <a
-            class="l-footer__link"
-            :href="item.url"
             v-for="(item, index) in footerLink"
             :key="index"
+            class="l-footer__link"
+            :href="item.url"
             >{{ item.title }}</a
           >
         </nav>
       </div>
 
-      <hr class="c-rule l-footer__rule" />
+      <hr class="c-rule l-footer__rule" >
 
-      <div class="l-footer__bottom" v-if="footerConfig">
+      <div v-if="footerConfig" class="l-footer__bottom">
         <p class="l-footer__desc">{{ footerConfig.description }}</p>
 
         <dl class="l-footer__contact">

@@ -8,7 +8,7 @@
               :src="data.image"
               :alt="data.title"
               :title="data.title"
-            />
+            >
           </div>
         </div>
         <div class="p-home__cooperation-body">

@@ -1,5 +1,5 @@
 <template>
-  <div class="c-commodity" v-if="header">
+  <div v-if="header" class="c-commodity">
     <CommodityGallery :images="images" :name="header.name" />
 
     <div class="c-commodity__info">

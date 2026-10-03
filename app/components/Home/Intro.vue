@@ -18,9 +18,9 @@
 
       <ul class="p-home__features">
         <li
-          class="c-feature p-home__feature"
           v-for="(feature, index) in data.features"
           :key="index"
+          class="c-feature p-home__feature"
         >
           <span class="c-feature__index">{{ String(index + 1).padStart(2, "0") }}</span>
           <h3 class="c-feature__title">{{ feature.title }}</h3>

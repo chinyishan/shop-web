@@ -1,7 +1,7 @@
 <template>
-  <p class="c-price" :class="sizeClass" v-if="value !== null && value !== undefined">
+  <p v-if="value !== null && value !== undefined" class="c-price" :class="sizeClass">
     <span class="c-price__now">{{ formatPrice(value) }}</span>
-    <span class="c-price__origin" v-if="origin">{{ formatPrice(origin) }}</span>
+    <span v-if="origin" class="c-price__origin">{{ formatPrice(origin) }}</span>
   </p>
 </template>
 

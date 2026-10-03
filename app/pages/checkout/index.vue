@@ -13,7 +13,7 @@
     <section class="c-section c-section--flush-top">
       <div class="c-section__inner">
         <ClientOnly>
-          <div class="p-checkout__layout" v-if="!cart.isEmpty">
+          <div v-if="!cart.isEmpty" class="p-checkout__layout">
             <CheckoutForm ref="formRef" v-model="form" :loading="loading" />
 
             <CheckoutSummary
@@ -26,7 +26,7 @@
             />
           </div>
 
-          <div class="p-checkout__empty" v-else>
+          <div v-else class="p-checkout__empty">
             <p class="c-empty">購物車是空的，先挑幾樣商品吧</p>
             <NuxtLink class="c-btn c-btn--ghost" to="/products/1/detail">去逛逛商品</NuxtLink>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <Transition name="c-drawer">
-    <div class="c-drawer" v-if="cart.drawerOpen">
-      <div class="c-drawer__overlay" @click="cart.closeDrawer()"></div>
+    <div v-if="cart.drawerOpen" class="c-drawer">
+      <div class="c-drawer__overlay" @click="cart.closeDrawer()"/>
 
       <aside class="c-drawer__panel">
         <header class="c-drawer__head">
@@ -15,14 +15,14 @@
         </header>
 
         <div class="c-drawer__body">
-          <ul class="c-drawer__list" v-if="!cart.isEmpty">
-            <li class="c-drawer__item" v-for="item in cart.items" :key="item.key">
+          <ul v-if="!cart.isEmpty" class="c-drawer__list">
+            <li v-for="item in cart.items" :key="item.key" class="c-drawer__item">
               <NuxtLink
                 class="c-drawer__media"
                 :to="`/products/${item.brand_id}/product/${item.id}`"
                 @click="cart.closeDrawer()"
               >
-                <img :src="item.image" :alt="item.name" :title="item.name" />
+                <img :src="item.image" :alt="item.name" :title="item.name" >
               </NuxtLink>
 
               <div class="c-drawer__info">
@@ -33,14 +33,14 @@
                 >
                   {{ item.name }}
                 </NuxtLink>
-                <p class="c-drawer__spec" v-if="item.spec_label">{{ item.spec_label }}</p>
+                <p v-if="item.spec_label" class="c-drawer__spec">{{ item.spec_label }}</p>
 
                 <div class="c-drawer__row">
                   <CartStepper
-                    :modelValue="item.qty"
+                    :model-value="item.qty"
                     :max="item.stock ?? 99"
                     size="sm"
-                    @update:modelValue="(val) => cart.setQty(item.key, val)"
+                    @update:model-value="(val) => cart.setQty(item.key, val)"
                   />
                   <p class="c-drawer__amount">{{ formatPrice(item.price * item.qty) }}</p>
                 </div>
@@ -52,10 +52,10 @@
             </li>
           </ul>
 
-          <p class="c-empty" v-else>購物車還沒有商品</p>
+          <p v-else class="c-empty">購物車還沒有商品</p>
         </div>
 
-        <footer class="c-drawer__foot" v-if="!cart.isEmpty">
+        <footer v-if="!cart.isEmpty" class="c-drawer__foot">
           <div class="c-drawer__total">
             <span>小計</span>
             <strong>{{ formatPrice(cart.subtotal) }}</strong>

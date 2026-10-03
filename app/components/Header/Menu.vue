@@ -1,28 +1,28 @@
 <template>
   <ul class="l-header__menu">
     <li
-      class="l-header__item"
       v-for="item in navMenu"
       :key="item.key"
+      class="l-header__item"
       :class="{ 'l-header__item--is-open': openKey === item.key }"
     >
       <button
+        v-if="item.children?.length"
         type="button"
         class="l-header__link"
-        v-if="item.children?.length"
         @click="onToggleMenu(item.key)"
       >
         {{ item.name }}
       </button>
-      <NuxtLink class="l-header__link" :to="item.href" v-else>
+      <NuxtLink v-else class="l-header__link" :to="item.href">
         {{ item.name }}
       </NuxtLink>
 
-      <ul class="l-header__dropdown" v-if="item.children?.length">
+      <ul v-if="item.children?.length" class="l-header__dropdown">
         <li
-          class="l-header__dropdown-item"
           v-for="child in item.children"
           :key="child.key"
+          class="l-header__dropdown-item"
         >
           <NuxtLink class="l-header__dropdown-link" :to="child.href">
             {{ child.name }}

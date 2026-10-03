@@ -5,15 +5,15 @@
       :current-page="propPageInfo.currentPage"
       :page-size="propPageInfo.perPage"
       :total="propPageInfo.total ?? 0"
-      @current-change="clickHandler"
       size=""
       layout="prev, pager, next"
+      @current-change="clickHandler"
     />
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   propPageInfo: {
     type: Object,
     default: () => {

@@ -15,11 +15,11 @@
           <span class="c-section__eyebrow">Order received</span>
           <h1 class="p-complete__title">訂單已送出</h1>
           <p class="p-complete__text">
-            感謝你的訂購，我們已收到訂單並寄出確認信。<br />
+            感謝你的訂購，我們已收到訂單並寄出確認信。<br >
             本站為個人作品，這筆訂單僅為介面展示，不會真的出貨或扣款。
           </p>
 
-          <dl class="p-complete__info" v-if="orderNo">
+          <dl v-if="orderNo" class="p-complete__info">
             <dt>訂單編號</dt>
             <dd>{{ orderNo }}</dd>
           </dl>

@@ -1,7 +1,7 @@
 <template>
   <div class="c-filter">
     <!-- 功效 -->
-    <section class="c-filter__group" v-if="resource.effects?.length">
+    <section v-if="resource.effects?.length" class="c-filter__group">
       <p class="c-filter__title">功效需求</p>
       <ul class="c-filter__chips">
         <li v-for="tag in resource.effects" :key="tag.key">
@@ -18,7 +18,7 @@
     </section>
 
     <!-- 族群 -->
-    <section class="c-filter__group" v-if="resource.audiences?.length">
+    <section v-if="resource.audiences?.length" class="c-filter__group">
       <p class="c-filter__title">適用族群</p>
       <ul class="c-filter__chips">
         <li v-for="tag in resource.audiences" :key="tag.key">
@@ -58,23 +58,23 @@
     <section class="c-filter__group">
       <p class="c-filter__title">其他條件</p>
       <label class="c-filter__check">
-        <input type="checkbox" v-model="model.on_sale" @change="emitChange" />
+        <input v-model="model.on_sale" type="checkbox" @change="emitChange" >
         <span>只看特價商品</span>
       </label>
       <label class="c-filter__check">
-        <input type="checkbox" v-model="model.in_stock" @change="emitChange" />
+        <input v-model="model.in_stock" type="checkbox" @change="emitChange" >
         <span>只看有庫存</span>
       </label>
     </section>
 
-    <button type="button" class="c-filter__reset" v-if="hasFilter" @click="onReset">
+    <button v-if="hasFilter" type="button" class="c-filter__reset" @click="onReset">
       清除所有條件
     </button>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   resource: {
     type: Object,
     default: () => ({}),

@@ -1,5 +1,5 @@
 <template>
-  <div ref="editorViewRef"></div>
+  <div ref="editorViewRef"/>
 </template>
 
 <script setup>

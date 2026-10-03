@@ -1,8 +1,8 @@
 <template>
   <div class="go-container">
     <div class="go-row">
-      <a class="go-col" id="top" href="#" @click.prevent="scrollToTop">
-        <svgo-arrow-up></svgo-arrow-up>
+      <a id="top" class="go-col" href="#" @click.prevent="scrollToTop">
+        <svgo-arrow-up/>
       </a>
     </div>
   </div>

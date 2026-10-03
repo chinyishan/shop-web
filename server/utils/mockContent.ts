@@ -1,6 +1,7 @@
+import type { Option } from "#shared/types/api";
 import { mockSeo, mockBanner } from "./mockShared";
 
-const ARTICLE_CATEGORIES = [
+const ARTICLE_CATEGORIES: Option<number>[] = [
   { key: 1, label: "保健新知" },
   { key: 2, label: "產品快訊" },
   { key: 3, label: "活動公告" },
@@ -85,7 +86,7 @@ const ARTICLE_DEFS = [
   },
 ];
 
-const articleHtml = (title, subtitle) => `
+const articleHtml = (title: string, subtitle: string) => `
 <p><strong>${subtitle}</strong></p>
 <img src="/mock/editor-lab.svg" alt="${title}" />
 <p>現代人的生活節奏快速，三餐時間不固定、外食比例偏高，讓日常營養的攝取變得比想像中更容易失衡。當我們談論保健食品時，最重要的其實不是「吃了什麼」，而是「為什麼要吃」以及「怎麼吃才對」。</p>
@@ -98,7 +99,7 @@ const articleHtml = (title, subtitle) => `
 `;
 
 const ARTICLES = ARTICLE_DEFS.map((article, index) => {
-  const category = ARTICLE_CATEGORIES[index % ARTICLE_CATEGORIES.length];
+  const category = ARTICLE_CATEGORIES[index % ARTICLE_CATEGORIES.length]!;
   const day = String((index % 28) + 1).padStart(2, "0");
   const month = String((index % 12) + 1).padStart(2, "0");
 
@@ -116,16 +117,18 @@ const ARTICLES = ARTICLE_DEFS.map((article, index) => {
 export const mockArticleCategories = () =>
   ARTICLE_CATEGORIES.map((category) => ({ ...category }));
 
-export const mockArticleList = (categoryId = null) =>
+type Article = (typeof ARTICLES)[number];
+
+export const mockArticleList = (categoryId: unknown = null) =>
   categoryId === null || categoryId === "" || categoryId === "all"
     ? ARTICLES
     : ARTICLES.filter((article) => article.category.key === Number(categoryId));
 
-export const mockArticleById = (id) =>
+export const mockArticleById = (id: unknown) =>
   ARTICLES.find((article) => article.id === Number(id)) ?? null;
 
 /** 文章列表卡片 */
-export const mockArticleCard = (article) => ({
+export const mockArticleCard = (article: Article) => ({
   id: article.id,
   title: article.title,
   subtitle: article.subtitle,
@@ -135,7 +138,7 @@ export const mockArticleCard = (article) => ({
 });
 
 /** 文章單頁 */
-export const mockArticleDetail = (article) => ({
+export const mockArticleDetail = (article: Article) => ({
   id: article.id,
   published_at: article.published_at,
   categories: [{ id: article.category.key, name: article.category.label }],
@@ -148,10 +151,10 @@ export const mockArticleDetail = (article) => ({
 });
 
 /** 上一篇／下一篇 */
-export const mockArticleNavigation = (article, categoryId = null) => {
+export const mockArticleNavigation = (article: Article, categoryId: unknown = null) => {
   const list = mockArticleList(categoryId);
   const index = list.findIndex((item) => item.id === article.id);
-  const brief = (item) =>
+  const brief = (item: Article | undefined) =>
     item
       ? {
           id: item.id,
@@ -165,13 +168,14 @@ export const mockArticleNavigation = (article, categoryId = null) => {
   };
 };
 
-const QUESTION_CATEGORIES = [
+const QUESTION_CATEGORIES: Option<number>[] = [
   { key: 1, label: "商品相關" },
   { key: 2, label: "訂購與配送" },
   { key: 3, label: "會員服務" },
 ];
 
-const QUESTION_DEFS = {
+/** 各分類的 [問題, 回答] */
+const QUESTION_DEFS: Record<number, [string, string][]> = {
   1: [
     ["保健食品可以和藥物一起吃嗎？", "建議與藥物間隔至少一小時以上。若您正在服用慢性處方藥，請先諮詢醫師或藥師後再開始補充。"],
     ["產品開封後要怎麼保存？", "請於開封後將瓶蓋確實旋緊，置於陰涼乾燥處避免陽光直射，並於三個月內食用完畢。"],
@@ -217,7 +221,7 @@ const QUESTION_DEFS = {
 };
 
 const QUESTIONS = QUESTION_CATEGORIES.flatMap((category) =>
-  QUESTION_DEFS[category.key].map(([title, answer], index) => ({
+  (QUESTION_DEFS[category.key] ?? []).map(([title, answer], index) => ({
     id: category.key * 100 + index + 1,
     category_id: category.key,
     question_header: { title },
@@ -230,12 +234,12 @@ const QUESTIONS = QUESTION_CATEGORIES.flatMap((category) =>
 export const mockQuestionCategories = () =>
   QUESTION_CATEGORIES.map((category) => ({ ...category }));
 
-export const mockQuestionList = (categoryId = null) =>
+export const mockQuestionList = (categoryId: unknown = null) =>
   categoryId === null || categoryId === ""
     ? QUESTIONS
     : QUESTIONS.filter((question) => question.category_id === Number(categoryId));
 
-export const mockQuestionById = (id) =>
+export const mockQuestionById = (id: unknown) =>
   QUESTIONS.find((question) => question.id === Number(id)) ?? null;
 
 const QUALITY_DEFS = [
@@ -286,7 +290,7 @@ const QUALITY_DEFS = [
 export const mockQualityCategories = () =>
   QUALITY_DEFS.map(({ key, label }) => ({ key, label }));
 
-export const mockQualityById = (id) => {
+export const mockQualityById = (id: unknown) => {
   const quality = QUALITY_DEFS.find((item) => item.key === Number(id));
   if (!quality) return null;
 

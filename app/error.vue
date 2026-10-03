@@ -1,8 +1,8 @@
 <template>
-  <div class="error" v-if="isNotFound">
+  <div v-if="isNotFound" class="error">
     <div class="wrap-back">
       <div class="logo">
-        <img src="/logo.svg" alt="logo" />
+        <img src="/logo.svg" alt="logo" >
       </div>
       <h2>404 Not Found</h2>
       <div class="back-link">
@@ -11,11 +11,11 @@
     </div>
   </div>
 
-  <div class="error-container" v-else>
+  <div v-else class="error-container">
     <div class="wrap-error">
       <div class="status">
         <div class="logo">
-          <img src="/logo.svg" alt="logo" />
+          <img src="/logo.svg" alt="logo" >
         </div>
         <h2>{{ error.statusCode }}</h2>
       </div>

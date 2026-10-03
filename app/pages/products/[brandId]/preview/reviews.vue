@@ -11,11 +11,11 @@
           <p class="c-section__lead">{{ brandLabel }}</p>
         </div>
 
-        <ul class="p-reviews__list" v-if="reviewsData?.length">
+        <ul v-if="reviewsData?.length" class="p-reviews__list">
           <ReviewCard
             v-for="item in reviewsData"
-            :key="item.id"
             :id="item.id"
+            :key="item.id"
             :user="item.user"
             :image="item.image"
             :content="item.content"
@@ -25,7 +25,7 @@
             :product-link="`/products/${brandId}/product/${item.product_id}`"
           />
         </ul>
-        <p class="c-empty" v-else>目前沒有回饋資料</p>
+        <p v-else class="c-empty">目前沒有回饋資料</p>
       </div>
     </section>
   </div>

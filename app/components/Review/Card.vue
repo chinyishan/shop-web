@@ -1,10 +1,10 @@
 <template>
   <li class="c-review">
     <div class="c-review__avatar">
-      <img :src="image" :alt="user" :title="user" />
+      <img :src="image" :alt="user" :title="user" >
     </div>
     <div class="c-review__body">
-      <NuxtLink class="c-review__product" :to="productLink" v-if="productLink">
+      <NuxtLink v-if="productLink" class="c-review__product" :to="productLink">
         {{ productName }}
       </NuxtLink>
       <p class="c-review__text">{{ content }}</p>

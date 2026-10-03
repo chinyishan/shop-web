@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-products" v-if="pageInfo">
+  <div v-if="pageInfo" class="l-page p-products">
     <SwipersBanner :info="pageInfo.modules?.carousel" />
     <Breadcrumb />
 
@@ -10,7 +10,7 @@
           <aside class="c-sidenav p-products__aside">
             <p class="c-sidenav__title">{{ brandLabel }}</p>
             <ul class="c-sidenav__list">
-              <li class="c-sidenav__item" v-for="tab in tabs" :key="tab.key">
+              <li v-for="tab in tabs" :key="tab.key" class="c-sidenav__item">
                 <button
                   type="button"
                   class="c-sidenav__link"
@@ -23,8 +23,8 @@
             </ul>
 
             <ProductFilter
-              class="p-products__filter"
               v-if="toggle === 'products'"
+              class="p-products__filter"
               :resource="filterResource"
               @change="onFilterChange"
             />
@@ -57,17 +57,17 @@
                 </label>
               </div>
 
-              <ul class="p-products__grid" v-if="productData.length">
+              <ul v-if="productData.length" class="p-products__grid">
                 <li v-for="item in productData" :key="item.id">
                   <ProductCard :item="item" />
                 </li>
               </ul>
-              <p class="c-empty" v-else>沒有符合條件的商品，調整一下篩選試試。</p>
+              <p v-else class="c-empty">沒有符合條件的商品，調整一下篩選試試。</p>
 
               <Pagination
-                :propPageInfo="productPage"
-                @clickHandler="onProductPageChange"
                 v-if="productPage.total / productPage.perPage > 1"
+                :prop-page-info="productPage"
+                @click-handler="onProductPageChange"
               />
             </div>
 
@@ -78,10 +78,10 @@
                 <h2 class="c-section__title">熱銷排行</h2>
               </div>
 
-              <div class="c-prose" v-if="popularData">
-                <Editor :html="popularData?.editor?.content.zh_TW"></Editor>
+              <div v-if="popularData" class="c-prose">
+                <Editor :html="popularData?.editor?.content.zh_TW"/>
               </div>
-              <p class="c-empty" v-else>目前沒有排行資料</p>
+              <p v-else class="c-empty">目前沒有排行資料</p>
             </div>
 
             <ProductsReviewsTab v-if="toggle === 'reviews'" :brand-id="brandId" />
@@ -93,8 +93,6 @@
 </template>
 
 <script setup>
-import noImage from "@/assets/images/picture/no-image.png";
-
 const route = useRoute();
 const router = useRouter();
 const { brandId } = route.params;
@@ -163,10 +161,6 @@ const { data: popularData } = useFetch(`/api/products/${brandId}/popular`, {
   transform: (res) => res.result,
   server: false,
 });
-
-const onImageError = (event) => {
-  event.target.src = noImage;
-};
 </script>
 
 <style lang="scss" scoped>

@@ -9,11 +9,11 @@
       </div>
 
       <ul class="p-home__voice-grid">
-        <li class="p-home__voice" v-for="item in voiceItems" :key="item.id">
+        <li v-for="item in voiceItems" :key="item.id" class="p-home__voice">
           <blockquote class="p-home__voice-text">{{ item.content }}</blockquote>
           <div class="p-home__voice-person">
             <div class="p-home__voice-avatar">
-              <img :src="item.image" :alt="item.user_name" :title="item.user_name" />
+              <img :src="item.image" :alt="item.user_name" :title="item.user_name" >
             </div>
             <div>
               <p class="p-home__voice-name">{{ item.user_name }}</p>

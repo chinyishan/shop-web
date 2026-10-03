@@ -6,10 +6,10 @@
         :alt="name"
         :title="name"
         @error="onImageError"
-      />
+      >
     </div>
 
-    <ul class="c-commodity__thumbs" v-if="images.length > 1">
+    <ul v-if="images.length > 1" class="c-commodity__thumbs">
       <li v-for="(item, index) in images" :key="index">
         <button
           type="button"
@@ -17,7 +17,7 @@
           :class="{ 'c-commodity__thumb--is-active': imageIndex === index }"
           @click="imageIndex = index"
         >
-          <img :src="item ?? noImage" alt="商品圖" title="商品圖" @error="onImageError" />
+          <img :src="item ?? noImage" alt="商品圖" title="商品圖" @error="onImageError" >
         </button>
       </li>
     </ul>

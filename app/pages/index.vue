@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-home" v-if="pageData">
+  <div v-if="pageData" class="l-page p-home">
     <SwipersBanner class="p-home__hero" :info="pageData.carousel" size="large" />
     <HomeIntro v-if="pageData.intro" :data="pageData.intro" />
     <HomeBrands v-if="brands.length" :brands="brands" />

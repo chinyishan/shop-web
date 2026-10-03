@@ -1,11 +1,11 @@
 <template>
   <div
+    v-if="info?.items"
     class="c-banner"
     :class="size === 'large' ? 'c-banner--hero' : 'c-banner--page'"
-    v-if="info?.items"
   >
     <Swiper class="c-banner__swiper" v-bind="swiperBanner">
-      <SwiperSlide class="c-banner__slide" v-for="(item, index) in info.items" :key="index">
+      <SwiperSlide v-for="(item, index) in info.items" :key="index" class="c-banner__slide">
         <component
           :is="item.url ? 'a' : 'div'"
           class="c-banner__link"
@@ -13,18 +13,18 @@
           :target="item.new_page === true ? '_blank' : '_self'"
         >
           <picture class="c-banner__picture">
-            <source :srcset="item.image" media="(min-width: 769px)" />
+            <source :srcset="item.image" media="(min-width: 769px)" >
             <img
               class="c-banner__image"
               :src="item.image_m"
               :alt="item.alt"
               :title="item.alt"
-            />
+            >
           </picture>
         </component>
       </SwiperSlide>
     </Swiper>
-    <div class="c-banner__pagination swiper-pagination"></div>
+    <div class="c-banner__pagination swiper-pagination"/>
   </div>
 </template>
 

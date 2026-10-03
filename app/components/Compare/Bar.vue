@@ -1,6 +1,6 @@
 <template>
   <Transition name="c-compare-bar">
-    <div class="c-compare-bar" v-if="visible">
+    <div v-if="visible" class="c-compare-bar">
       <div class="c-compare-bar__inner">
         <p class="c-compare-bar__label">
           比較清單
@@ -8,8 +8,8 @@
         </p>
 
         <ul class="c-compare-bar__list">
-          <li class="c-compare-bar__item" v-for="item in compare.items" :key="item.id">
-            <img :src="item.main_image" :alt="item.name" :title="item.name" />
+          <li v-for="item in compare.items" :key="item.id" class="c-compare-bar__item">
+            <img :src="item.main_image" :alt="item.name" :title="item.name" >
             <button
               type="button"
               class="c-compare-bar__remove"

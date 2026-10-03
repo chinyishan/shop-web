@@ -1,12 +1,12 @@
 <template>
-  <div class="l-page p-brand" v-if="info">
+  <div v-if="info" class="l-page p-brand">
     <SwipersBanner :info="info.modules?.carousel" />
     <Breadcrumb />
 
     <!-- 品牌故事 ............................................................. -->
     <section
-      class="c-section c-section--flush-top p-brand__story"
       v-if="info.brand_story"
+      class="c-section c-section--flush-top p-brand__story"
     >
       <div class="c-section__inner">
         <div class="p-brand__story-row">
@@ -16,7 +16,7 @@
                 :src="info.brand_story.image"
                 :alt="info.brand_story.title"
                 :title="info.brand_story.title"
-              />
+              >
             </div>
           </div>
           <div class="p-brand__story-body">
@@ -29,14 +29,14 @@
     </section>
 
     <!-- 商品列表 ............................................................. -->
-    <section class="c-section c-section--tint p-brand__products" v-if="products.length">
+    <section v-if="products.length" class="c-section c-section--tint p-brand__products">
       <div class="c-section__inner">
         <div class="c-section__head">
           <div>
             <span class="c-section__eyebrow">Products</span>
             <h2 class="c-section__title">商品列表</h2>
           </div>
-          <div class="c-section__action" v-if="info.modules?.products_list?.more">
+          <div v-if="info.modules?.products_list?.more" class="c-section__action">
             <NuxtLink class="c-link-more" :to="`/products/${brandId}/detail?category=products`">
               <span>全部商品</span>
               <span class="c-link-more__arrow">→</span>
@@ -53,14 +53,14 @@
     </section>
 
     <!-- 好評回饋 ............................................................. -->
-    <section class="c-section p-brand__reviews" v-if="reviews.length">
+    <section v-if="reviews.length" class="c-section p-brand__reviews">
       <div class="c-section__inner c-section__inner--narrow">
         <div class="c-section__head">
           <div>
             <span class="c-section__eyebrow">Voices</span>
             <h2 class="c-section__title">好評回饋</h2>
           </div>
-          <div class="c-section__action" v-if="info.modules?.carousel_reviews?.more">
+          <div v-if="info.modules?.carousel_reviews?.more" class="c-section__action">
             <NuxtLink class="c-link-more" :to="`/products/${brandId}/detail?category=reviews`">
               <span>更多回饋</span>
               <span class="c-link-more__arrow">→</span>

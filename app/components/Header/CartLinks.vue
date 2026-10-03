@@ -7,7 +7,7 @@
       />
     </svg>
     <ClientOnly>
-      <span class="l-header__cart-badge" v-if="wishlist.count">{{ wishlist.count }}</span>
+      <span v-if="wishlist.count" class="l-header__cart-badge">{{ wishlist.count }}</span>
     </ClientOnly>
   </NuxtLink>
 
@@ -20,7 +20,7 @@
       <path d="M9.5 8a2.5 2.5 0 0 1 5 0" stroke-linecap="round" />
     </svg>
     <ClientOnly>
-      <span class="l-header__cart-badge" v-if="cart.count">{{ cart.count }}</span>
+      <span v-if="cart.count" class="l-header__cart-badge">{{ cart.count }}</span>
     </ClientOnly>
   </NuxtLink>
 </template>

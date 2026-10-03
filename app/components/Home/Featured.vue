@@ -6,7 +6,7 @@
           <span class="c-section__eyebrow">Products</span>
           <h2 class="c-section__title">精選商品</h2>
         </div>
-        <div class="c-section__action" v-if="data.more">
+        <div v-if="data.more" class="c-section__action">
           <NuxtLink class="c-link-more" to="/products/1/detail">
             <span>商品專區</span>
             <span class="c-link-more__arrow">→</span>

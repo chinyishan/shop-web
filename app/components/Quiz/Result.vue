@@ -6,7 +6,7 @@
       <p class="p-quiz__summary">{{ summary }}</p>
     </div>
 
-    <ul class="p-quiz__grid" v-if="results.length">
+    <ul v-if="results.length" class="p-quiz__grid">
       <li v-for="item in results" :key="item.id">
         <ProductCard :item="item" />
         <ul class="p-quiz__reasons">
@@ -14,10 +14,10 @@
         </ul>
       </li>
     </ul>
-    <p class="c-empty" v-else>找不到完全符合的商品，建議放寬預算再試一次。</p>
+    <p v-else class="c-empty">找不到完全符合的商品，建議放寬預算再試一次。</p>
 
     <div class="p-quiz__result-actions">
-      <button type="button" class="c-btn" @click="onAddAll" v-if="results.length">
+      <button v-if="results.length" type="button" class="c-btn" @click="onAddAll">
         推薦商品全部加入購物車
       </button>
       <button type="button" class="c-btn c-btn--ghost" @click="emit('restart')">

@@ -13,7 +13,7 @@
     <section class="c-section c-section--flush-top">
       <div class="c-section__inner c-section__inner--narrow">
         <!-- 問題 -->
-        <div class="p-quiz__card" v-if="!finished">
+        <div v-if="!finished" class="p-quiz__card">
           <div class="p-quiz__progress">
             <span class="p-quiz__step">
               {{ stepIndex + 1 }} / {{ questions.length }}
@@ -24,7 +24,7 @@
           </div>
 
           <h2 class="p-quiz__question">{{ currentQuestion.title }}</h2>
-          <p class="p-quiz__hint" v-if="currentQuestion.hint">
+          <p v-if="currentQuestion.hint" class="p-quiz__hint">
             {{ currentQuestion.hint }}
           </p>
 
@@ -46,9 +46,9 @@
 
           <div class="p-quiz__actions">
             <button
+              v-if="stepIndex > 0"
               type="button"
               class="p-quiz__back"
-              v-if="stepIndex > 0"
               @click="stepIndex--"
             >
               ← 上一題
@@ -111,7 +111,7 @@ const questions = computed(() => [
 ]);
 
 const stepIndex = ref(0);
-const answers = reactive({});
+const answers = ref({});
 const finished = ref(false);
 const results = ref([]);
 
@@ -122,22 +122,22 @@ const progress = computed(
 
 const summary = computed(() => {
   const effect = (resource.value.effects ?? []).find(
-    (tag) => tag.key === answers.effect
+    (tag) => tag.key === answers.value.effect
   )?.label;
   const audience = (resource.value.audiences ?? []).find(
-    (tag) => tag.key === answers.audience
+    (tag) => tag.key === answers.value.audience
   )?.label;
   const budget = { low: "1,000 元以下", mid: "1,000-2,500 元", high: "2,500 元以上" }[
-    answers.budget
+    answers.value.budget
   ];
 
   return `${audience ?? "你"}・${effect ?? "日常保健"}・預算 ${budget ?? "不限"}${
-    answers.vegan ? "・素食可食" : ""
+    answers.value.vegan ? "・素食可食" : ""
   }`;
 });
 
 const onSelect = (value) => {
-  answers[currentQuestion.value.key] = value;
+  answers.value[currentQuestion.value.key] = value;
 
   if (stepIndex.value < questions.value.length - 1) {
     stepIndex.value += 1;
@@ -147,14 +147,14 @@ const onSelect = (value) => {
 };
 
 const fetchResults = async () => {
-  const { effect, audience, budget, vegan } = answers;
+  const { effect, audience, budget, vegan } = answers.value;
   const res = await $fetch("/api/products/recommend", { query: { effect, audience, budget, vegan } });
   results.value = res.result?.data ?? [];
   finished.value = true;
 };
 
 const onRestart = () => {
-  Object.keys(answers).forEach((key) => delete answers[key]);
+  answers.value = {};
   stepIndex.value = 0;
   results.value = [];
   finished.value = false;

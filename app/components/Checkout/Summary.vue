@@ -3,13 +3,13 @@
     <h2 class="p-checkout__summary-title">訂單明細</h2>
 
     <ul class="p-checkout__items">
-      <li class="p-checkout__item" v-for="item in cart.items" :key="item.key">
+      <li v-for="item in cart.items" :key="item.key" class="p-checkout__item">
         <span class="p-checkout__item-media">
-          <img :src="item.image" :alt="item.name" :title="item.name" />
+          <img :src="item.image" :alt="item.name" :title="item.name" >
         </span>
         <span class="p-checkout__item-body">
           <span class="p-checkout__item-name">{{ item.name }}</span>
-          <span class="p-checkout__item-spec" v-if="item.spec_label">
+          <span v-if="item.spec_label" class="p-checkout__item-spec">
             {{ item.spec_label }}
           </span>
           <span class="p-checkout__item-qty">× {{ item.qty }}</span>
@@ -28,7 +28,7 @@
         <dt>商品小計</dt>
         <dd>{{ formatPrice(cart.subtotal) }}</dd>
       </div>
-      <div class="p-checkout__amount-row" v-if="discount">
+      <div v-if="discount" class="p-checkout__amount-row">
         <dt>優惠折抵</dt>
         <dd class="p-checkout__amount-row--discount">
           -{{ formatPrice(discount) }}

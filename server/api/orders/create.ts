@@ -1,10 +1,16 @@
+interface OrderItem {
+  price?: number | string;
+  qty?: number | string;
+  [key: string]: unknown;
+}
+
 export default defineEventHandler(async (event) => {
   if (event.node.req.method !== "POST") {
     throw createError({ statusCode: 405, message: "Method Not Allowed" });
   }
 
   const body = await readBody(event);
-  const items = Array.isArray(body?.items) ? body.items : [];
+  const items: OrderItem[] = Array.isArray(body?.items) ? body.items : [];
 
   const subtotal = items.reduce(
     (total, item) => total + Number(item.price || 0) * Number(item.qty || 0),

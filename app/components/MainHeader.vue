@@ -5,12 +5,12 @@
     <div class="l-header__inner">
       <NuxtLink class="l-header__brand" to="/">
         <span class="l-header__logo">
-          <img :src="logoSrc" :alt="siteName" :title="siteName" />
+          <img :src="logoSrc" :alt="siteName" :title="siteName" >
         </span>
-        <span class="l-header__slogan" v-if="slogan">{{ slogan }}</span>
+        <span v-if="slogan" class="l-header__slogan">{{ slogan }}</span>
       </NuxtLink>
 
-      <nav class="l-header__nav" v-if="!maintenanceMode">
+      <nav v-if="!maintenanceMode" class="l-header__nav">
         <HeaderMenu />
 
         <HeaderSearch />
@@ -23,7 +23,7 @@
           :class="{ 'l-header__burger--is-open': menuOpen }"
           @click="onToggleBurger"
         >
-          <span></span><span></span><span></span>
+          <span/><span/><span/>
         </button>
       </nav>
     </div>

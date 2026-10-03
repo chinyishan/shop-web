@@ -1,6 +1,15 @@
-export const mockOk = (result) => ({ success: true, result });
+import type { ApiResponse, Paginated } from "#shared/types/api";
+import type { SeoMeta } from "#shared/types/site";
 
-export const mockPaginate = (items, query = {}, defaultPerPage = 10) => {
+
+
+export const mockOk = <T>(result: T): ApiResponse<T> => ({ success: true, result });
+
+export const mockPaginate = <T>(
+  items: T[],
+  query: Record<string, unknown> = {},
+  defaultPerPage = 10,
+): Paginated<T> => {
   const perPage = Number(query.per_page) > 0 ? Number(query.per_page) : defaultPerPage;
   const page = Number(query.page) > 0 ? Number(query.page) : 1;
   const start = (page - 1) * perPage;
@@ -16,14 +25,14 @@ export const mockPaginate = (items, query = {}, defaultPerPage = 10) => {
   };
 };
 
-export const mockSeo = (title, description) => ({
+export const mockSeo = (title: string, description: string): Required<SeoMeta> => ({
   title,
   description,
   keywords: `HealthLab,健康實驗室,保健食品,${title}`,
   url: "https://healthlab.example.com",
 });
 
-export const mockBanner = (image, imageM, alt) => ({
+export const mockBanner = (image: string, imageM: string | null | undefined, alt: string) => ({
   image,
   image_m: imageM ?? image,
   url: "",

@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-contact" v-if="pageInfo?.attribute_data">
+  <div v-if="pageInfo?.attribute_data" class="l-page p-contact">
     <SwipersBanner :info="pageInfo.attribute_data?.carousel" />
     <Breadcrumb />
 
@@ -11,11 +11,11 @@
             <span class="c-section__eyebrow">Contact</span>
             <h1 class="c-section__title">聯絡資訊</h1>
             <p class="p-contact__note">
-              有商品、訂單或合作方面的問題，填寫右側表單，<br />
+              有商品、訂單或合作方面的問題，填寫右側表單，<br >
               客服人員會在三個工作天內回覆你。
             </p>
 
-            <dl class="p-contact__info" v-if="footer">
+            <dl v-if="footer" class="p-contact__info">
               <div class="p-contact__info-row">
                 <dt>免付費客服電話</dt>
                 <dd>{{ footer.phone }}</dd>
@@ -25,7 +25,7 @@
                 <dd>
                   {{ footer.am_start }}~{{ footer.am_end }}、{{ footer.pm_start }}~{{
                     footer.pm_end
-                  }}<br />
+                  }}<br >
                   <span class="p-contact__memo">週一至週五（例假日及國定假期休息）</span>
                 </dd>
               </div>
@@ -33,7 +33,7 @@
 
             <div class="p-contact__media">
               <div class="c-figure c-figure--square">
-                <img :src="resource.contact_image" title="聯絡資訊" alt="聯絡資訊" />
+                <img :src="resource.contact_image" title="聯絡資訊" alt="聯絡資訊" >
               </div>
             </div>
           </div>
@@ -105,8 +105,8 @@
                 ]"
               >
                 <el-input
-                  type="textarea"
                   v-model="form.content"
+                  type="textarea"
                   :rows="10"
                   :disabled="loading"
                   placeholder="請輸入至多 1000 字"

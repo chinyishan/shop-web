@@ -9,10 +9,10 @@
       </div>
 
       <div class="p-home__brand-list">
-        <article class="p-home__brand" v-for="brand in brands" :key="brand.id">
+        <article v-for="brand in brands" :key="brand.id" class="p-home__brand">
           <NuxtLink class="p-home__brand-media" :to="`/brands/${brand.id}`">
             <div class="c-figure">
-              <img :src="brand.logo" :alt="brand.name" :title="brand.name" />
+              <img :src="brand.logo" :alt="brand.name" :title="brand.name" >
             </div>
           </NuxtLink>
 
@@ -22,9 +22,9 @@
 
             <ul class="p-home__brand-products">
               <li
-                class="p-home__brand-product"
                 v-for="product in brand.products"
                 :key="product.id"
+                class="p-home__brand-product"
               >
                 <NuxtLink
                   class="c-product"
@@ -35,7 +35,7 @@
                       :src="product.image"
                       :alt="product.name"
                       :title="product.name"
-                    />
+                    >
                   </div>
                   <h4 class="c-product__name">{{ product.name }}</h4>
                   <Price :value="product.price" :origin="product.origin_price" size="sm" />

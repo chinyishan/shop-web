@@ -1,5 +1,5 @@
 <template>
-  <ProductView :productInfo="productInfo" />
+  <ProductView :product-info="productInfo" />
 </template>
 
 <script setup>

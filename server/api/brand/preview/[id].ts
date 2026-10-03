@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
   const id = getRouterParam(event, "id");
 
-  return mockBrandPage(id);
+  return mockOk(mockBrandPage(id));
 });

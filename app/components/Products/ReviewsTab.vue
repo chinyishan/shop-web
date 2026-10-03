@@ -5,7 +5,7 @@
       <h2 class="c-section__title">好評回饋</h2>
     </div>
 
-    <ul class="p-products__reviews" v-if="reviewsData?.length">
+    <ul v-if="reviewsData?.length" class="p-products__reviews">
       <ReviewCard
         v-for="item in reviewsData"
         :key="item.id"
@@ -18,12 +18,12 @@
         :product-link="`/products/${brandId}/product/${item.product_id}`"
       />
     </ul>
-    <p class="c-empty" v-else>目前沒有回饋資料</p>
+    <p v-else class="c-empty">目前沒有回饋資料</p>
 
     <Pagination
-      :propPageInfo="reviewsPage"
-      @clickHandler="onReviewsPageChange"
       v-if="reviewsPage.total / reviewsPage.perPage > 1"
+      :prop-page-info="reviewsPage"
+      @click-handler="onReviewsPageChange"
     />
   </div>
 </template>

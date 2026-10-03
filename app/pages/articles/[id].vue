@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-articles" v-if="pageInfo?.attribute_data">
+  <div v-if="pageInfo?.attribute_data" class="l-page p-articles">
     <SwipersBanner :info="pageInfo.attribute_data.carousel" />
     <Breadcrumb />
 
@@ -10,7 +10,7 @@
           <aside class="c-sidenav p-articles__aside">
             <p class="c-sidenav__title">Journal</p>
             <ul class="c-sidenav__list">
-              <li class="c-sidenav__item" v-for="item in toggleOptions" :key="item.key">
+              <li v-for="item in toggleOptions" :key="item.key" class="c-sidenav__item">
                 <button
                   type="button"
                   class="c-sidenav__link"
@@ -31,7 +31,7 @@
             </div>
 
             <div v-loading="loading">
-              <ul class="p-articles__grid" v-if="articleList.length">
+              <ul v-if="articleList.length" class="p-articles__grid">
                 <li v-for="article in articleList" :key="article.id">
                   <NuxtLink
                     class="c-card"
@@ -47,14 +47,14 @@
                           :alt="article.title"
                           :title="article.title"
                           @error="onImageError"
-                        />
+                        >
                       </div>
                     </div>
                     <div class="c-card__meta">
                       <span
-                        class="c-tag"
                         v-for="(item, index) in article.categories"
                         :key="index"
+                        class="c-tag"
                         >{{ item.name }}</span
                       >
                       <time>{{ article.published_at }}</time>
@@ -64,13 +64,13 @@
                   </NuxtLink>
                 </li>
               </ul>
-              <p class="c-empty" v-else-if="!loading">目前沒有文章</p>
+              <p v-else-if="!loading" class="c-empty">目前沒有文章</p>
             </div>
 
             <Pagination
               v-if="paginateInfo.total / paginateInfo.perPage > 1"
-              :propPageInfo="paginateInfo"
-              @clickHandler="onPageChange"
+              :prop-page-info="paginateInfo"
+              @click-handler="onPageChange"
             />
           </div>
         </div>

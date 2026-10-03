@@ -15,19 +15,19 @@
         <!-- 查詢 -->
         <form class="p-orders__search" @submit.prevent="onSearch">
           <input
+            v-model="keyword"
             class="p-orders__input"
             type="text"
-            v-model="keyword"
             placeholder="請輸入訂單編號，例如 HL202610021234"
-          />
+          >
           <button type="submit" class="c-btn c-btn--sm">查詢</button>
         </form>
 
         <ClientOnly>
           <!-- 查詢結果 -->
-          <div class="p-orders__result" v-if="searched">
-            <p class="c-empty" v-if="!matched">找不到這筆訂單，請確認編號是否正確。</p>
-            <article class="p-orders__card" v-else>
+          <div v-if="searched" class="p-orders__result">
+            <p v-if="!matched" class="c-empty">找不到這筆訂單，請確認編號是否正確。</p>
+            <article v-else class="p-orders__card">
               <p class="p-orders__found">查詢結果</p>
               <OrderCard :order="matched" />
             </article>
@@ -37,14 +37,14 @@
           <div class="p-orders__history">
             <h2 class="p-orders__subtitle">我的訂購紀錄</h2>
 
-            <ul class="p-orders__list" v-if="!orders.isEmpty">
+            <ul v-if="!orders.isEmpty" class="p-orders__list">
               <li v-for="order in orders.items" :key="order.order_no">
                 <OrderCard :order="order" />
               </li>
             </ul>
-            <p class="c-empty" v-else>這台裝置還沒有訂購紀錄。</p>
+            <p v-else class="c-empty">這台裝置還沒有訂購紀錄。</p>
 
-            <div class="p-orders__foot" v-if="!orders.isEmpty">
+            <div v-if="!orders.isEmpty" class="p-orders__foot">
               <button type="button" class="p-orders__clear" @click="onClear">
                 清除本機紀錄
               </button>

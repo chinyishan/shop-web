@@ -1,10 +1,10 @@
 <template>
   <div class="fixed-view" style="background-color: white">
-    <div class="left-triangle"></div>
+    <div class="left-triangle"/>
     <transition name="fade">
-      <div class="center" v-if="titleStyle['--title-2-padding-right']">
+      <div v-if="titleStyle['--title-2-padding-right']" class="center">
         <div class="image">
-          <img src="@/assets/images/picture/fixed.png" />
+          <img src="@/assets/images/picture/fixed.png" >
         </div>
 
         <div class="content" :style="titleStyle">
@@ -12,17 +12,17 @@
           <div class="second-title">
             暫不開放
             <div class="logo">
-              <img src="/logo.svg" alt="HealthLab 健康實驗室" />
+              <img src="/logo.svg" alt="HealthLab 健康實驗室" >
             </div>
             <div class="leaf">
-              <img src="@/assets/images/picture/leafLeft.png" alt="" />
+              <img src="@/assets/images/picture/leafLeft.png" alt="" >
             </div>
           </div>
         </div>
       </div>
     </transition>
     <div class="right-triangle" style="">
-      <div class="item"></div>
+      <div class="item"/>
     </div>
   </div>
 </template>

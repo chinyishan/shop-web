@@ -20,11 +20,11 @@
 
     <!-- 免運進度 -->
     <div class="p-cart__progress">
-      <p class="p-cart__hint" v-if="shipping">
+      <p v-if="shipping" class="p-cart__hint">
         再消費 <strong>{{ formatPrice(FREE_SHIPPING_THRESHOLD - cart.subtotal) }}</strong>
         即可享免運
       </p>
-      <p class="p-cart__hint p-cart__hint--done" v-else>已達免運門檻 🎉</p>
+      <p v-else class="p-cart__hint p-cart__hint--done">已達免運門檻 🎉</p>
       <div class="p-cart__bar">
         <span class="p-cart__bar-fill" :style="{ width: `${shippingProgress}%` }" />
       </div>

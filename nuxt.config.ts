@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    "@nuxt/eslint",
     "@element-plus/nuxt",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
@@ -57,7 +58,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-        { rel: "alternate icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico", sizes: "any" },
         { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       ],
     },

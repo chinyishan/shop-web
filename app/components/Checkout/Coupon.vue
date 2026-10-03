@@ -1,14 +1,14 @@
 <template>
   <div class="p-checkout__coupon">
-    <div class="p-checkout__coupon-row" v-if="!coupon">
+    <div v-if="!coupon" class="p-checkout__coupon-row">
       <input
+        v-model="couponCode"
         class="p-checkout__coupon-input"
         type="text"
-        v-model="couponCode"
         placeholder="輸入優惠碼"
         :disabled="couponLoading"
         @keyup.enter="onApplyCoupon"
-      />
+      >
       <button
         type="button"
         class="p-checkout__coupon-btn"
@@ -18,7 +18,7 @@
         套用
       </button>
     </div>
-    <div class="p-checkout__coupon-applied" v-else>
+    <div v-else class="p-checkout__coupon-applied">
       <span>
         <strong>{{ coupon.code }}</strong>
         {{ coupon.label }}

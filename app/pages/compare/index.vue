@@ -23,7 +23,7 @@
                           class="p-compare__media"
                           :to="`/products/${item.brand_id}/product/${item.id}`"
                         >
-                          <img :src="item.main_image" :alt="item.name" :title="item.name" />
+                          <img :src="item.main_image" :alt="item.name" :title="item.name" >
                         </NuxtLink>
                         <NuxtLink
                           class="p-compare__name"
@@ -64,9 +64,9 @@
                     <th class="p-compare__label">功效</th>
                     <td v-for="item in compare.items" :key="item.id">
                       <span
-                        class="c-tag"
                         v-for="label in item.effect_labels"
                         :key="label"
+                        class="c-tag"
                         >{{ label }}</span
                       >
                     </td>
@@ -101,7 +101,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <th class="p-compare__label"></th>
+                    <th class="p-compare__label"/>
                     <td v-for="item in compare.items" :key="item.id">
                       <CartQuickAdd :product="item" />
                     </td>
@@ -117,7 +117,7 @@
             </div>
           </template>
 
-          <div class="p-compare__empty" v-else>
+          <div v-else class="p-compare__empty">
             <p class="c-empty">還沒有加入比較的商品，點商品圖上的比較圖示即可加入。</p>
             <NuxtLink class="c-btn c-btn--ghost" to="/products/1/detail">去挑選商品</NuxtLink>
           </div>

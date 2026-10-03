@@ -6,7 +6,7 @@
           <span class="c-section__eyebrow">Journal</span>
           <h2 class="c-section__title">資訊專欄</h2>
         </div>
-        <div class="c-section__action" v-if="data.more">
+        <div v-if="data.more" class="c-section__action">
           <NuxtLink class="c-link-more" to="/articles/all">
             <span>所有文章</span>
             <span class="c-link-more__arrow">→</span>
@@ -25,7 +25,7 @@
           >
             <div class="c-card__media">
               <div class="c-figure">
-                <img :src="item.main_image" :alt="item.title" :title="item.title" />
+                <img :src="item.main_image" :alt="item.title" :title="item.title" >
               </div>
             </div>
             <div class="c-card__meta">

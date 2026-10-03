@@ -1,17 +1,17 @@
 <template>
-  <section class="c-addon" v-if="items.length">
+  <section v-if="items.length" class="c-addon">
     <header class="c-addon__head">
       <h2 class="c-addon__title">常一起購買</h2>
       <p class="c-addon__note">結帳前加購享 85 折，省下的運費也一起省</p>
     </header>
 
     <ul class="c-addon__list">
-      <li class="c-addon__item" v-for="item in items" :key="item.id">
+      <li v-for="item in items" :key="item.id" class="c-addon__item">
         <NuxtLink
           class="c-addon__media"
           :to="`/products/${item.brand_id}/product/${item.id}`"
         >
-          <img :src="item.main_image" :alt="item.name" :title="item.name" />
+          <img :src="item.main_image" :alt="item.name" :title="item.name" >
         </NuxtLink>
 
         <div class="c-addon__body">

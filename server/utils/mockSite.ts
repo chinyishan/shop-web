@@ -55,7 +55,7 @@ export const mockNavbar = () => ({
   article_categories: mockArticleCategories(),
 });
 
-const pageBanner = (image, alt) => ({
+const pageBanner = (image: string, alt: string) => ({
   items: [mockBanner(image, image, alt)],
 });
 
@@ -90,7 +90,7 @@ export const mockPages = () => ({
             const products = mockProductList(brand.id);
             return [products[brandIndex], products[brandIndex + 8]];
           })
-          .filter(Boolean)
+          .filter((product) => product !== undefined)
           .map(mockProductCard),
       },
       carousel_article: {
@@ -181,7 +181,7 @@ export const mockBrandCards = () =>
   }));
 
 /** 單一品牌頁（/brands/:id） */
-export const mockBrandPage = (id) => {
+export const mockBrandPage = (id: unknown) => {
   const brand = mockBrandById(id);
   if (!brand) return null;
 
@@ -205,7 +205,7 @@ export const mockBrandPage = (id) => {
 };
 
 /** 商品專區頁（/products/:brandId/detail） */
-export const mockProductPage = (brandId) => {
+export const mockProductPage = (brandId: unknown) => {
   const brand = mockBrandById(brandId);
   if (!brand) return null;
 

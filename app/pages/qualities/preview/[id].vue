@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-quality" v-if="qualityInfo">
+  <div v-if="qualityInfo" class="l-page p-quality">
     <SwipersBanner :info="qualityInfo?.page_modules?.carousel" />
     <Breadcrumb />
 
@@ -11,7 +11,7 @@
     <section class="c-section c-section--flush-top">
       <div class="c-section__inner c-section__inner--narrow">
         <div class="c-prose">
-          <Editor :html="qualityInfo.modules?.editor?.content"></Editor>
+          <Editor :html="qualityInfo.modules?.editor?.content"/>
         </div>
       </div>
     </section>

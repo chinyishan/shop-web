@@ -1,6 +1,9 @@
+import type { BrandDef, Product, ProductCard, ProductQuery, ProductSpec, Review, Tag } from "#shared/types/catalog";
 import { mockSeo } from "./mockShared";
 
-const BRAND_DEFS = [
+type Id = unknown;
+
+const BRAND_DEFS: BrandDef[] = [
   {
     id: 1,
     name: "森林綠萃 GreenLab",
@@ -77,7 +80,7 @@ const PRODUCT_NAMES = [
 ];
 
 /** 功效分類（對應商品名稱順序） */
-const EFFECT_TAGS = [
+const EFFECT_TAGS: Tag[] = [
   { key: "energy", label: "活力補給" },
   { key: "eye", label: "晶亮有神" },
   { key: "circulation", label: "循環代謝" },
@@ -88,7 +91,7 @@ const EFFECT_TAGS = [
 ];
 
 /** 適用族群 */
-const AUDIENCE_TAGS = [
+const AUDIENCE_TAGS: Tag[] = [
   { key: "women", label: "女性保健" },
   { key: "men", label: "男性保健" },
   { key: "senior", label: "熟齡銀髮" },
@@ -97,7 +100,7 @@ const AUDIENCE_TAGS = [
 ];
 
 /** 每個商品名稱對應的功效與族群 */
-const PRODUCT_TAGS = [
+const PRODUCT_TAGS: { effects: string[]; audiences: string[] }[] = [
   { effects: ["energy"], audiences: ["worker", "family"] },
   { effects: ["eye"], audiences: ["worker"] },
   { effects: ["circulation"], audiences: ["senior", "men"] },
@@ -157,13 +160,13 @@ const REVIEW_CONTENTS = [
 
 export const mockBrandList = () => BRAND_DEFS.map((brand) => ({ ...brand }));
 
-export const mockBrandById = (id) =>
+export const mockBrandById = (id: Id) =>
   BRAND_DEFS.find((brand) => brand.id === Number(id)) ?? null;
 
-const productDescription = (brand, name) =>
+const productDescription = (brand: BrandDef, name: string) =>
   `${name} 採用 ${brand.name} 嚴選原料，經第三方實驗室逐批檢驗。\n每日建議份量即可補足日常所需，無添加人工香料與防腐劑。\n適合長期忙碌、外食頻率高、想要維持日常保養習慣的你。`;
 
-const productDetailHtml = (brand, name) => `
+const productDetailHtml = (brand: BrandDef, name: string) => `
 <h3>${name}</h3>
 <p>${brand.description}</p>
 <img src="/mock/editor-lab.svg" alt="${name}" />
@@ -177,7 +180,7 @@ const productDetailHtml = (brand, name) => `
 <p>每日 1 份，建議於餐後搭配常溫開水食用。孕婦、哺乳中及慢性疾病患者，請先諮詢醫師或營養師。</p>
 `;
 
-const productExamineHtml = (name) => `
+const productExamineHtml = (name: string) => `
 <h4>${name}・品質檢驗</h4>
 <p>本產品每一批次皆送交 TAF 認證實驗室檢驗，項目涵蓋重金屬、塑化劑、微生物與農藥殘留。</p>
 <img src="/mock/editor-report.svg" alt="檢驗報告" />
@@ -192,7 +195,7 @@ const productExamineHtml = (name) => `
 </table>
 `;
 
-const productFormatHtml = (brand, name) => `
+const productFormatHtml = (brand: BrandDef, name: string) => `
 <h4>${name}・商品規格</h4>
 <ul>
   <li>品牌：${brand.name}</li>
@@ -206,7 +209,7 @@ const productFormatHtml = (brand, name) => `
 `;
 
 /** 以品項位置推出固定價格：580 ~ 2180，每 4 項有一項是特價 */
-const productPricing = (brandIndex, index) => {
+const productPricing = (brandIndex: number, index: number) => {
   const base = 580 + (((index * 7 + brandIndex * 3) % 17) * 100);
   const onSale = (index + brandIndex) % 4 === 0;
 
@@ -223,7 +226,7 @@ const SPEC_DEFS = [
   { suffix: "六盒組 180 份", multiple: 6, discount: 0.85 },
 ];
 
-const buildSpecs = (productId, price, originPrice, index) =>
+const buildSpecs = (productId: number, price: number, originPrice: number | null, index: number): ProductSpec[] =>
   SPEC_DEFS.map((spec, specIndex) => {
     const unit = Math.round((price * spec.multiple * spec.discount) / 10) * 10;
     const originUnit = originPrice
@@ -243,17 +246,17 @@ const buildSpecs = (productId, price, originPrice, index) =>
   });
 
 const buildProducts = () => {
-  const products = [];
+  const products: Product[] = [];
 
   BRAND_DEFS.forEach((brand, brandIndex) => {
     PRODUCT_NAMES.forEach((_, index) => {
-      const name = PRODUCT_NAMES[(index + brandIndex * 5) % PRODUCT_NAMES.length];
+      const name = PRODUCT_NAMES[(index + brandIndex * 5) % PRODUCT_NAMES.length]!;
       const id = brand.id * 100 + index + 1;
       const image = `/mock/product-${(index % 10) + 1}.svg`;
       const { price, origin_price } = productPricing(brandIndex, index);
       const specs = buildSpecs(id, price, origin_price, index);
       const nameIndex = (index + brandIndex * 5) % PRODUCT_NAMES.length;
-      const tags = PRODUCT_TAGS[nameIndex];
+      const tags = PRODUCT_TAGS[nameIndex]!;
 
       products.push({
         id,
@@ -288,16 +291,16 @@ const buildProducts = () => {
 
 const PRODUCTS = buildProducts();
 
-export const mockProductList = (brandId = null) =>
+export const mockProductList = (brandId: Id = null) =>
   brandId === null
     ? PRODUCTS
     : PRODUCTS.filter((product) => product.brand_id === Number(brandId));
 
-export const mockProductById = (id) =>
+export const mockProductById = (id: Id) =>
   PRODUCTS.find((product) => product.id === Number(id)) ?? null;
 
 /** 商品列表卡片用的欄位 */
-export const mockProductCard = (product) => ({
+export const mockProductCard = (product: Product): ProductCard => ({
   id: product.id,
   name: product.name,
   brand: product.brand,
@@ -318,11 +321,13 @@ export const mockProductCard = (product) => ({
   vegan: product.vegan,
 });
 
-const labelsOf = (tags, keys = []) =>
-  keys.map((key) => tags.find((tag) => tag.key === key)?.label).filter(Boolean);
+const labelsOf = (tags: Tag[], keys: string[] = []) =>
+  keys
+    .map((key) => tags.find((tag) => tag.key === key)?.label)
+    .filter((label): label is string => Boolean(label));
 
 /** 依條件篩選與排序 */
-export const mockFilterProducts = (products, query = {}) => {
+export const mockFilterProducts = (products: Product[], query: ProductQuery = {}) => {
   const { effect, audience, min_price, max_price, on_sale, in_stock, sort, keyword } =
     query;
 
@@ -375,7 +380,7 @@ export const mockFilterProducts = (products, query = {}) => {
 };
 
 /** 商品單頁完整結構 */
-export const mockProductDetail = (product) => ({
+export const mockProductDetail = (product: Product) => ({
   id: product.id,
   brand: product.brand,
   brand_id: product.brand_id,
@@ -402,18 +407,18 @@ export const mockProductDetail = (product) => ({
         .slice(0, 8)
         .map(mockProductCard),
     },
-    seo: mockSeo(product.name, product.description.split("\n")[0]),
+    seo: mockSeo(product.name, product.description.split("\n")[0] ?? ""),
   },
 });
 
 const buildReviews = () => {
-  const reviews = [];
+  const reviews: Review[] = [];
 
   BRAND_DEFS.forEach((brand) => {
     const brandProducts = mockProductList(brand.id);
 
     REVIEWERS.forEach((reviewer, index) => {
-      const product = brandProducts[index % brandProducts.length];
+      const product = brandProducts[index % brandProducts.length]!;
 
       reviews.push({
         id: brand.id * 1000 + index + 1,
@@ -422,7 +427,7 @@ const buildReviews = () => {
         user_name: reviewer.user,
         company: reviewer.company,
         career: reviewer.career,
-        content: REVIEW_CONTENTS[index % REVIEW_CONTENTS.length],
+        content: REVIEW_CONTENTS[index % REVIEW_CONTENTS.length]!,
         product_id: product.id,
         product_name: product.name,
         brand_id: brand.id,
@@ -435,13 +440,13 @@ const buildReviews = () => {
 
 const REVIEWS = buildReviews();
 
-export const mockReviewList = (brandId = null) =>
+export const mockReviewList = (brandId: Id = null) =>
   brandId === null
     ? REVIEWS
     : REVIEWS.filter((review) => review.brand_id === Number(brandId));
 
 /** 熱銷排行（後台為編輯器內容） */
-export const mockPopularHtml = (brandId) => {
+export const mockPopularHtml = (brandId: Id) => {
   const rows = mockProductList(brandId)
     .slice(0, 10)
     .map(

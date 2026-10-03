@@ -6,7 +6,7 @@
       <span class="c-page-head__eyebrow">Wishlist</span>
       <h1 class="c-page-head__title">收藏清單</h1>
       <ClientOnly>
-        <p class="c-page-head__lead" v-if="!wishlist.isEmpty">
+        <p v-if="!wishlist.isEmpty" class="c-page-head__lead">
           已收藏 {{ wishlist.count }} 項商品
         </p>
       </ClientOnly>
@@ -29,7 +29,7 @@
             </div>
           </template>
 
-          <div class="p-wishlist__empty" v-else>
+          <div v-else class="p-wishlist__empty">
             <p class="c-empty">還沒有收藏任何商品，點商品圖上的愛心就能收藏。</p>
             <NuxtLink class="c-btn c-btn--ghost" to="/products/1/detail">去逛逛商品</NuxtLink>
           </div>

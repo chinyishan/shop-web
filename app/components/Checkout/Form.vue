@@ -81,8 +81,8 @@
 
       <el-form-item label="訂單備註" prop="memo">
         <el-input
-          type="textarea"
           v-model="form.memo"
+          type="textarea"
           :rows="4"
           :disabled="loading"
           placeholder="有特殊需求可以在這裡告訴我們（選填）"

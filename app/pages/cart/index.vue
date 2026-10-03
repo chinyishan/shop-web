@@ -6,7 +6,7 @@
       <span class="c-page-head__eyebrow">Cart</span>
       <h1 class="c-page-head__title">購物車</h1>
       <ClientOnly>
-        <p class="c-page-head__lead" v-if="!cart.isEmpty">
+        <p v-if="!cart.isEmpty" class="c-page-head__lead">
           共 {{ cart.count }} 件商品
         </p>
       </ClientOnly>
@@ -15,16 +15,16 @@
     <section class="c-section c-section--flush-top">
       <div class="c-section__inner">
         <ClientOnly>
-          <div class="p-cart__layout" v-if="!cart.isEmpty">
+          <div v-if="!cart.isEmpty" class="p-cart__layout">
             <!-- 品項 .......................................................... -->
             <div class="p-cart__main">
             <ul class="p-cart__list">
-              <li class="p-cart__item" v-for="item in cart.items" :key="item.key">
+              <li v-for="item in cart.items" :key="item.key" class="p-cart__item">
                 <NuxtLink
                   class="p-cart__media"
                   :to="`/products/${item.brand_id}/product/${item.id}`"
                 >
-                  <img :src="item.image" :alt="item.name" :title="item.name" />
+                  <img :src="item.image" :alt="item.name" :title="item.name" >
                 </NuxtLink>
 
                 <div class="p-cart__body">
@@ -35,16 +35,16 @@
                     {{ item.name }}
                   </NuxtLink>
                   <p class="p-cart__brand">{{ item.brand }}</p>
-                  <p class="p-cart__spec" v-if="item.spec_label">{{ item.spec_label }}</p>
+                  <p v-if="item.spec_label" class="p-cart__spec">{{ item.spec_label }}</p>
                   <Price class="p-cart__unit" :value="item.price" size="sm" />
                 </div>
 
                 <div class="p-cart__control">
                   <CartStepper
-                    :modelValue="item.qty"
+                    :model-value="item.qty"
                     :max="item.stock ?? 99"
                     size="sm"
-                    @update:modelValue="(val) => cart.setQty(item.key, val)"
+                    @update:model-value="(val) => cart.setQty(item.key, val)"
                   />
                   <p class="p-cart__amount">{{ formatPrice(item.price * item.qty) }}</p>
                   <button
@@ -65,7 +65,7 @@
           </div>
 
           <!-- 空購物車 ........................................................ -->
-          <div class="p-cart__empty" v-else>
+          <div v-else class="p-cart__empty">
             <p class="c-empty">購物車還沒有商品</p>
             <NuxtLink class="c-btn c-btn--ghost" to="/products/1/detail">
               去逛逛商品

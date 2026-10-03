@@ -9,13 +9,15 @@ export function useSeo(page: PageKey | SeoMeta | undefined = "page-index", overr
   const pageSeo: SeoMeta = typeof page === "object" ? page : (site.page(page)?.attribute_data.seo ?? {});
   const pick = (key: keyof SeoMeta) => override[key] ?? pageSeo[key] ?? site.seo.value[key];
 
-  useHead({ title: pick("title") });
+  useHead({
+    title: pick("title"),
+    meta: [{ name: "keywords", content: pick("keywords") }],
+  });
   useSeoMeta({
     title: pick("title"),
     ogTitle: pick("title"),
     description: pick("description"),
     ogDescription: pick("description"),
-    keywords: pick("keywords"),
     ogUrl: pick("url"),
   });
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-article" v-if="info?.attribute_data">
+  <div v-if="info?.attribute_data" class="l-page p-article">
     <SwipersBanner :info="info.attribute_data?.carousel ?? fallbackCarousel" />
     <Breadcrumb />
 
@@ -9,7 +9,7 @@
         {{ info.attribute_data?.article_header?.title }}
       </h1>
       <div class="c-page-head__meta">
-        <span class="c-tag" v-for="(item, index) in info.categories" :key="index">
+        <span v-for="(item, index) in info.categories" :key="index" class="c-tag">
           {{ item.name }}
         </span>
         <time>{{ info.published_at }}</time>
@@ -19,13 +19,13 @@
     <section class="c-section c-section--flush-top p-article__body">
       <div class="c-section__inner c-section__inner--narrow">
         <div class="c-prose">
-          <Editor :html="info.attribute_data?.editor?.content"></Editor>
+          <Editor :html="info.attribute_data?.editor?.content"/>
         </div>
 
         <nav class="p-article__nav">
           <NuxtLink
-            class="p-article__nav-item p-article__nav-item--prev"
             v-if="prev"
+            class="p-article__nav-item p-article__nav-item--prev"
             :to="linkTo(prev.id)"
           >
             <span class="p-article__nav-label">← 上一篇</span>
@@ -33,13 +33,13 @@
               {{ prev.attribute_data?.article_header?.title }}
             </span>
           </NuxtLink>
-          <span class="p-article__nav-item p-article__nav-item--disabled" v-else>
+          <span v-else class="p-article__nav-item p-article__nav-item--disabled">
             <span class="p-article__nav-label">第一篇</span>
           </span>
 
           <NuxtLink
-            class="p-article__nav-item p-article__nav-item--next"
             v-if="next"
+            class="p-article__nav-item p-article__nav-item--next"
             :to="linkTo(next.id)"
           >
             <span class="p-article__nav-label">下一篇 →</span>
@@ -47,7 +47,7 @@
               {{ next.attribute_data?.article_header?.title }}
             </span>
           </NuxtLink>
-          <span class="p-article__nav-item p-article__nav-item--disabled" v-else>
+          <span v-else class="p-article__nav-item p-article__nav-item--disabled">
             <span class="p-article__nav-label">最後一篇</span>
           </span>
         </nav>

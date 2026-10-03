@@ -1,3 +1,5 @@
+import type { Product } from "#shared/types/catalog";
+
 export default defineEventHandler((event) => {
   const query = getQuery(event);
   const excludeIds = String(query.ids ?? "")
@@ -12,7 +14,7 @@ export default defineEventHandler((event) => {
   const effects = new Set(inCart.flatMap((product) => product.effects));
   const brands = new Set(inCart.map((product) => product.brand_id));
 
-  const score = (product) => {
+  const score = (product: Product) => {
     let value = 0;
     if (product.effects.some((key) => effects.has(key))) value += 2;
     if (brands.has(product.brand_id)) value += 1;

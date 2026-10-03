@@ -1,5 +1,5 @@
 <template>
-  <article class="c-order" v-if="order">
+  <article v-if="order" class="c-order">
     <header class="c-order__head">
       <div>
         <p class="c-order__no">{{ order.order_no }}</p>
@@ -9,13 +9,13 @@
     </header>
 
     <ul class="c-order__items">
-      <li class="c-order__item" v-for="item in order.items" :key="item.key ?? item.id">
+      <li v-for="item in order.items" :key="item.key ?? item.id" class="c-order__item">
         <span class="c-order__media">
-          <img :src="item.image" :alt="item.name" :title="item.name" />
+          <img :src="item.image" :alt="item.name" :title="item.name" >
         </span>
         <span class="c-order__body">
           <span class="c-order__name">{{ item.name }}</span>
-          <span class="c-order__spec" v-if="item.spec_label">{{ item.spec_label }}</span>
+          <span v-if="item.spec_label" class="c-order__spec">{{ item.spec_label }}</span>
           <span class="c-order__qty">× {{ item.qty }}</span>
         </span>
         <span class="c-order__amount">{{ formatPrice(item.price * item.qty) }}</span>
@@ -27,7 +27,7 @@
         <dt>商品小計</dt>
         <dd>{{ formatPrice(order.subtotal) }}</dd>
       </div>
-      <div class="c-order__row" v-if="order.discount">
+      <div v-if="order.discount" class="c-order__row">
         <dt>折扣（{{ order.coupon }}）</dt>
         <dd>-{{ formatPrice(order.discount) }}</dd>
       </div>
@@ -41,7 +41,7 @@
       </div>
     </dl>
 
-    <footer class="c-order__foot" v-if="order.delivery">
+    <footer v-if="order.delivery" class="c-order__foot">
       <p>{{ deliveryLabel }}｜{{ order.delivery.address }}</p>
       <p>{{ paymentLabel }}</p>
     </footer>

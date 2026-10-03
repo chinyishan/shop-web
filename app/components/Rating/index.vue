@@ -1,5 +1,5 @@
 <template>
-  <p class="c-rating" v-if="value">
+  <p v-if="value" class="c-rating">
     <span class="c-rating__stars" role="img" :aria-label="`評分 ${value} 分`">
       <span class="c-rating__fill" :style="{ width: `${percent}%` }" aria-hidden="true"
         >★★★★★</span
@@ -7,7 +7,7 @@
       <span class="c-rating__base" aria-hidden="true">★★★★★</span>
     </span>
     <span class="c-rating__value">{{ value.toFixed(1) }}</span>
-    <span class="c-rating__count" v-if="count">（{{ count }}）</span>
+    <span v-if="count" class="c-rating__count">（{{ count }}）</span>
   </p>
 </template>
 

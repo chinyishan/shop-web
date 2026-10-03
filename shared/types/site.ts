@@ -55,7 +55,7 @@ export interface PageConfig {
   attribute_data: {
     seo?: SeoMeta;
     // 各頁模組結構不同（輪播、精選商品…），由頁面自行取用
-    [module: string]: any;
+    [module: string]: unknown;
   };
 }
 

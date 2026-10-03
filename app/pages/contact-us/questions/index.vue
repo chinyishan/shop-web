@@ -1,5 +1,5 @@
 <template>
-  <div class="l-page p-qa" v-if="pageInfo?.attribute_data">
+  <div v-if="pageInfo?.attribute_data" class="l-page p-qa">
     <SwipersBanner :info="pageInfo.attribute_data?.carousel" />
     <Breadcrumb />
 
@@ -11,9 +11,9 @@
             <p class="c-sidenav__title">Q&amp;A</p>
             <ul class="c-sidenav__list">
               <li
-                class="c-sidenav__item"
                 v-for="item in resource.categories"
                 :key="item.key"
+                class="c-sidenav__item"
               >
                 <button
                   type="button"
@@ -34,12 +34,12 @@
               <h2 class="c-section__title">{{ getCategoryLabel() }}</h2>
             </div>
 
-            <ul class="p-qa__list" v-loading="loading">
+            <ul v-loading="loading" class="p-qa__list">
               <li
-                class="p-qa__item"
-                :class="{ 'p-qa__item--is-open': isOpen(item) }"
                 v-for="(item, index) in questionList"
                 :key="index"
+                class="p-qa__item"
+                :class="{ 'p-qa__item--is-open': isOpen(item) }"
               >
                 <button type="button" class="p-qa__question" @click="toggleClick(item)">
                   <span class="p-qa__index">Q{{ indexMethod(index + 1) }}</span>
@@ -49,18 +49,18 @@
                     <svgo-array-down v-show="!isOpen(item)" />
                   </span>
                 </button>
-                <div class="p-qa__answer" v-show="isOpen(item)">
+                <div v-show="isOpen(item)" class="p-qa__answer">
                   <div class="c-prose">
-                    <Editor :html="item.editor.content"></Editor>
+                    <Editor :html="item.editor.content"/>
                   </div>
                 </div>
               </li>
             </ul>
 
             <Pagination
-              :propPageInfo="paginateInfo"
-              @clickHandler="onPageChange"
               v-if="showPagination()"
+              :prop-page-info="paginateInfo"
+              @click-handler="onPageChange"
             />
           </div>
         </div>

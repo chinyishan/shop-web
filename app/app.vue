@@ -14,12 +14,12 @@ const { siteName, seo } = useSiteConfig();
 useHead({
   title: () => seo.value.title,
   titleTemplate: (title) => (title ? `${title} - ${siteName.value}` : siteName.value),
+  meta: [{ name: "keywords", content: () => seo.value.keywords ?? siteName.value }],
 });
 useSeoMeta({
   title: () => seo.value.title,
   ogTitle: () => seo.value.title,
   ogUrl: () => seo.value.url,
-  keywords: () => seo.value.keywords ?? siteName.value,
   description: () => seo.value.description,
   ogDescription: () => seo.value.description,
 });

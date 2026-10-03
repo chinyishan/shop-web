@@ -1,15 +1,15 @@
 <template>
   <div class="l-header__search" :class="{ 'l-header__search--is-open': searchOpen }">
     <input
+      ref="searchInputRef"
+      v-model="searchText"
       class="l-header__search-input"
       type="text"
       placeholder="輸入關鍵字"
-      v-model="searchText"
-      ref="searchInputRef"
       @keyup.enter="onSearch"
-    />
+    >
     <button type="button" class="l-header__search-btn" @click="onSearch">
-      <img src="@/assets/images/picture/search-icon-1.png" alt="搜尋" title="搜尋" />
+      <img src="@/assets/images/picture/search-icon-1.png" alt="搜尋" title="搜尋" >
     </button>
   </div>
 </template>

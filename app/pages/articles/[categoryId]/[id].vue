@@ -3,8 +3,8 @@
     :info="articleInfo"
     :prev="navigationInfo.prev"
     :next="navigationInfo.next"
-    :categoryId="categoryId"
-    :fallbackCarousel="pageInfo?.attribute_data?.carousel"
+    :category-id="categoryId"
+    :fallback-carousel="pageInfo?.attribute_data?.carousel"
   />
 </template>
 

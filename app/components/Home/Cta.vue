@@ -1,14 +1,14 @@
 <template>
   <section class="p-home__cta" >
     <NuxtLink
-      class="p-home__cta-item"
       v-for="(item, index) in data.items"
       :key="index"
+      class="p-home__cta-item"
       to="/qualities/3"
     >
       <picture>
-        <source :srcset="item.image" media="(min-width: 769px)" />
-        <img :src="item.image_m" alt="HealthLab" title="HealthLab" />
+        <source :srcset="item.image" media="(min-width: 769px)" >
+        <img :src="item.image_m" alt="HealthLab" title="HealthLab" >
       </picture>
     </NuxtLink>
   </section>

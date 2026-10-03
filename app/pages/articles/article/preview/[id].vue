@@ -4,7 +4,7 @@
     :prev="navigationInfo.prev"
     :next="navigationInfo.next"
     preview
-    :fallbackCarousel="pageInfo?.attribute_data?.carousel"
+    :fallback-carousel="pageInfo?.attribute_data?.carousel"
   />
 </template>
 

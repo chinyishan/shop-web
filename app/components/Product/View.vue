@@ -1,10 +1,10 @@
 <template>
-  <div class="l-page p-product" v-if="productInfo">
+  <div v-if="productInfo" class="l-page p-product">
     <Breadcrumb />
 
     <section class="c-section c-section--flush-top p-product__hero">
       <div class="c-section__inner">
-        <Commodity :productInfo="productInfo" />
+        <Commodity :product-info="productInfo" />
       </div>
     </section>
 
@@ -26,14 +26,14 @@
 
         <div class="p-product__panel">
           <div class="c-prose">
-            <Editor :html="panelHtml"></Editor>
+            <Editor :html="panelHtml"/>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 好評推薦 .............................................................. -->
-    <section class="c-section p-product__reviews" v-if="reviews.length">
+    <section v-if="reviews.length" class="c-section p-product__reviews">
       <div class="c-section__inner c-section__inner--narrow">
         <div class="c-section__head c-section__head--stack">
           <span class="c-section__eyebrow">Voices</span>
@@ -56,7 +56,7 @@
 
     <!-- 最近瀏覽 .............................................................. -->
     <ClientOnly>
-      <section class="c-section p-product__recent" v-if="recentItems.length">
+      <section v-if="recentItems.length" class="c-section p-product__recent">
         <div class="c-section__inner">
           <div class="c-section__head">
             <div>
@@ -75,7 +75,7 @@
     </ClientOnly>
 
     <!-- 相關商品 .............................................................. -->
-    <section class="c-section c-section--surface p-product__related" v-if="related.length">
+    <section v-if="related.length" class="c-section c-section--surface p-product__related">
       <div class="c-section__inner">
         <div class="c-section__head">
           <div>
