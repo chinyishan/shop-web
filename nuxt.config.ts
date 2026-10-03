@@ -4,30 +4,17 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  imports: {
-    dirs: ["stores"],
-  },
-
   devServer: {
     host: "0.0.0.0", // default: localhost
     port: 1212,
   },
 
-  modules: ["@element-plus/nuxt", "@nuxt/image", 'nuxt-svgo',[
-    "@pinia/nuxt",
-    {
-      autoImports: ["defineStore"],
-    },
-  ],],
+  modules: ["@element-plus/nuxt", "@pinia/nuxt", "nuxt-svgo"],
 
   svgo: {
     // svgo: false,
-    autoImportPath: './app/assets/images/icon/',
+    autoImportPath: './assets/images/icon/',
     defaultImport: 'component',
-  },
-
-  image: {
-    dir: "assets/images",
   },
 
   runtimeConfig: {
@@ -95,10 +82,6 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     renderJsonPayloads: true,
-  },
-
-  future: {
-    compatibilityVersion: 4,
   },
 
   compatibilityDate: "2026-09-13",

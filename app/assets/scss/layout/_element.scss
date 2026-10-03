@@ -1,4 +1,6 @@
-@import "element-plus/dist/index";
+@use "../var" as *;
+
+@use "element-plus/dist/index.css";
 
 .el-input {
   --el-input-focus-border-color: $primary !important;

@@ -1,3 +1,5 @@
+@use "../var" as *;
+
 // 全域 border-box：避免 width:100% 的元素被 padding/border 撐破版面
 *,
 *::before,

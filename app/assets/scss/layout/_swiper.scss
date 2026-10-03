@@ -1,11 +1,13 @@
+@use "../var" as *;
+
 //swiper
-@import "swiper/css";
-@import "swiper/css/autoplay";
-@import "swiper/css/navigation";
-@import "swiper/css/pagination";
-@import "swiper/css/effect-fade";
-@import "swiper/css/free-mode";
-@import "swiper/css/thumbs";
+@use "swiper/css";
+@use "swiper/css/autoplay";
+@use "swiper/css/navigation";
+@use "swiper/css/pagination";
+@use "swiper/css/effect-fade";
+@use "swiper/css/free-mode";
+@use "swiper/css/thumbs";
 
 :root {
   --swiper-navigation-size: 15px;

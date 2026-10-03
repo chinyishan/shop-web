@@ -1,16 +1,16 @@
 //base
-@import "base/reset";
-@import "base/font";
-@import "base/main";
+@use "base/reset";
+@use "base/font";
+@use "base/main";
 
 //components（BEM 共用元件）
-@import "components/section";
-@import "components/link";
-@import "components/tag";
-@import "components/card";
-@import "components/page";
-@import "components/commerce";
+@use "components/section";
+@use "components/link";
+@use "components/tag";
+@use "components/card";
+@use "components/page";
+@use "components/commerce";
 
 //layout
-@import "layout/swiper";
-@import "layout/element";
+@use "layout/swiper";
+@use "layout/element";
