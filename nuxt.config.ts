@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   },
 
   imports: {
-    dirs: ["store"],
+    dirs: ["stores"],
   },
 
   devServer: {
@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   svgo: {
     // svgo: false,
-    autoImportPath: './assets/images/icon/',
+    autoImportPath: './app/assets/images/icon/',
     defaultImport: 'component',
   },
 
@@ -95,6 +95,10 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     renderJsonPayloads: true,
+  },
+
+  future: {
+    compatibilityVersion: 4,
   },
 
   compatibilityDate: "2026-09-13",

@@ -16,7 +16,7 @@
     "@nuxt/image": "^1.1.0",
     "element-plus": "^2.4.2",
     "ipx": "^3.0.0",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.21.11",
     "nuxt-svgo": "^4.0.2",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
