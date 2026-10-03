@@ -69,24 +69,17 @@
         </div>
 
         <ul class="p-brand__review-list">
-          <li class="c-review" v-for="item in reviews" :key="item.id">
-            <div class="c-review__avatar">
-              <img :src="item.image" :alt="item.user_name" :title="item.user_name" />
-            </div>
-            <div class="c-review__body">
-              <NuxtLink
-                class="c-review__product"
-                :to="`/products/${item.brand_id}/product/${item.product_id}`"
-              >
-                {{ item.product_name }}
-              </NuxtLink>
-              <p class="c-review__text">{{ item.content }}</p>
-              <p class="c-review__person">
-                {{ item.user_name }}<Separator />{{ item.company }}<Separator
-                />{{ item.career }}
-              </p>
-            </div>
-          </li>
+          <ReviewCard
+            v-for="item in reviews"
+            :key="item.id"
+            :user="item.user_name"
+            :image="item.image"
+            :content="item.content"
+            :company="item.company"
+            :career="item.career"
+            :product-name="item.product_name"
+            :product-link="`/products/${item.brand_id}/product/${item.product_id}`"
+          />
         </ul>
       </div>
     </section>

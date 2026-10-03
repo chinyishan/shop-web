@@ -5,6 +5,8 @@ const PAGES = [
   ["home", "/"],
   ["brand", "/brands/1"],
   ["products", "/products/1/detail"],
+  ["products-reviews", "/products/1/detail?category=reviews"],
+  ["products-popular", "/products/1/detail?category=popular"],
   ["product", "/products/1/product/101"],
   ["articles", "/articles/all"],
   ["article", "/articles/all/1"],

@@ -9,28 +9,8 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  footer: {
-    type: Object,
-  },
-});
-
-const changeWhatsapp = computed(() => {
-  if (props.footer !== null) {
-    return props.footer?.whatsapp.match(/[0-9]/g).join("");
-  } else {
-    return null;
-  }
-});
-
 const scrollToTop = () => {
-  let top = document.documentElement.scrollTop;
-  const timeTop = setInterval(() => {
-    document.documentElement.scrollTop = top -= 50;
-    if (top <= 0) {
-      clearInterval(timeTop);
-    }
-  }, 5);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
 

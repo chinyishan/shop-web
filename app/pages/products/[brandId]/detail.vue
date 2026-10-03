@@ -84,41 +84,7 @@
               <p class="c-empty" v-else>目前沒有排行資料</p>
             </div>
 
-            <!-- 好評回饋 -->
-            <div v-if="toggle === 'reviews'">
-              <div class="c-section__head c-section__head--stack p-products__head">
-                <span class="c-section__eyebrow">Voices</span>
-                <h2 class="c-section__title">好評回饋</h2>
-              </div>
-
-              <ul class="p-products__reviews" v-if="reviewsData?.length">
-                <li class="c-review" v-for="item in reviewsData" :key="item.id">
-                  <div class="c-review__avatar">
-                    <img :src="item.image" :alt="item.user" :title="item.user" />
-                  </div>
-                  <div class="c-review__body">
-                    <NuxtLink
-                      class="c-review__product"
-                      :to="`/products/${brandId}/product/${item.product_id}`"
-                    >
-                      {{ item.product_name }}
-                    </NuxtLink>
-                    <p class="c-review__text">{{ item.content }}</p>
-                    <p class="c-review__person">
-                      {{ item.user }}<Separator />{{ item.company }}<Separator
-                      />{{ item.career }}
-                    </p>
-                  </div>
-                </li>
-              </ul>
-              <p class="c-empty" v-else>目前沒有回饋資料</p>
-
-              <Pagination
-                :propPageInfo="reviewsPage"
-                @clickHandler="onReviewsPageChange"
-                v-if="reviewsPage.total / reviewsPage.perPage > 1"
-              />
-            </div>
+            <ProductsReviewsTab v-if="toggle === 'reviews'" :brand-id="brandId" />
           </div>
         </div>
       </div>
@@ -197,20 +163,6 @@ const { data: popularData } = useFetch(`/api/products/${brandId}/popular`, {
   transform: (res) => res.result,
   server: false,
 });
-
-/** 好評回饋 */
-const reviewsPageNo = ref(1);
-const { data: reviews } = useFetch(`/api/products/${brandId}/reviews`, {
-  query: computed(() => ({ page: reviewsPageNo.value })),
-  transform: (res) => res.result,
-  server: false,
-});
-const reviewsData = computed(() => reviews.value?.data ?? []);
-const reviewsPage = computed(() => toPageInfo(reviews.value?.meta, 5));
-
-const onReviewsPageChange = ({ page }) => {
-  reviewsPageNo.value = page;
-};
 
 const onImageError = (event) => {
   event.target.src = noImage;
@@ -304,10 +256,6 @@ const onImageError = (event) => {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: $space-6 $space-4;
     }
-  }
-
-  &__reviews {
-    border-top: 1px solid $gray-100;
   }
 }
 </style>

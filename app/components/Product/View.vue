@@ -41,18 +41,15 @@
         </div>
 
         <ul class="p-product__review-list">
-          <li class="c-review" v-for="(item, index) in reviews" :key="index">
-            <div class="c-review__avatar">
-              <img :src="item.image" :alt="item.user_name" :title="item.user_name" />
-            </div>
-            <div class="c-review__body">
-              <p class="c-review__text">{{ item.content }}</p>
-              <p class="c-review__person">
-                {{ item.user_name }}<Separator />{{ item.company }}<Separator
-                />{{ item.career }}
-              </p>
-            </div>
-          </li>
+          <ReviewCard
+            v-for="(item, index) in reviews"
+            :key="index"
+            :user="item.user_name"
+            :image="item.image"
+            :content="item.content"
+            :company="item.company"
+            :career="item.career"
+          />
         </ul>
       </div>
     </section>

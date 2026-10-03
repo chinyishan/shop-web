@@ -36,4 +36,5 @@ test("升級前格式的購物車資料可以正常讀取", async ({ page }) => 
   await page.waitForLoadState("networkidle");
   await expect(page.getByText("金盞花葉黃素複方膠囊").first()).toBeVisible();
   await expect(page.locator(".l-header__cart-badge").last()).toHaveText("2");
+  await expect(page).toHaveScreenshot("cart-filled.png", { fullPage: true });
 });

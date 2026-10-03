@@ -1,28 +1,6 @@
 <template>
   <div class="c-commodity" v-if="header">
-    <div class="c-commodity__gallery">
-      <div class="c-commodity__stage">
-        <img
-          :src="activeImage ?? noImage"
-          :alt="header.name"
-          :title="header.name"
-          @error="onImageError"
-        />
-      </div>
-
-      <ul class="c-commodity__thumbs" v-if="images.length > 1">
-        <li v-for="(item, index) in images" :key="index">
-          <button
-            type="button"
-            class="c-commodity__thumb"
-            :class="{ 'c-commodity__thumb--is-active': imageIndex === index }"
-            @click="imageIndex = index"
-          >
-            <img :src="item ?? noImage" alt="商品圖" title="商品圖" @error="onImageError" />
-          </button>
-        </li>
-      </ul>
-    </div>
+    <CommodityGallery :images="images" :name="header.name" />
 
     <div class="c-commodity__info">
       <span class="c-commodity__brand">{{ productInfo.brand }}</span>
@@ -38,44 +16,10 @@
       <p class="c-commodity__desc">{{ header.description }}</p>
 
       <!-- 規格 -->
-      <div class="c-commodity__specs" v-if="specs.length">
-        <p class="c-commodity__label">規格</p>
-        <ul class="c-commodity__spec-list">
-          <li v-for="spec in specs" :key="spec.id">
-            <button
-              type="button"
-              class="c-commodity__spec"
-              :class="{
-                'c-commodity__spec--is-active': activeSpec?.id === spec.id,
-                'c-commodity__spec--is-sold-out': spec.stock === 0,
-              }"
-              :disabled="spec.stock === 0"
-              @click="onSelectSpec(spec)"
-            >
-              {{ spec.label }}
-              <span class="c-commodity__spec-price">{{ formatPrice(spec.price) }}</span>
-            </button>
-          </li>
-        </ul>
-      </div>
+      <CommoditySpecs v-if="specs.length" v-model="activeSpec" :specs="specs" />
 
       <!-- 購買方式 -->
-      <div class="c-commodity__modes">
-        <p class="c-commodity__label">購買方式</p>
-        <ul class="c-commodity__mode-list">
-          <li v-for="item in modes" :key="item.key">
-            <button
-              type="button"
-              class="c-commodity__mode"
-              :class="{ 'c-commodity__mode--is-active': mode === item.key }"
-              @click="mode = item.key"
-            >
-              <span class="c-commodity__mode-title">{{ item.title }}</span>
-              <span class="c-commodity__mode-note">{{ item.note }}</span>
-            </button>
-          </li>
-        </ul>
-      </div>
+      <CommodityModes v-model="mode" />
 
       <!-- 庫存 -->
       <p class="c-commodity__stock" :class="stockClass">{{ stockText }}</p>
@@ -104,24 +48,13 @@
 
 <script setup>
 import { ElMessage } from "element-plus";
-import noImage from "@/assets/images/picture/no-image.png";
 
 const props = defineProps({
-  productInfo: {
-    type: Object,
-    default: () => ({}),
-  },
+  productInfo: { type: Object, default: () => ({}) },
 });
 
 const header = computed(() => props.productInfo?.attribute_data?.product_header);
 const images = computed(() => header.value?.product_images ?? []);
-
-const imageIndex = ref(0);
-const activeImage = computed(() => images.value[imageIndex.value]);
-
-const onImageError = (event) => {
-  event.target.src = noImage;
-};
 
 /** 規格與庫存 */
 const specs = computed(() => header.value?.specs ?? []);
@@ -137,30 +70,15 @@ watchEffect(() => {
   }
 });
 
-const onSelectSpec = (spec) => {
-  activeSpec.value = spec;
-  qty.value = 1;
-};
-
 /** 購買方式：單次 or 定期購 9 折 */
-const modes = [
-  { key: "once", title: "單次購買", note: "一次性訂購" },
-  { key: "subscribe", title: "定期購 9 折", note: "每月自動配送，可隨時取消" },
-];
 const mode = ref("once");
 
 const basePrice = computed(() => activeSpec.value?.price ?? header.value?.price ?? 0);
 
-const trustPoints = [
-  "逐批第三方檢驗",
-  "45 天安心退貨",
-  "滿 NT$ 1,000 免運",
-];
+const trustPoints = ["逐批第三方檢驗", "45 天安心退貨", "滿 NT$ 1,000 免運"];
 
 const activePrice = computed(() =>
-  mode.value === "subscribe"
-    ? Math.round((basePrice.value * 0.9) / 10) * 10
-    : basePrice.value
+  mode.value === "subscribe" ? subscribePrice(basePrice.value) : basePrice.value
 );
 const activeOrigin = computed(() =>
   mode.value === "subscribe"
@@ -184,6 +102,11 @@ const stockClass = computed(() => ({
 /** 加入購物車 */
 const cart = useCartStore();
 const qty = ref(1);
+
+// 換規格時數量重設為 1
+watch(activeSpec, () => {
+  qty.value = 1;
+});
 
 /** 收藏按鈕用的商品卡資料 */
 const favoriteItem = computed(() => ({
@@ -246,50 +169,6 @@ const onAddToCart = () => {
     gap: $space-6;
   }
 
-  // ------------------------------------------------------------ 圖片
-  &__stage {
-    @include ratio(1, 1);
-    border-radius: $radius-lg;
-    background-color: $primary-50;
-
-    img {
-      object-fit: contain;
-      padding: $space-8;
-      box-sizing: border-box;
-    }
-  }
-
-  &__thumbs {
-    display: flex;
-    gap: $space-3;
-    margin-top: $space-4;
-  }
-
-  &__thumb {
-    @include size(72px);
-    padding: 0;
-    border: 1px solid $gray-200;
-    border-radius: $radius-md;
-    background-color: $white;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color $duration $ease;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    &:hover {
-      border-color: $primary-300;
-    }
-
-    &--is-active {
-      border-color: $primary;
-    }
-  }
-
   // ------------------------------------------------------------ 資訊
   &__info {
     padding-top: $space-6;
@@ -334,119 +213,6 @@ const onAddToCart = () => {
     line-height: $lh-body;
     letter-spacing: $ls-body;
     white-space: pre-line;
-  }
-
-  // ------------------------------------------------------------ 規格
-  &__specs {
-    margin-top: $space-6;
-  }
-
-  &__label {
-    margin-bottom: $space-3;
-    color: $muted;
-    font-size: $fz-xs;
-    letter-spacing: $ls-eyebrow;
-    text-transform: uppercase;
-  }
-
-  &__spec-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-3;
-  }
-
-  &__spec {
-    display: flex;
-    flex-direction: column;
-    gap: $space-1;
-    padding: $space-3 $space-4;
-    border: 1px solid $gray-200;
-    border-radius: $radius-md;
-    background: none;
-    color: $text;
-    font-size: $fz-sm;
-    letter-spacing: $ls-body;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color $duration $ease, color $duration $ease,
-      background-color $duration $ease;
-
-    &:hover:not(:disabled) {
-      border-color: $primary-300;
-    }
-
-    &--is-active {
-      border-color: $primary;
-      background-color: $primary-50;
-      color: $primary-dark;
-    }
-
-    &--is-sold-out {
-      color: $gray-300;
-      cursor: not-allowed;
-      text-decoration: line-through;
-    }
-  }
-
-  &__spec-price {
-    color: $primary;
-    font-size: $fz-xs;
-  }
-
-  &--is-sold-out &__spec-price,
-  &__spec--is-sold-out &__spec-price {
-    color: $gray-300;
-  }
-
-  // ------------------------------------------------------------ 購買方式
-  &__modes {
-    margin-top: $space-5;
-  }
-
-  &__mode-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-3;
-
-    @include sm() {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &__mode {
-    display: flex;
-    flex-direction: column;
-    gap: $space-1;
-    width: 100%;
-    padding: $space-3 $space-4;
-    border: 1px solid $gray-200;
-    border-radius: $radius-md;
-    background: none;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color $duration $ease, background-color $duration $ease;
-
-    &:hover {
-      border-color: $primary-300;
-    }
-
-    &--is-active {
-      border-color: $primary;
-      background-color: $primary-50;
-    }
-  }
-
-  &__mode-title {
-    color: $text;
-    font-size: $fz-sm;
-    font-weight: 500;
-    letter-spacing: $ls-body;
-  }
-
-  &__mode-note {
-    color: $muted;
-    font-size: $fz-xs;
-    letter-spacing: $ls-body;
   }
 
   // ------------------------------------------------------------ 信任標示

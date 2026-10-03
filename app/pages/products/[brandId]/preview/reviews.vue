@@ -12,24 +12,18 @@
         </div>
 
         <ul class="p-reviews__list" v-if="reviewsData?.length">
-          <li class="c-review" :id="item.id" v-for="item in reviewsData" :key="item.id">
-            <div class="c-review__avatar">
-              <img :src="item.image" :alt="item.user" :title="item.user" />
-            </div>
-            <div class="c-review__body">
-              <NuxtLink
-                class="c-review__product"
-                :to="`/products/${brandId}/product/${item.product_id}`"
-              >
-                {{ item.product_name }}
-              </NuxtLink>
-              <p class="c-review__text">{{ item.content }}</p>
-              <p class="c-review__person">
-                {{ item.user }}<Separator />{{ item.company }}<Separator
-                />{{ item.career }}
-              </p>
-            </div>
-          </li>
+          <ReviewCard
+            v-for="item in reviewsData"
+            :key="item.id"
+            :id="item.id"
+            :user="item.user"
+            :image="item.image"
+            :content="item.content"
+            :company="item.company"
+            :career="item.career"
+            :product-name="item.product_name"
+            :product-link="`/products/${brandId}/product/${item.product_id}`"
+          />
         </ul>
         <p class="c-empty" v-else>目前沒有回饋資料</p>
       </div>
