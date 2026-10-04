@@ -451,12 +451,12 @@ export const mockPopularHtml = (brandId: Id) => {
     .slice(0, 10)
     .map(
       (product, index) => `
-  <div style="display:flex;align-items:center;gap:24px;padding:16px 0;border-bottom:1px solid #f2f2f2;">
-    <span style="font-size:32px;font-weight:700;color:#00469b;width:64px;">${index + 1}</span>
+  <div style="display:flex;align-items:center;gap:24px;padding:16px 0;border-bottom:1px solid var(--c-gray-100, #f2f2f2);">
+    <span style="font-size:32px;font-weight:700;color:var(--c-primary, #0e7c88);width:64px;">${index + 1}</span>
     <img src="${product.image}" alt="${product.name}" style="width:96px;height:96px;object-fit:cover;" />
     <div>
-      <p style="font-size:20px;color:#0d0c0c;">${product.name}</p>
-      <p style="color:#6f6f6f;margin-top:8px;">${product.brand}</p>
+      <p style="font-size:20px;color:var(--c-ink, #0d0c0c);">${product.name}</p>
+      <p style="color:var(--c-content, #6f6f6f);margin-top:8px;">${product.brand}</p>
     </div>
   </div>`
     )

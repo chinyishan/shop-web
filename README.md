@@ -45,6 +45,13 @@ shared/types/        # 前後端共用型別
 tests/               # unit、nuxt、smoke、e2e
 ```
 
+### 深色模式
+
+- 由 `@nuxtjs/color-mode` 控制：預設跟隨系統，頁首的太陽／月亮按鈕可手動切換，選擇記在 localStorage（`healthlab-color-mode`）。
+- 色票在 `app/assets/scss/base/_color.scss` 的 `$light-palette`／`$dark-palette`，輸出成 CSS 變數（`--c-primary` 等）；Sass 變數 `$primary` 只是 `var(--c-primary)` 的別名。
+- 新增顏色時兩套色票都要加；半透明請用 `alpha($primary, 0.2)`，不能用 `rgba($primary, 0.2)`。
+- 主色背景上的白字用 `$on-primary`，不要用 `$white`（`$white` 是卡片底色，深色模式下會變深）。
+
 ### 資料流原則
 
 - 伺服器資料一律用 `useFetch`／`useAsyncData` 取得，找不到資料時 `throw createError({ statusCode: 404 })`。

@@ -109,7 +109,7 @@ const onRemoveCoupon = () => {
 
     &:hover:not(:disabled) {
       background-color: $primary;
-      color: $white;
+      color: $on-primary;
     }
   }
 

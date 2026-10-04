@@ -15,6 +15,8 @@
 
         <HeaderSearch />
 
+        <HeaderThemeToggle />
+
         <HeaderCartLinks />
 
         <button

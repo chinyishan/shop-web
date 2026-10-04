@@ -51,7 +51,7 @@ const clickHandler = (currentPage) => {
     &:hover:not(:disabled) {
       border-color: $primary;
       background-color: $primary;
-      color: $white;
+      color: $on-primary;
     }
 
     &:disabled {
@@ -84,7 +84,7 @@ const clickHandler = (currentPage) => {
 
       &.is-active {
         background-color: $primary;
-        color: $white;
+        color: $on-primary;
         font-weight: 500;
       }
     }

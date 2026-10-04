@@ -60,7 +60,7 @@ const wishlist = useWishlistStore();
     padding: 0 5px;
     border-radius: $radius-pill;
     background-color: $primary;
-    color: $white;
+    color: $on-primary;
     font-size: 11px;
     line-height: 18px;
     text-align: center;

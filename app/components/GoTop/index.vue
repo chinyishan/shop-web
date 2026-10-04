@@ -44,7 +44,7 @@ const scrollToTop = () => {
       &:active {
         background-color: $primary;
         svg {
-          color: $white;
+          color: $on-primary;
         }
       }
     }
@@ -66,7 +66,7 @@ const scrollToTop = () => {
         &:active {
           background-color: $primary;
           svg {
-            color: $white;
+            color: $on-primary;
           }
         }
       }

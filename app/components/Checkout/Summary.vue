@@ -104,7 +104,7 @@ const cart = useCartStore();
     align-items: center;
     gap: $space-3;
     padding: $space-3 0;
-    border-bottom: 1px solid rgba($primary-100, 0.8);
+    border-bottom: 1px solid alpha($primary-100, 0.8);
   }
 
   &__item-media {

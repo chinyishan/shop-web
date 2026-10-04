@@ -96,7 +96,7 @@ watch(
   &__overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba($primary-darker, 0.35);
+    background-color: alpha($primary-darker, 0.35);
   }
 
   &__panel {
@@ -136,7 +136,7 @@ watch(
     padding: 0 $space-2;
     border-radius: $radius-pill;
     background-color: $primary;
-    color: $white;
+    color: $on-primary;
     font-size: $fz-xs;
     font-weight: 400;
     line-height: 22px;

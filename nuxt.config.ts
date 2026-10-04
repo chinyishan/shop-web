@@ -15,8 +15,17 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
+    "@nuxtjs/color-mode",
     "nuxt-svgo",
   ],
+
+  // 深色模式：預設跟隨系統，使用者切換後記在 localStorage；<html class="dark">
+  colorMode: {
+    preference: "system",
+    fallback: "light",
+    classSuffix: "",
+    storageKey: "healthlab-color-mode",
+  },
 
   piniaPluginPersistedstate: {
     storage: "localStorage",
@@ -64,7 +73,11 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["@/assets/scss/style.scss", "@/assets/css/main.css"],
+  css: [
+    "element-plus/theme-chalk/dark/css-vars.css",
+    "@/assets/scss/style.scss",
+    "@/assets/css/main.css",
+  ],
 
   vite: {
     css: {

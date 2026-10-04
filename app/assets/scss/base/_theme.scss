@@ -1,0 +1,59 @@
+@use "sass:map";
+@use "color" as *;
+
+// ============================================================
+//  主題：把 _color.scss 的色票輸出成 CSS 變數
+//  <html class="dark"> 由 @nuxtjs/color-mode 在頁面渲染前加上，不會閃白
+// ============================================================
+
+@mixin palette($palette) {
+  @each $name, $value in $palette {
+    --c-#{$name}: #{$value};
+  }
+}
+
+:root {
+  @include palette($light-palette);
+  --shadow-sm: 0 1px 2px #{alpha(map.get($light-palette, "shadow"), 0.06)};
+  --shadow-md: 0 8px 24px #{alpha(map.get($light-palette, "shadow"), 0.08)};
+  --shadow-lg: 0 18px 48px #{alpha(map.get($light-palette, "shadow"), 0.1)};
+  color-scheme: light;
+}
+
+html.dark {
+  @include palette($dark-palette);
+  --shadow-sm: 0 1px 2px #{alpha(map.get($dark-palette, "shadow"), 0.4)};
+  --shadow-md: 0 8px 24px #{alpha(map.get($dark-palette, "shadow"), 0.45)};
+  --shadow-lg: 0 18px 48px #{alpha(map.get($dark-palette, "shadow"), 0.5)};
+  color-scheme: dark;
+
+  // Element Plus 的表單、下拉、彈窗改用網站色票，和頁面底色一致
+  --el-bg-color: var(--c-white);
+  --el-bg-color-overlay: var(--c-white);
+  --el-fill-color-blank: var(--c-primary-50);
+  --el-border-color: var(--c-gray-300);
+  --el-border-color-light: var(--c-gray-200);
+  --el-border-color-lighter: var(--c-gray-100);
+  --el-text-color-primary: var(--c-ink);
+  --el-text-color-regular: var(--c-text);
+  --el-text-color-placeholder: var(--c-muted);
+  --el-mask-color: rgba(0, 0, 0, 0.6);
+
+  // 圖片在深色底上稍微降低亮度，避免刺眼
+  img:not([src$=".svg"]) {
+    filter: brightness(0.92);
+  }
+}
+
+// 切換時讓顏色平滑過渡（使用者要求減少動態時不做）
+@media (prefers-reduced-motion: no-preference) {
+  html.color-mode-transition,
+  html.color-mode-transition *,
+  html.color-mode-transition *::before,
+  html.color-mode-transition *::after {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease !important;
+  }
+}

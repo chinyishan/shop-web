@@ -51,7 +51,7 @@ const onToggle = () => {
   padding: 0;
   border: 1px solid $gray-200;
   border-radius: $radius-pill;
-  background-color: rgba($white, 0.9);
+  background-color: alpha($white, 0.9);
   color: $muted;
   cursor: pointer;
   transition: color $duration $ease, border-color $duration $ease;
@@ -68,7 +68,7 @@ const onToggle = () => {
   &--is-active {
     border-color: $primary;
     background-color: $primary;
-    color: $white;
+    color: $on-primary;
   }
 }
 </style>

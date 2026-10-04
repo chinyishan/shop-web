@@ -62,8 +62,8 @@ onUnmounted(() => {
   bottom: 0;
   z-index: 60;
   border-top: 1px solid $primary-100;
-  background-color: rgba($white, 0.98);
-  box-shadow: 0 -6px 24px rgba($primary, 0.08);
+  background-color: alpha($white, 0.98);
+  box-shadow: 0 -6px 24px alpha($primary, 0.08);
 
   &__inner {
     @include container($container-wide);
@@ -131,8 +131,8 @@ onUnmounted(() => {
     @include size(18px);
     padding: 0;
     border-bottom-left-radius: $radius-sm;
-    background-color: rgba($primary-darker, 0.6);
-    color: $white;
+    background-color: alpha($primary-darker, 0.6);
+    color: $on-primary;
     font-size: 10px;
     line-height: 18px;
     cursor: pointer;

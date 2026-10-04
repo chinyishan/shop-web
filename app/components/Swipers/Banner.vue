@@ -94,7 +94,7 @@ const swiperBanner = {
       height: 2px !important;
       margin: 0 !important;
       border-radius: 0 !important;
-      background: rgba($white, 0.55) !important;
+      background: alpha($white, 0.55) !important;
       opacity: 1 !important;
       transition: background $duration $ease;
     }

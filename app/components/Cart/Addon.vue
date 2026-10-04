@@ -196,7 +196,7 @@ onMounted(fetchAddons);
 
     &:hover {
       background-color: $primary;
-      color: $white;
+      color: $on-primary;
     }
   }
 }

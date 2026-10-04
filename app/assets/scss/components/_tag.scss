@@ -8,7 +8,7 @@
   align-items: center;
   height: 28px;
   padding: 0 $space-3;
-  border: 1px solid rgba($primary, 0.35);
+  border: 1px solid alpha($primary, 0.35);
   border-radius: $radius-pill;
   color: $primary;
   font-size: $fz-xs;
@@ -19,18 +19,18 @@
   &--solid {
     border-color: $primary;
     background-color: $primary;
-    color: $white;
+    color: $on-primary;
   }
 
   &--accent {
     border-color: $accent;
     background-color: $accent;
-    color: $text;
+    color: $on-accent;
   }
 
   &--light {
-    border-color: rgba($white, 0.6);
-    color: $white;
+    border-color: alpha($on-primary, 0.6);
+    color: $on-primary;
   }
 
   &--ghost {

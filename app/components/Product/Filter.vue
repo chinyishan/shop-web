@@ -191,7 +191,7 @@ const onReset = () => {
     &--is-active {
       border-color: $primary;
       background-color: $primary;
-      color: $white;
+      color: $on-primary;
     }
   }
 

@@ -1,38 +1,122 @@
+@use "sass:map";
+
 // ============================================================
 //  HealthLab 色彩系統
 //  主視覺：藍綠（teal）／輔助：暖黃、薄荷綠
 //  請一律使用這裡的變數，不要在元件內硬寫色碼
+//
+//  深淺色兩套色票定義在下方 map，實際輸出成 CSS 變數（見 base/_theme.scss），
+//  Sass 變數只是 var(--c-xxx) 的別名，所以切換主題不需要重新編譯。
+//  需要半透明時用 alpha($color, 0.5)，不要用 rgba($color, 0.5)。
 // ============================================================
 
+$light-palette: (
+  // 品牌主色（藍綠）
+  "primary-darker": #063b42, // 按下 / 最深
+  "primary-dark": #0a5a63, // hover、深底
+  "primary": #0e7c88, // 主色
+  "primary-400": #3fa5ae, // 次要強調
+  "primary-300": #7fc4cb, // 裝飾
+  "primary-200": #a9d9dc, // 漸層中段
+  "primary-100": #d7edef, // 淺底、邊框
+  "primary-50": #eef7f7, // 區塊底色
+  // 輔助色
+  "accent": #ffe08a, // 標籤黃（文字用深色）
+  "accent-dark": #f0c45c,
+  "on-accent": #0d0c0c, // 標籤黃上的文字
+  "mint": #8fd6c8, // 點綴薄荷綠
+  "leaf": #8fc31f, // LOGO 葉片
+  // 中性色
+  "ink": #0d0c0c, // 標題
+  "default": #292624,
+  "text": #363230, // 內文
+  "content": #6f6f6f, // 次要內文
+  "muted": #909090, // 說明文字
+  "gray": #999999,
+  "gray-300": #d9d9d9, // 分隔線
+  "gray-200": #e9e9e9,
+  "gray-100": #f2f2f2,
+  "surface": #f6fafa, // 頁面底色（帶一點藍綠）
+  "white": #ffffff, // 卡片、區塊底色
+  "on-primary": #ffffff, // 主色背景上的文字
+  "shadow-tint": #dde9ea, // 陰影用的淡藍綠
+  "shadow": #0e7c88, // 陰影基底色
+);
+
+$dark-palette: (
+  // 主色在深底上調亮，文字與按鈕都要有足夠對比
+  "primary-darker": #b5e4e8,
+  "primary-dark": #7fd0d8,
+  "primary": #3fb0bc,
+  "primary-400": #5cc0ca,
+  "primary-300": #3d8a91,
+  "primary-200": #2c6268,
+  "primary-100": #23393c,
+  "primary-50": #18272a,
+  "accent": #e8c766,
+  "accent-dark": #f0c45c,
+  "on-accent": #0d0c0c,
+  "mint": #6fbfb0,
+  "leaf": #8fc31f,
+  "ink": #eef4f4,
+  "default": #dfe6e6,
+  "text": #cfd8d8,
+  "content": #a3adad,
+  "muted": #87918f,
+  "gray": #7a8584,
+  "gray-300": #3c4749,
+  "gray-200": #2e383a,
+  "gray-100": #242d2f,
+  "surface": #0f1618,
+  "white": #162022,
+  "on-primary": #ffffff,
+  "shadow-tint": #0b1112,
+  "shadow": #000000,
+);
+
+@function c($name) {
+  @if not map.has-key($light-palette, $name) {
+    @error "未定義的顏色：#{$name}";
+  }
+  @return var(--c-#{$name});
+}
+
+/// 半透明色：alpha($primary, 0.2)。CSS 變數無法用 rgba() 運算，改用 color-mix。
+@function alpha($color, $amount) {
+  @return color-mix(in srgb, #{$color} #{$amount * 100%}, transparent);
+}
+
 // ---------------------------------------------------------- 品牌主色（藍綠）
-$primary-darker: #063b42; // 按下 / 最深
-$primary-dark: #0a5a63; // hover、深底
-$primary: #0e7c88; // 主色
-$primary-400: #3fa5ae; // 次要強調
-$primary-300: #7fc4cb; // 裝飾
-$primary-200: #a9d9dc; // 漸層中段
-$primary-100: #d7edef; // 淺底、邊框
-$primary-50: #eef7f7; // 區塊底色
+$primary-darker: c("primary-darker");
+$primary-dark: c("primary-dark");
+$primary: c("primary");
+$primary-400: c("primary-400");
+$primary-300: c("primary-300");
+$primary-200: c("primary-200");
+$primary-100: c("primary-100");
+$primary-50: c("primary-50");
 
 // ---------------------------------------------------------------- 輔助色
-$accent: #ffe08a; // 標籤黃（文字用深色）
-$accent-dark: #f0c45c;
-$mint: #8fd6c8; // 點綴薄荷綠
-$leaf: #8fc31f; // LOGO 葉片
+$accent: c("accent");
+$accent-dark: c("accent-dark");
+$on-accent: c("on-accent");
+$mint: c("mint");
+$leaf: c("leaf");
 
 // ---------------------------------------------------------------- 中性色
-$ink: #0d0c0c; // 標題
-$default: #292624;
-$text: #363230; // 內文
-$content: #6f6f6f; // 次要內文
-$muted: #909090; // 說明文字
-$gray: #999999;
-$gray-300: #d9d9d9; // 分隔線
-$gray-200: #e9e9e9;
-$gray-100: #f2f2f2;
-$surface: #f6fafa; // 頁面底色（帶一點藍綠）
-$white: #ffffff;
-$shadow-tint: #dde9ea; // 陰影用的淡藍綠
+$ink: c("ink");
+$default: c("default");
+$text: c("text");
+$content: c("content");
+$muted: c("muted");
+$gray: c("gray");
+$gray-300: c("gray-300");
+$gray-200: c("gray-200");
+$gray-100: c("gray-100");
+$surface: c("surface");
+$white: c("white");
+$on-primary: c("on-primary");
+$shadow-tint: c("shadow-tint");
 
 // ---------------------------------------------------------------- 漸層
 $primary-gradient: linear-gradient(
@@ -43,7 +127,7 @@ $primary-gradient: linear-gradient(
 );
 $primary-gradient-x: linear-gradient(90deg, $primary-dark, $primary-400);
 
-// ---------------------------------------------------------------- 外部品牌色
+// ---------------------------------------------------------------- 外部品牌色（不隨主題變化）
 $facsbook: #1877f2;
 $shopee: #ea501f;
 $whatsapp: #25d366;
