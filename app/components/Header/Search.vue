@@ -8,8 +8,11 @@
       placeholder="輸入關鍵字"
       @keyup.enter="onSearch"
     >
-    <button type="button" class="l-header__search-btn" @click="onSearch">
-      <img src="@/assets/images/picture/search-icon-1.png" alt="搜尋" title="搜尋" >
+    <button type="button" class="l-header__search-btn" aria-label="搜尋" title="搜尋" @click="onSearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m16 16 4.5 4.5" stroke-linecap="round" />
+      </svg>
     </button>
   </div>
 </template>
@@ -83,10 +86,17 @@ watch(
     background: none;
     cursor: pointer;
 
-    img {
+    color: $text;
+    transition: color $duration $ease;
+
+    svg {
+      display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+    }
+
+    &:hover {
+      color: $primary;
     }
   }
 }

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" width="1440" height="160" ><defs><linearGradient id="lb" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#083b42"/><stop offset="1" stop-color="#2f95a8"/></linearGradient></defs>
+        <stop offset="0" stop-color="#e2f2e7"/><stop offset="1" stop-color="#e3f1fb"/></linearGradient></defs>
       <rect width="1440" height="160" fill="url(#lb)"/>
-      <circle cx="1260" cy="80" r="112" fill="#ffffff" opacity=".08"/>
-      <text x="72" y="76.8" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="32" font-weight="700" fill="#ffffff" letter-spacing="3">全系列檢驗報告 線上查詢</text>
-      <text x="72" y="118.4" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="20" fill="#c7e9ea">輸入批號即可查看該批次完整檢驗資料</text></svg>
+      <circle cx="1260" cy="80" r="112" fill="#a7d7b5" opacity=".08"/>
+      <text x="72" y="76.8" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="32" font-weight="700" fill="#2e6b4b" letter-spacing="3">全系列檢驗報告 線上查詢</text>
+      <text x="72" y="118.4" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="20" fill="#e8823a">輸入批號即可查看該批次完整檢驗資料</text></svg>

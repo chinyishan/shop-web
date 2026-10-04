@@ -1,7 +1,7 @@
 import type { PageKey, SiteConfig, SystemConfigResponse } from "#shared/types/site";
 
 const SITE_CONFIG_KEY = "site-config";
-const DEFAULT_SITE_NAME = "HealthLab 健康實驗室";
+const DEFAULT_SITE_NAME = "好日補給 VITADAY";
 
 /**
  * 取得全站設定（頁首、頁尾、導覽、各頁 SEO）。

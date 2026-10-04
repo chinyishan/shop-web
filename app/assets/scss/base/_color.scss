@@ -1,8 +1,8 @@
 @use "sass:map";
 
 // ============================================================
-//  HealthLab 色彩系統
-//  主視覺：藍綠（teal）／輔助：暖黃、薄荷綠
+//  好日補給 VITADAY 色彩系統（提案 03 · 年輕活力系）
+//  清新綠 #A7D7B5／活力橘 #FFB36B／柔和米 #FFF8EE／天空藍 #8CC4E9
 //  請一律使用這裡的變數，不要在元件內硬寫色碼
 //
 //  深淺色兩套色票定義在下方 map，實際輸出成 CSS 變數（見 base/_theme.scss），
@@ -11,66 +11,77 @@
 // ============================================================
 
 $light-palette: (
-  // 品牌主色（藍綠）
-  "primary-darker": #063b42, // 按下 / 最深
-  "primary-dark": #0a5a63, // hover、深底
-  "primary": #0e7c88, // 主色
-  "primary-400": #3fa5ae, // 次要強調
-  "primary-300": #7fc4cb, // 裝飾
-  "primary-200": #a9d9dc, // 漸層中段
-  "primary-100": #d7edef, // 淺底、邊框
-  "primary-50": #eef7f7, // 區塊底色
+  // 品牌綠：#A7D7B5「清新綠」為品牌色，延伸出深淺色階；文字用深綠確保對比
+  "primary-darker": #1f4d36, // 按下 / 最深
+  "primary-dark": #2e6b4b, // 標題強調、hover
+  "primary": #3d8a5f, // 連結、主要文字色
+  "primary-400": #6cb487, // 次要強調
+  "primary-300": #a7d7b5, // 品牌清新綠（裝飾、圖示底）
+  "primary-200": #c8e7d1, // 漸層中段
+  "primary-100": #e2f2e7, // 淺底、邊框
+  "primary-50": #f2f9f3, // 區塊底色
+  // 行動色：#FFB36B「活力橘」，按鈕與價格用較深的橘以維持白字對比
+  "cta": #e8823a, // 主要按鈕
+  "cta-hover": #d06f2a,
+  "on-cta": #ffffff,
+  "price": #c9651f, // 價格文字
   // 輔助色
-  "accent": #ffe08a, // 標籤黃（文字用深色）
-  "accent-dark": #f0c45c,
-  "on-accent": #0d0c0c, // 標籤黃上的文字
-  "mint": #8fd6c8, // 點綴薄荷綠
-  "leaf": #8fc31f, // LOGO 葉片
-  // 中性色
-  "ink": #0d0c0c, // 標題
-  "default": #292624,
-  "text": #363230, // 內文
-  "content": #6f6f6f, // 次要內文
-  "muted": #909090, // 說明文字
-  "gray": #999999,
-  "gray-300": #d9d9d9, // 分隔線
-  "gray-200": #e9e9e9,
-  "gray-100": #f2f2f2,
-  "surface": #f6fafa, // 頁面底色（帶一點藍綠）
+  "accent": #ffb36b, // 活力橘（標籤、徽章底）
+  "accent-dark": #f59a4a,
+  "on-accent": #3a2410, // 橘底上的文字
+  "sky": #8cc4e9, // 天空藍（點綴）
+  "mint": #a7d7b5,
+  "leaf": #7cbf6a, // LOGO 葉片
+  // 中性色（偏暖，搭配柔和米）
+  "ink": #2d2a26, // 標題
+  "default": #3a3631,
+  "text": #46413b, // 內文
+  "content": #756e66, // 次要內文
+  "muted": #9b948b, // 說明文字
+  "gray": #a39c93,
+  "gray-300": #e5ddd1, // 分隔線
+  "gray-200": #eee7dc,
+  "gray-100": #f5efe5,
+  "surface": #fff8ee, // 頁面底色：柔和米
   "white": #ffffff, // 卡片、區塊底色
   "on-primary": #ffffff, // 主色背景上的文字
-  "shadow-tint": #dde9ea, // 陰影用的淡藍綠
-  "shadow": #0e7c88, // 陰影基底色
+  "shadow-tint": #f1e6d4, // 陰影用的暖米色
+  "shadow": #a0743d, // 陰影基底色
 );
 
 $dark-palette: (
-  // 主色在深底上調亮，文字與按鈕都要有足夠對比
-  "primary-darker": #b5e4e8,
-  "primary-dark": #7fd0d8,
-  "primary": #3fb0bc,
-  "primary-400": #5cc0ca,
-  "primary-300": #3d8a91,
-  "primary-200": #2c6268,
-  "primary-100": #23393c,
-  "primary-50": #18272a,
-  "accent": #e8c766,
-  "accent-dark": #f0c45c,
-  "on-accent": #0d0c0c,
-  "mint": #6fbfb0,
-  "leaf": #8fc31f,
-  "ink": #eef4f4,
-  "default": #dfe6e6,
-  "text": #cfd8d8,
-  "content": #a3adad,
-  "muted": #87918f,
-  "gray": #7a8584,
-  "gray-300": #3c4749,
-  "gray-200": #2e383a,
-  "gray-100": #242d2f,
-  "surface": #0f1618,
-  "white": #162022,
-  "on-primary": #ffffff,
-  "shadow-tint": #0b1112,
+  // 深色模式：綠色在深底上調亮，橘色按鈕維持白字
+  "primary-darker": #d3efdc,
+  "primary-dark": #b2e0c0,
+  "primary": #8fd1a6,
+  "primary-400": #74bf8f,
+  "primary-300": #4d8c63,
+  "primary-200": #355f45,
+  "primary-100": #263a2d,
+  "primary-50": #1b2820,
+  "cta": #d9772f,
+  "cta-hover": #e8873c,
+  "on-cta": #ffffff,
+  "price": #ffb36b,
+  "accent": #f5b06e,
+  "accent-dark": #f0a055,
+  "on-accent": #2a1a0a,
+  "sky": #6aa9d6,
+  "mint": #6fae84,
+  "leaf": #7cbf6a,
+  "ink": #f5f1ea,
+  "default": #e8e2d8,
+  "text": #d9d2c7,
+  "content": #ada59a,
+  "muted": #8f887e,
+  "gray": #857e74,
+  "gray-300": #3f4540,
+  "gray-200": #313732,
+  "gray-100": #262c27,
+  "surface": #121713,
+  "white": #1a211c,
+  "on-primary": #0f2418, // 淺綠底上用深綠字
+  "shadow-tint": #0d110e,
   "shadow": #000000,
 );
 
@@ -86,7 +97,7 @@ $dark-palette: (
   @return color-mix(in srgb, #{$color} #{$amount * 100%}, transparent);
 }
 
-// ---------------------------------------------------------- 品牌主色（藍綠）
+// ---------------------------------------------------------- 品牌主色（清新綠）
 $primary-darker: c("primary-darker");
 $primary-dark: c("primary-dark");
 $primary: c("primary");
@@ -97,9 +108,14 @@ $primary-100: c("primary-100");
 $primary-50: c("primary-50");
 
 // ---------------------------------------------------------------- 輔助色
+$cta: c("cta");
+$cta-hover: c("cta-hover");
+$on-cta: c("on-cta");
+$price: c("price");
 $accent: c("accent");
 $accent-dark: c("accent-dark");
 $on-accent: c("on-accent");
+$sky: c("sky");
 $mint: c("mint");
 $leaf: c("leaf");
 
@@ -134,7 +150,7 @@ $whatsapp: #25d366;
 $lazada: #0f136a;
 
 // ============================================================
-//  相容用別名（舊有元件仍在使用，值已換成新的藍綠系統）
+//  相容用別名（舊有元件仍在使用，值已對應到新色系）
 // ============================================================
 $blue: $primary;
 $blueDark: $primary-dark;

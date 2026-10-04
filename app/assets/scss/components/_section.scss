@@ -6,14 +6,15 @@
 .c-section {
   @include section-space();
   position: relative;
-  background-color: $white;
+  background-color: $surface; // 預設柔和米底，卡片用白色浮在上面
 
   &--tint {
     background-color: $primary-50;
   }
 
+  // 與預設米底交錯使用的白色區塊
   &--surface {
-    background-color: $surface;
+    background-color: $white;
   }
 
   &--flush-top {

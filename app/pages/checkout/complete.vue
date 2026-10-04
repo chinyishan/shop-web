@@ -46,7 +46,7 @@ useSeo("page-index", {
 
 <style lang="scss" scoped>
 .p-complete {
-  background-color: $white;
+  background-color: $surface;
 
   &__box {
     display: flex;

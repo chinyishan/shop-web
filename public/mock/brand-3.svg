@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532 372" width="532" height="372" ><rect width="532" height="372" rx="16" fill="#fdf1e3"/>
-       <path d="M372 0h160v372H300z" fill="#d1893a" opacity=".10"/>
-       <circle cx="266" cy="140" r="74" fill="#d1893a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532 372" width="532" height="372" ><rect width="532" height="372" rx="16" fill="#fff0e0"/>
+       <path d="M372 0h160v372H300z" fill="#f59a4a" opacity=".10"/>
+       <circle cx="266" cy="140" r="74" fill="#f59a4a"/>
        <text x="266" y="168" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="72" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
-       <text x="266" y="268" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="40" font-weight="700" fill="#d1893a" text-anchor="middle" letter-spacing="6">日光酵素</text>
-       <text x="266" y="308" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="24" fill="#d1893a" text-anchor="middle" letter-spacing="4" opacity=".8">SunZyme</text></svg>
+       <text x="266" y="268" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="40" font-weight="700" fill="#f59a4a" text-anchor="middle" letter-spacing="6">日光酵素</text>
+       <text x="266" y="308" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="24" fill="#f59a4a" text-anchor="middle" letter-spacing="4" opacity=".8">SunZyme</text></svg>

@@ -1,6 +1,6 @@
 import type { ProductInput, SavedProduct } from "#shared/types/shop";
 
-const STORAGE_KEY = "healthlab-wishlist";
+const STORAGE_KEY = "vitaday-wishlist";
 
 export const useWishlistStore = defineStore(
   "wishlist",

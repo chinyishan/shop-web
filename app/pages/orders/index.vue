@@ -93,7 +93,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .p-orders {
-  background-color: $white;
+  background-color: $surface;
 
   &__search {
     display: flex;

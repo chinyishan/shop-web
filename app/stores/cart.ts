@@ -1,6 +1,6 @@
 import type { CartItem, CartProductInput, CartSpecInput } from "#shared/types/shop";
 
-const STORAGE_KEY = "healthlab-cart";
+const STORAGE_KEY = "vitaday-cart";
 const MAX_QTY = 99;
 
 /** 同商品不同規格視為不同品項 */

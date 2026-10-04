@@ -10,7 +10,7 @@
   gap: $space-1 $space-2;
 
   &__now {
-    color: $primary-dark;
+    color: $price;
     font-size: $fz-body;
     font-weight: 600;
     letter-spacing: $ls-body;
@@ -46,6 +46,16 @@
 .c-product-item {
   display: flex;
   flex-direction: column;
+  padding: $space-3 $space-3 $space-4;
+  border-radius: $radius-lg;
+  background-color: $white;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $duration $ease, transform $duration $ease;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
 
   &__add {
     margin-top: $space-3;

@@ -4,10 +4,8 @@
 
     <div class="l-header__inner">
       <NuxtLink class="l-header__brand" to="/">
-        <span class="l-header__logo">
-          <img :src="logoSrc" :alt="siteName" :title="siteName" >
-        </span>
-        <span v-if="slogan" class="l-header__slogan">{{ slogan }}</span>
+        <AppLogo class="l-header__logo" />
+        <AppLogo mark class="l-header__logo-mark" />
       </NuxtLink>
 
       <nav v-if="!maintenanceMode" class="l-header__nav">
@@ -40,10 +38,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { maintenanceMode } = useRuntimeConfig().public;
-const { siteName, header } = useSiteConfig();
-
-const slogan = computed(() => header.value?.slogan ?? "");
-const logoSrc = computed(() => header.value?.logo ?? "/logo.svg");
+const { siteName } = useSiteConfig();
 
 /** 手機選單 */
 const menuOpen = useMobileMenu();
@@ -102,35 +97,51 @@ watch(
   }
 
   &__logo {
-    display: block;
-    width: 44px;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
+    flex-shrink: 0;
+    width: 168px;
 
     @include md() {
-      width: 36px;
+      width: 132px;
     }
-  }
-
-  &__slogan {
-    color: $content;
-    font-size: $fz-xs;
-    letter-spacing: $ls-body;
-    white-space: nowrap;
 
     @include sm() {
+      width: 112px;
+    }
+
+    // 極窄螢幕（< 360px）只放太陽圖示，留空間給右側按鈕
+    @media screen and (max-width: 359px) {
       display: none;
     }
   }
+
+  &__logo-mark {
+    display: none;
+    width: 36px;
+
+    @media screen and (max-width: 359px) {
+      display: block;
+    }
+  }
+
 
   // ------------------------------------------------------------ 導覽
   &__nav {
     display: flex;
     align-items: center;
     gap: $space-6;
+
+    // 手機上圖示較多（搜尋、深色模式、收藏、購物車、選單），縮小間距才放得下
+    @include md() {
+      gap: $space-4;
+    }
+
+    @include sm() {
+      gap: $space-3;
+    }
+
+    @media screen and (max-width: 359px) {
+      gap: $space-2;
+    }
   }
 
   // ------------------------------------------------------------ 漢堡

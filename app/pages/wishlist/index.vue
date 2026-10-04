@@ -61,7 +61,7 @@ const onClear = () => {
 
 <style lang="scss" scoped>
 .p-wishlist {
-  background-color: $white;
+  background-color: $surface;
 
   &__grid {
     display: grid;

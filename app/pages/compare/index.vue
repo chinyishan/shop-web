@@ -142,7 +142,7 @@ useSeo("page-index", {
 
 <style lang="scss" scoped>
 .p-compare {
-  background-color: $white;
+  background-color: $surface;
 
   &__scroll {
     overflow-x: auto;

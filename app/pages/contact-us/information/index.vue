@@ -169,7 +169,7 @@ const onSentContact = async () => {
 
 <style lang="scss" scoped>
 .p-contact {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

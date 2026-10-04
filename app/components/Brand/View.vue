@@ -108,7 +108,7 @@ const reviews = computed(() =>
 
 <style lang="scss" scoped>
 .p-brand {
-  background-color: $white;
+  background-color: $surface;
 
   // ------------------------------------------------------------ 品牌故事
   &__story {

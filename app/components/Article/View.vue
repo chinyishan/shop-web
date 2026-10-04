@@ -77,7 +77,7 @@ const linkTo = (id) =>
 
 <style lang="scss" scoped>
 .p-article {
-  background-color: $white;
+  background-color: $surface;
 
   &__head {
     border-bottom: 1px solid $gray-100;

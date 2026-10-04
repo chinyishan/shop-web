@@ -28,8 +28,8 @@ export const mockPaginate = <T>(
 export const mockSeo = (title: string, description: string): Required<SeoMeta> => ({
   title,
   description,
-  keywords: `HealthLab,健康實驗室,保健食品,${title}`,
-  url: "https://healthlab.example.com",
+  keywords: `好日補給,VITADAY,保健食品,${title}`,
+  url: "https://vitaday.example.com",
 });
 
 export const mockBanner = (image: string, imageM: string | null | undefined, alt: string) => ({

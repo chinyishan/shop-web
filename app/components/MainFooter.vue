@@ -3,9 +3,7 @@
     <div class="l-footer__inner">
       <div class="l-footer__top">
         <NuxtLink class="l-footer__brand" to="/">
-          <span class="l-footer__logo">
-            <img src="/logo.svg" :alt="siteName" :title="siteName" >
-          </span>
+          <AppLogo mark class="l-footer__logo" />
           <span class="l-footer__brand-text">
             <span class="l-footer__name">{{ siteName }}</span>
             <span v-if="header?.slogan" class="l-footer__slogan">{{ header.slogan }}</span>
@@ -93,13 +91,8 @@ const year = new Date().getFullYear();
   }
 
   &__logo {
-    display: block;
+    flex-shrink: 0;
     width: 48px;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
   }
 
   &__brand-text {

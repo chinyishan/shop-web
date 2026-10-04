@@ -131,7 +131,7 @@ const onImageError = (event) => {
 
 <style lang="scss" scoped>
 .p-articles {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

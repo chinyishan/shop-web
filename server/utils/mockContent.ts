@@ -303,7 +303,7 @@ export const mockQualityById = (id: unknown) => {
     page_modules: {
       carousel: { items: [mockBanner(quality.banner, quality.banner, quality.label)] },
     },
-    seo: mockSeo(quality.label, `${quality.label}｜HealthLab 健康實驗室的品質承諾`),
+    seo: mockSeo(quality.label, `${quality.label}｜好日補給 VITADAY 的品質承諾`),
   };
 };
 

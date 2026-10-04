@@ -2,7 +2,7 @@
   <div v-if="isNotFound" class="error">
     <div class="wrap-back">
       <div class="logo">
-        <img src="/logo.svg" alt="logo" >
+        <AppLogo />
       </div>
       <h2>404 Not Found</h2>
       <div class="back-link">
@@ -15,7 +15,7 @@
     <div class="wrap-error">
       <div class="status">
         <div class="logo">
-          <img src="/logo.svg" alt="logo" >
+          <AppLogo />
         </div>
         <h2>{{ error.statusCode }}</h2>
       </div>
@@ -39,7 +39,7 @@ const isNotFound = computed(() => props.error.statusCode === 404);
 
 useHead({
   title: () => (isNotFound.value ? "找不到頁面" : "系統錯誤"),
-  titleTemplate: "%s - HealthLab 健康實驗室",
+  titleTemplate: "%s - 好日補給 VITADAY",
 });
 
 const backHome = () => clearError({ redirect: "/" });
@@ -98,8 +98,8 @@ const backHome = () => clearError({ redirect: "/" });
     margin: auto;
 
     .logo {
-      width: 30%;
-      margin: 0 auto;
+      width: 232px;
+      margin: 0 auto $space-5;
     }
     h2 {
       font-size: 32px;

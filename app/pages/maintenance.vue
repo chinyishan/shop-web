@@ -12,7 +12,7 @@
           <div class="second-title">
             暫不開放
             <div class="logo">
-              <img src="/logo.svg" alt="HealthLab 健康實驗室" >
+              <img src="/logo.svg" alt="好日補給 VITADAY" >
             </div>
             <div class="leaf">
               <img src="@/assets/images/picture/leafLeft.png" alt="" >

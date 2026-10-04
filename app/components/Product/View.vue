@@ -145,7 +145,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .p-product {
-  background-color: $white;
+  background-color: $surface;
 
   // ------------------------------------------------------------ 分頁標籤
   &__tabs {

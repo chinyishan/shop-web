@@ -12,8 +12,8 @@ import {
   mockQualityCategories,
 } from "./mockContent";
 
-export const SITE_NAME = "HealthLab 健康實驗室";
-export const SITE_SLOGAN = "用科學守護每日健康";
+export const SITE_NAME = "好日補給 VITADAY";
+export const SITE_SLOGAN = "每天一點，健康多一點";
 
 /** 全站設定（頁首、頁尾、友站連結、SEO） */
 export const mockWebConfig = () => ({
@@ -24,7 +24,7 @@ export const mockWebConfig = () => ({
       logo: null,
     },
     config_footer: {
-      description: `${SITE_NAME}\n以科學實證為基礎，提供每日所需的營養補給。\n所有產品皆通過第三方實驗室檢驗。`,
+      description: `${SITE_NAME}\n嚴選營養補給，陪你過好每一天。\n所有產品皆通過第三方實驗室檢驗。`,
       phone: "0800-000-168",
       am_start: "09:00",
       am_end: "12:00",
@@ -44,7 +44,7 @@ export const mockWebConfig = () => ({
         { title: "保健需求測驗", url: "/quiz" },
       ],
     },
-    seo: mockSeo(SITE_NAME, `${SITE_NAME}｜${SITE_SLOGAN}。嚴選原料、透明檢驗的日常保健品牌。`),
+    seo: mockSeo(SITE_NAME, `${SITE_NAME}｜${SITE_SLOGAN}。結合「好日子」與每日營養補給，嚴選原料、透明檢驗的日常保健品牌。`),
   },
 });
 
@@ -72,9 +72,9 @@ export const mockPages = () => ({
       },
       intro: {
         eyebrow: "Our promise",
-        title: "把實驗室的嚴謹，放進每天的日常",
+        title: "每天一點，健康多一點",
         description:
-          "從原料產地、配方設計到成品檢驗，每一個環節都有營養師與第三方實驗室把關。\n我們相信保健不需要複雜的承諾，只需要可以被驗證的每一步。",
+          "健康不是一時的目標，而是每天都能做到的小習慣。\n好日補給為你精選優質保健食品，從原料、配方到成品檢驗都有營養師把關，讓保養成為生活日常。",
         features: [
           { title: "專利原料", description: "與國際原料廠合作，取得專利授權與完整規格書。" },
           { title: "逐批檢驗", description: "每批成品送交 TAF 認證實驗室，報告依批號公開查詢。" },

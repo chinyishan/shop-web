@@ -8,7 +8,7 @@
     >
       <picture>
         <source :srcset="item.image" media="(min-width: 769px)" >
-        <img :src="item.image_m" alt="HealthLab" title="HealthLab" >
+        <img :src="item.image_m" alt="好日補給 VITADAY" title="好日補給 VITADAY" >
       </picture>
     </NuxtLink>
   </section>

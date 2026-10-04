@@ -115,7 +115,7 @@ const onSubmit = async () => {
 
 <style lang="scss" scoped>
 .p-checkout {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

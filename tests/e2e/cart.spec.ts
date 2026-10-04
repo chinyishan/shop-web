@@ -17,11 +17,11 @@ test("加入購物車後重新整理，品項仍然存在", async ({ page }) => 
   await expect(page.getByText("綜合維他命 B 群緩釋錠").first()).toBeVisible();
 
   // 沿用原本的 localStorage key，升級前加入的購物車不會消失
-  const saved = await page.evaluate(() => localStorage.getItem("healthlab-cart"));
+  const saved = await page.evaluate(() => localStorage.getItem("vitaday-cart"));
   expect(JSON.parse(saved ?? "[]")).toHaveLength(1);
 });
 
-test("升級前格式的購物車資料可以正常讀取", async ({ page }) => {
+test("改版前的 key 與格式（healthlab-cart）會自動搬到新 key", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => {
     localStorage.setItem(
@@ -36,5 +36,12 @@ test("升級前格式的購物車資料可以正常讀取", async ({ page }) => 
   await page.waitForLoadState("networkidle");
   await expect(page.getByText("金盞花葉黃素複方膠囊").first()).toBeVisible();
   await expect(page.locator(".l-header__cart-badge").last()).toHaveText("2");
+
+  const keys = await page.evaluate(() => ({
+    old: localStorage.getItem("healthlab-cart"),
+    now: JSON.parse(localStorage.getItem("vitaday-cart") ?? "[]").length,
+  }));
+  expect(keys).toEqual({ old: null, now: 1 });
+
   await expect(page).toHaveScreenshot("cart-filled.png", { fullPage: true });
 });

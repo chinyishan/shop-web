@@ -33,6 +33,6 @@ useSeo("page-quality", qualityInfo.value.seo);
 
 <style lang="scss" scoped>
 .p-quality {
-  background-color: $white;
+  background-color: $surface;
 }
 </style>

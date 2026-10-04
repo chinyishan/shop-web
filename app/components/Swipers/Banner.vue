@@ -94,14 +94,14 @@ const swiperBanner = {
       height: 2px !important;
       margin: 0 !important;
       border-radius: 0 !important;
-      background: alpha($white, 0.55) !important;
+      background: alpha($primary, 0.3) !important;
       opacity: 1 !important;
       transition: background $duration $ease;
     }
 
     :deep(.swiper-pagination-bullet-active) {
       padding: 0 !important;
-      background: $white !important;
+      background: $cta !important;
     }
   }
 

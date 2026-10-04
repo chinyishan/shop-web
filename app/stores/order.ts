@@ -1,6 +1,6 @@
 import type { Order } from "#shared/types/shop";
 
-const STORAGE_KEY = "healthlab-orders";
+const STORAGE_KEY = "vitaday-orders";
 const MAX_RECORDS = 20;
 
 export const useOrderStore = defineStore(

@@ -1,4 +1,6 @@
-# HealthLab 健康實驗室
+# 好日補給 VITADAY
+
+> 每天一點，健康多一點。結合「好日子」與每日營養補給的保健品牌電商。
 
 保健食品品牌形象網站，使用 Nuxt 4 開發的**純前端**專案。
 網站上所有資料都來自專案內建的 mock data，不需要、也不會連線任何外部後端 API。
@@ -47,17 +49,18 @@ tests/               # unit、nuxt、smoke、e2e
 
 ### 深色模式
 
-- 由 `@nuxtjs/color-mode` 控制：預設跟隨系統，頁首的太陽／月亮按鈕可手動切換，選擇記在 localStorage（`healthlab-color-mode`）。
+- 由 `@nuxtjs/color-mode` 控制：預設跟隨系統，頁首的太陽／月亮按鈕可手動切換，選擇記在 localStorage（`vitaday-color-mode`）。
 - 色票在 `app/assets/scss/base/_color.scss` 的 `$light-palette`／`$dark-palette`，輸出成 CSS 變數（`--c-primary` 等）；Sass 變數 `$primary` 只是 `var(--c-primary)` 的別名。
 - 新增顏色時兩套色票都要加；半透明請用 `alpha($primary, 0.2)`，不能用 `rgba($primary, 0.2)`。
 - 主色背景上的白字用 `$on-primary`，不要用 `$white`（`$white` 是卡片底色，深色模式下會變深）。
+- 色彩分工：清新綠 = 品牌（標題、連結、導覽）；活力橘 `$cta`／`$price` = 行動（主要按鈕、價格、徽章）；柔和米 `$surface` = 頁面底色；天空藍 `$sky` = 點綴。
 
 ### 資料流原則
 
 - 伺服器資料一律用 `useFetch`／`useAsyncData` 取得，找不到資料時 `throw createError({ statusCode: 404 })`。
 - Pinia store 只放使用者在瀏覽器端產生的狀態（購物車、收藏等），不拿來快取 API 資料。
 - 麵包屑由路由推導；商品名、文章標題這類最後一層用 `useBreadcrumbTitle()` 提供。
-- localStorage 的 key 與格式沿用改版前（`healthlab-cart` 等），使用者資料不會因升級消失。
+- localStorage 的 key 為 `vitaday-*`；品牌更名前的 `healthlab-*` 會在第一次載入時自動搬移（`app/plugins/migrate-storage.client.ts`），使用者資料不會消失。
 
 ## 佈署
 

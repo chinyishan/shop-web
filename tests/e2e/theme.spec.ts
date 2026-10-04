@@ -24,7 +24,7 @@ test.describe("深色模式", () => {
 
     // 頁面底色真的變了（不只是 class）
     const background = await page.evaluate(() => getComputedStyle(document.querySelector(".l-app")!).backgroundColor);
-    expect(background).toBe("rgb(15, 22, 24)");
+    expect(background).toBe("rgb(18, 23, 19)");
 
     await page.reload();
     await expect(html(page)).toHaveClass(/\bdark\b/);

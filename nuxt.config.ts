@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     preference: "system",
     fallback: "light",
     classSuffix: "",
-    storageKey: "healthlab-color-mode",
+    storageKey: "vitaday-color-mode",
   },
 
   piniaPluginPersistedstate: {
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: "%s - HealthLab 健康實驗室",
+      titleTemplate: "%s - 好日補給 VITADAY",
       htmlAttrs: {
         lang: "zh-TW",
       },
@@ -54,14 +54,14 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "description",
-          content: "HealthLab 健康實驗室｜用科學守護每日健康",
+          content: "好日補給 VITADAY｜每天一點，健康多一點",
         },
         { name: "format-detection", content: "telephone=no" },
-        { name: "keywords", content: "HealthLab,健康實驗室,保健食品,台灣" },
-        { property: "og:title", content: "HealthLab 健康實驗室" },
+        { name: "keywords", content: "好日補給,VITADAY,保健食品,營養補給,台灣" },
+        { property: "og:title", content: "好日補給 VITADAY" },
         {
           property: "og:description",
-          content: "HealthLab 健康實驗室｜用科學守護每日健康",
+          content: "好日補給 VITADAY｜每天一點，健康多一點",
         },
         { property: "og:image", content: "/og-image.svg" },
       ],

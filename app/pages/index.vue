@@ -25,6 +25,6 @@ const { data: brands } = await useFetch("/api/index/config", {
 
 <style lang="scss" scoped>
 .p-home {
-  background-color: $white;
+  background-color: $surface;
 }
 </style>

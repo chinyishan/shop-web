@@ -163,7 +163,7 @@ const onRestart = () => {
 
 <style lang="scss" scoped>
 .p-quiz {
-  background-color: $white;
+  background-color: $surface;
 
   // ------------------------------------------------------------ 題目
   &__card {

@@ -9,7 +9,8 @@ test("手機版漢堡選單展開後可以看到分類", async ({ page, isMobile
   await page.getByRole("button", { name: "系列品牌" }).click();
 
   await expect(page.getByRole("link", { name: "森林綠萃 GreenLab" }).first()).toBeVisible();
-  await expect(page).toHaveScreenshot("mobile-menu.png", { mask: [page.locator(".swiper")] });
+  // 選單是全螢幕白底，會蓋住後面的輪播，不需要遮罩
+  await expect(page).toHaveScreenshot("mobile-menu.png");
 
   // 換頁後選單自動收合
   await page.getByRole("link", { name: "森林綠萃 GreenLab" }).first().click();

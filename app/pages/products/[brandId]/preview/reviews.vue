@@ -55,7 +55,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .p-reviews {
-  background-color: $white;
+  background-color: $surface;
 
   &__list {
     border-top: 1px solid $gray-100;

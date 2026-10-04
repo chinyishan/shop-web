@@ -99,7 +99,7 @@ const onRemove = (item) => {
 
 <style lang="scss" scoped>
 .p-cart {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

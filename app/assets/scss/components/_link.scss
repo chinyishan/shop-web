@@ -52,10 +52,10 @@
   gap: $space-2;
   min-height: 52px;
   padding: 0 $space-7;
-  border: 1px solid $primary;
+  border: 1px solid $cta;
   border-radius: $radius-pill;
-  background-color: $primary;
-  color: $on-primary;
+  background-color: $cta;
+  color: $on-cta;
   font-size: $fz-body;
   font-weight: 500;
   letter-spacing: $ls-body;
@@ -64,14 +64,14 @@
     color $duration $ease;
 
   &:hover {
-    background-color: $primary-dark;
-    border-color: $primary-dark;
-    color: $on-primary;
+    background-color: $cta-hover;
+    border-color: $cta-hover;
+    color: $on-cta;
   }
 
   &:active {
-    background-color: $primary-darker;
-    border-color: $primary-darker;
+    background-color: $cta-hover;
+    border-color: $cta-hover;
   }
 
   &:disabled {
@@ -81,13 +81,16 @@
     cursor: not-allowed;
   }
 
+  // 次要按鈕：品牌綠外框
   &--ghost {
+    border-color: $primary;
     background-color: transparent;
     color: $primary;
 
     &:hover {
-      background-color: $primary;
-      color: $on-primary;
+      background-color: $primary-50;
+      border-color: $primary-dark;
+      color: $primary-dark;
     }
   }
 

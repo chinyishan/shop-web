@@ -1,8 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" ><defs><linearGradient id="og" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0e7c88"/><stop offset="1" stop-color="#2f95a8"/></linearGradient></defs>
-    <rect width="1200" height="630" fill="url(#og)"/>
-    <circle cx="1000" cy="140" r="200" fill="#ffffff" opacity=".10"/>
-    <circle cx="90" cy="90" r="2" fill="#ffffff" opacity="0.4"/><circle cx="118" cy="90" r="3" fill="#ffffff" opacity="0.4"/><circle cx="146" cy="90" r="4" fill="#ffffff" opacity="0.4"/><circle cx="174" cy="90" r="2" fill="#ffffff" opacity="0.4"/><circle cx="202" cy="90" r="3" fill="#ffffff" opacity="0.4"/><circle cx="230" cy="90" r="4" fill="#ffffff" opacity="0.4"/><circle cx="90" cy="118" r="3" fill="#ffffff" opacity="0.4"/><circle cx="118" cy="118" r="4" fill="#ffffff" opacity="0.4"/><circle cx="146" cy="118" r="2" fill="#ffffff" opacity="0.4"/><circle cx="174" cy="118" r="3" fill="#ffffff" opacity="0.4"/><circle cx="202" cy="118" r="4" fill="#ffffff" opacity="0.4"/><circle cx="230" cy="118" r="2" fill="#ffffff" opacity="0.4"/><circle cx="90" cy="146" r="4" fill="#ffffff" opacity="0.4"/><circle cx="118" cy="146" r="2" fill="#ffffff" opacity="0.4"/><circle cx="146" cy="146" r="3" fill="#ffffff" opacity="0.4"/><circle cx="174" cy="146" r="4" fill="#ffffff" opacity="0.4"/><circle cx="202" cy="146" r="2" fill="#ffffff" opacity="0.4"/><circle cx="230" cy="146" r="3" fill="#ffffff" opacity="0.4"/>
-    <text x="90" y="330" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="6">HealthLab 健康實驗室</text>
-    <text x="90" y="404" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="34" fill="#c7e9ea" letter-spacing="4">用科學守護每日健康</text>
-    <rect x="90" y="440" width="90" height="6" rx="3" fill="#ffffff" opacity=".8"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs><linearGradient id="og" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff8ee"/><stop offset="1" stop-color="#e2f2e7"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#og)"/>
+<circle cx="1030" cy="120" r="210" fill="#a7d7b5" opacity=".35"/>
+<circle cx="1120" cy="560" r="160" fill="#8cc4e9" opacity=".25"/>
+<circle cx="160" cy="600" r="120" fill="#ffb36b" opacity=".18"/>
+<g transform="translate(90 150) scale(2.6)"><path d="M10 36a14 14 0 0 1 28 0z" fill="#ffb36b"/><g fill="none" stroke-width="3.6" stroke-linecap="round"><line x1="24" y1="15" x2="24" y2="6" stroke="#f59a4a"/><line x1="13.5" y1="19.5" x2="8" y2="13" stroke="#ffd36b"/><line x1="34.5" y1="19.5" x2="40" y2="13" stroke="#f59a4a"/><line x1="7" y1="29" x2="1" y2="26.5" stroke="#ffd36b"/><line x1="41" y1="29" x2="47" y2="26.5" stroke="#f59a4a"/><path d="M6 41q18 6 36 0" stroke="#f59a4a"/></g></g>
+<text x="90" y="370" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="96" font-weight="700" letter-spacing="8" fill="#2e6b4b">好日補給</text>
+<text x="96" y="430" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="40" font-weight="700" letter-spacing="18" fill="#f59a4a">VITADAY</text>
+<text x="90" y="505" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="34" letter-spacing="4" fill="#46413b">每天一點，健康多一點</text>
+</svg>

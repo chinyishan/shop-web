@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532 372" width="532" height="372" ><rect width="532" height="372" rx="16" fill="#e6f4ec"/>
-       <path d="M372 0h160v372H300z" fill="#2f8f6b" opacity=".10"/>
-       <circle cx="266" cy="140" r="74" fill="#2f8f6b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532 372" width="532" height="372" ><rect width="532" height="372" rx="16" fill="#e2f2e7"/>
+       <path d="M372 0h160v372H300z" fill="#4fa06e" opacity=".10"/>
+       <circle cx="266" cy="140" r="74" fill="#4fa06e"/>
        <text x="266" y="168" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="72" font-weight="700" fill="#ffffff" text-anchor="middle">G</text>
-       <text x="266" y="268" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="40" font-weight="700" fill="#2f8f6b" text-anchor="middle" letter-spacing="6">森林綠萃</text>
-       <text x="266" y="308" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="24" fill="#2f8f6b" text-anchor="middle" letter-spacing="4" opacity=".8">GreenLab</text></svg>
+       <text x="266" y="268" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="40" font-weight="700" fill="#4fa06e" text-anchor="middle" letter-spacing="6">森林綠萃</text>
+       <text x="266" y="308" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="24" fill="#4fa06e" text-anchor="middle" letter-spacing="4" opacity=".8">GreenLab</text></svg>

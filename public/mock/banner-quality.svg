@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" width="1440" height="320" ><defs><linearGradient id="pb" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#0b4f55"/><stop offset="1" stop-color="#1a97a6"/></linearGradient></defs>
+        <stop offset="0" stop-color="#fff8ee"/><stop offset="1" stop-color="#e2f2e7"/></linearGradient></defs>
       <rect width="1440" height="320" fill="url(#pb)"/>
-      <path d="M980 0h460v320H840z" fill="#ffffff" opacity=".08"/>
-      <circle cx="1230" cy="96" r="150" fill="#ffffff" opacity=".10"/>
-      <circle cx="1010" cy="210" r="2" fill="#ffffff" opacity="0.35"/><circle cx="1034" cy="210" r="3" fill="#ffffff" opacity="0.35"/><circle cx="1058" cy="210" r="4" fill="#ffffff" opacity="0.35"/><circle cx="1082" cy="210" r="2" fill="#ffffff" opacity="0.35"/><circle cx="1106" cy="210" r="3" fill="#ffffff" opacity="0.35"/><circle cx="1130" cy="210" r="4" fill="#ffffff" opacity="0.35"/><circle cx="1010" cy="234" r="3" fill="#ffffff" opacity="0.35"/><circle cx="1034" cy="234" r="4" fill="#ffffff" opacity="0.35"/><circle cx="1058" cy="234" r="2" fill="#ffffff" opacity="0.35"/><circle cx="1082" cy="234" r="3" fill="#ffffff" opacity="0.35"/><circle cx="1106" cy="234" r="4" fill="#ffffff" opacity="0.35"/><circle cx="1130" cy="234" r="2" fill="#ffffff" opacity="0.35"/>
-      <text x="96" y="150" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="44" font-weight="700" fill="#ffffff" letter-spacing="6">品質檢驗</text>
-      <rect x="96" y="176" width="64" height="4" rx="2" fill="#ffffff" opacity=".8"/>
-      <text x="96" y="218" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="20" fill="#c7e9ea" letter-spacing="3">QUALITY</text></svg>
+      <path d="M980 0h460v320H840z" fill="#a7d7b5" opacity=".08"/>
+      <circle cx="1230" cy="96" r="150" fill="#a7d7b5" opacity=".10"/>
+      <circle cx="1010" cy="210" r="2" fill="#ffb36b" opacity="0.35"/><circle cx="1034" cy="210" r="3" fill="#ffb36b" opacity="0.35"/><circle cx="1058" cy="210" r="4" fill="#ffb36b" opacity="0.35"/><circle cx="1082" cy="210" r="2" fill="#ffb36b" opacity="0.35"/><circle cx="1106" cy="210" r="3" fill="#ffb36b" opacity="0.35"/><circle cx="1130" cy="210" r="4" fill="#ffb36b" opacity="0.35"/><circle cx="1010" cy="234" r="3" fill="#ffb36b" opacity="0.35"/><circle cx="1034" cy="234" r="4" fill="#ffb36b" opacity="0.35"/><circle cx="1058" cy="234" r="2" fill="#ffb36b" opacity="0.35"/><circle cx="1082" cy="234" r="3" fill="#ffb36b" opacity="0.35"/><circle cx="1106" cy="234" r="4" fill="#ffb36b" opacity="0.35"/><circle cx="1130" cy="234" r="2" fill="#ffb36b" opacity="0.35"/>
+      <text x="96" y="150" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="44" font-weight="700" fill="#2e6b4b" letter-spacing="6">品質檢驗</text>
+      <rect x="96" y="176" width="64" height="4" rx="2" fill="#a7d7b5" opacity=".8"/>
+      <text x="96" y="218" font-family="'Noto Sans TC','PingFang TC','Microsoft JhengHei','Hiragino Sans',sans-serif" font-size="20" fill="#e8823a" letter-spacing="3">QUALITY</text></svg>

@@ -165,7 +165,7 @@ const { data: popularData } = useFetch(`/api/products/${brandId}/popular`, {
 
 <style lang="scss" scoped>
 .p-products {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

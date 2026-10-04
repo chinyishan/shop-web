@@ -133,7 +133,7 @@ watch(questionList, () => {
 
 <style lang="scss" scoped>
 .p-qa {
-  background-color: $white;
+  background-color: $surface;
 
   &__layout {
     display: grid;

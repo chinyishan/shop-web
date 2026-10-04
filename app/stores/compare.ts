@@ -1,6 +1,6 @@
 import type { ProductInput, SavedProduct } from "#shared/types/shop";
 
-const STORAGE_KEY = "healthlab-compare";
+const STORAGE_KEY = "vitaday-compare";
 const MAX_ITEMS = 4;
 
 export const useCompareStore = defineStore(
